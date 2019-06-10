@@ -6,7 +6,13 @@ import static com.example.mohitkumar.trialapp.MainApplication.TAG;
 
 import com.example.mohitkumar.trialapp.Util.Constants;
 import com.example.mohitkumar.trialapp.Util.PrefManager;
+import com.example.mohitkumar.trialapp.data.Login.Login;
 import com.example.mohitkumar.trialapp.data.Login.LoginResponse;
+import com.example.mohitkumar.trialapp.data.Login.User;
+import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import retrofit2.Response;
 
@@ -45,13 +51,23 @@ public class LoginPresenter implements ILoginPresenter, ILoginModel.OnLoginFinis
     }
 
     @Override
-    public void onLoginModelSuccess(Response<LoginResponse> response) {
-        Log.d(TAG, response.body().getToken() + " THIS IS THE TOKEN");
+    public void onLoginModelSuccess(Response<String> response) {
+        if (response.body() == null)
+            Log.d(TAG, "Response is null" + " THIS IS THE TOKEN");
         if (response.isSuccessful() && response.body() != null) {
-            LoginResponse loginResponse = response.body();
-            Log.d(TAG, loginResponse.getToken() + " THIS IS THE TOKEN");
-            PrefManager.putString(Constants.ACCESS_TOKEN, loginResponse.getToken());
-            loginView.onLoginSuccess();
+            LoginResponse loginResponse = null;
+//                JSONObject object = (JSONObject) response.body().get("user");
+//                loginResponse = new LoginResponse(object.getString("email"), object.getString("token"), object.getString("username"),
+//                        object.getString("bio"),object.getString("image"));
+//                Log.d(TAG, loginResponse.getToken() + " THIS IS THE TOKEN");
+
+                Gson g = new Gson();
+                User p = g.fromJson(response.body(), User.class);
+                loginResponse = p.getUser();
+                Log.d(TAG, loginResponse.getToken().toString());
+                PrefManager.putString(Constants.ACCESS_TOKEN, loginResponse.getToken());
+                loginView.onLoginSuccess();
+
         }
     }
 }

@@ -14,7 +14,7 @@ import retrofit2.Response;
 
 import static android.support.constraint.Constraints.TAG;
 
-public class LoginModel implements ILoginModel{
+public class SignUpModel implements ILoginModel{
 
     Call<String> call;
 

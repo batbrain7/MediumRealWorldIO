@@ -22,7 +22,7 @@ public class LoginPresenter implements ILoginPresenter, ILoginModel.OnLoginFinis
     SharedPreferences preferences;
 
     public LoginPresenter() {
-        this.model = new LoginModel();
+        this.model = new SignUpModel();
     }
 
 
