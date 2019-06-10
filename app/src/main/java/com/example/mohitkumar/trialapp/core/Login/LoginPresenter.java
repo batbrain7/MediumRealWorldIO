@@ -51,23 +51,16 @@ public class LoginPresenter implements ILoginPresenter, ILoginModel.OnLoginFinis
     }
 
     @Override
-    public void onLoginModelSuccess(Response<String> response) {
+    public void onLoginModelSuccess(Response<User> response) {
         if (response.body() == null)
             Log.d(TAG, "Response is null" + " THIS IS THE TOKEN");
         if (response.isSuccessful() && response.body() != null) {
-            LoginResponse loginResponse = null;
-//                JSONObject object = (JSONObject) response.body().get("user");
-//                loginResponse = new LoginResponse(object.getString("email"), object.getString("token"), object.getString("username"),
-//                        object.getString("bio"),object.getString("image"));
-//                Log.d(TAG, loginResponse.getToken() + " THIS IS THE TOKEN");
+                User user = response.body();
+                LoginResponse loginResponse = user.user;
 
-                Gson g = new Gson();
-                User p = g.fromJson(response.body(), User.class);
-                loginResponse = p.getUser();
-                Log.d(TAG, loginResponse.getToken().toString());
-                PrefManager.putString(Constants.ACCESS_TOKEN, loginResponse.getToken());
+                Log.d(TAG, loginResponse.token);
+                PrefManager.putString(Constants.ACCESS_TOKEN, loginResponse.token);
                 loginView.onLoginSuccess();
-
         }
     }
 }

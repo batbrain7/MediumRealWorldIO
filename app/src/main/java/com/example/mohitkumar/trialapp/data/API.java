@@ -17,8 +17,8 @@ import retrofit2.http.Query;
 public interface API {
 
     @GET("articles")
-    Observable<GlobalFeedResponse> getGlobalFeed(@Query("limit") long limit, @Query("offset") long offset);
+    Observable<GlobalFeedResponse> getGlobalFeed(@Query("limit") long page, @Query("offset") long offset);
 
     @POST("users/login")
-    Call<String> login(@Body String object);
+    Call<User> login(@Body JSONObject object);
 }

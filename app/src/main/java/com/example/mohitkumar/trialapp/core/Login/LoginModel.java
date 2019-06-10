@@ -2,9 +2,7 @@ package com.example.mohitkumar.trialapp.core.Login;
 
 import android.util.Log;
 
-import com.example.mohitkumar.trialapp.data.API;
 import com.example.mohitkumar.trialapp.data.CreateService;
-import com.example.mohitkumar.trialapp.data.Login.LoginResponse;
 import com.example.mohitkumar.trialapp.data.Login.User;
 
 import org.json.JSONException;
@@ -14,11 +12,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static android.support.constraint.Constraints.TAG;
+import static com.example.mohitkumar.trialapp.MainApplication.TAG;
 
 public class LoginModel implements ILoginModel{
 
-    Call<String> call;
+    Call<User> call;
 
     @Override
     public void login(String email, String password, ILoginModel.OnLoginFinishedListener listener) {
@@ -35,20 +33,21 @@ public class LoginModel implements ILoginModel{
 
         Log.d(TAG, object.toString());
 
-        String val = "{"  + "user:" + "{" + "email:" + email + "," + "password:" + password + "}}";
-        call = CreateService.getApi().login(val);
+        call = CreateService.getApi().login(object);
 
-        call.enqueue(new Callback<String>() {
+        call.enqueue(new Callback<User>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
+            public void onResponse(Call<User> call, Response<User> response) {
+                Log.d(TAG, response.toString() + "message in response " + response.message() + " code " + response.code());
                 listener.onLoginModelSuccess(response);
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(Call<User> call, Throwable t) {
                 listener.onError(t);
             }
         });
+
     }
 
     @Override

@@ -1,12 +1,16 @@
 package com.example.mohitkumar.trialapp.data.Login;
 
+import com.google.gson.annotations.Expose;
+
+import lombok.Data;
+
+@Data
 public class User {
 
-    public LoginResponse getUser() {
-        return user;
-    }
+    @Expose(serialize = true)
+    public LoginResponse user;
 
-    LoginResponse user;
+
 
 
 }
