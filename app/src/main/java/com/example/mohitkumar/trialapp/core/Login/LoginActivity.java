@@ -8,10 +8,11 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
-import com.example.mohitkumar.trialapp.MainApplication;
+
+import static com.example.mohitkumar.trialapp.MainApplication.TAG;
 import com.example.mohitkumar.trialapp.R;
-import com.example.mohitkumar.trialapp.data.Login.Login;
 import com.example.mohitkumar.trialapp.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity implements ILoginView{
@@ -24,6 +25,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         presenter = new LoginPresenter();
+        presenter.onAttach(this);
     }
 
     public void login(View view) {
@@ -35,12 +37,13 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
 
     @Override
     public void onLoginSuccess() {
-        Log.d("LoginActivity", "Login Successful");
+        Log.d(TAG, "Login Successful");
+        Toast.makeText(this, "Login Successful", Toast.LENGTH_LONG).show();
         finish();
     }
 
     @Override
     public void onLoginError(String title, String message) {
-        Log.d("LoginActivity", "Login Successful");
+        Log.d(TAG, "Login Error " + title + message);
     }
 }

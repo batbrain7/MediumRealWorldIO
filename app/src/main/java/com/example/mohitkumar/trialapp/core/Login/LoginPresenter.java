@@ -2,7 +2,9 @@ package com.example.mohitkumar.trialapp.core.Login;
 
 import android.content.SharedPreferences;
 import android.util.Log;
+import static com.example.mohitkumar.trialapp.MainApplication.TAG;
 
+import com.example.mohitkumar.trialapp.Util.Constants;
 import com.example.mohitkumar.trialapp.Util.PrefManager;
 import com.example.mohitkumar.trialapp.data.Login.LoginResponse;
 
@@ -14,7 +16,6 @@ public class LoginPresenter implements ILoginPresenter, ILoginModel.OnLoginFinis
     ILoginModel model;
     ILoginView loginView;
     SharedPreferences preferences;
-    public static final String TAG = "TrialAPP";
 
     public LoginPresenter() {
         this.model = new LoginModel();
@@ -45,10 +46,12 @@ public class LoginPresenter implements ILoginPresenter, ILoginModel.OnLoginFinis
 
     @Override
     public void onLoginModelSuccess(Response<LoginResponse> response) {
+        Log.d(TAG, response.body().getToken() + " THIS IS THE TOKEN");
         if (response.isSuccessful() && response.body() != null) {
             LoginResponse loginResponse = response.body();
-            Log.d(TAG, loginResponse.getToken().toString() + " THIS IS THE TOKEN");
+            Log.d(TAG, loginResponse.getToken() + " THIS IS THE TOKEN");
+            PrefManager.putString(Constants.ACCESS_TOKEN, loginResponse.getToken());
+            loginView.onLoginSuccess();
         }
-        loginView.onLoginSuccess();
     }
 }

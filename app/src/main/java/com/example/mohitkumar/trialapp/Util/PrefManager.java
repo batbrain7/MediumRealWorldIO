@@ -8,13 +8,13 @@ import com.example.mohitkumar.trialapp.MainApplication;
 
 public final class PrefManager {
 
-    private SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(MainApplication.context);
+    private static SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(MainApplication.context);
 
-    public String getString(String preferenceKey, String defaultPreferenceValue) {
+    public static String getString(String preferenceKey, String defaultPreferenceValue) {
         return preferences.getString(preferenceKey, defaultPreferenceValue);
     }
 
-    public void putString(String preferenceKey, String preferenceValue) {
+    public static void putString(String preferenceKey, String preferenceValue) {
         preferences.edit().putString(preferenceKey, preferenceValue).apply();
     }
 }

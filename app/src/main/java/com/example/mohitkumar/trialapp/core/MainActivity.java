@@ -1,14 +1,17 @@
 package com.example.mohitkumar.trialapp.core;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.mohitkumar.trialapp.R;
 import com.example.mohitkumar.trialapp.MainApplication;
 import com.example.mohitkumar.trialapp.core.Feed.GlobalfeedFragment;
 import com.example.mohitkumar.trialapp.core.Login.ILoginPresenter;
+import com.example.mohitkumar.trialapp.core.Login.LoginActivity;
 import com.example.mohitkumar.trialapp.core.Login.LoginPresenter;
 import com.example.mohitkumar.trialapp.databinding.ActivityMainBinding;
 
@@ -34,4 +37,7 @@ public class MainActivity extends AppCompatActivity {
         binding.tabLayout.setupWithViewPager(binding.viewPager);
     }
 
+    public void login(View view) {
+        startActivity(new Intent(this, LoginActivity.class));
+    }
 }
