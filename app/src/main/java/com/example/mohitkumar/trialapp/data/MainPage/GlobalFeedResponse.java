@@ -1,14 +1,34 @@
 package com.example.mohitkumar.trialapp.data.MainPage;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.util.List;
+
 public class GlobalFeedResponse {
 
-    public String title;
-    public String slug;
-    public String body;
-    public String createdAt;
-    public String updatedAt;
-    public String description;
-    public Author author;
-    public int favoritesCount;
-    public boolean favorited;
+    List<Articles> articles;
+    long articlesCount;
+
+    public List<Articles> getArticles() {
+        return articles;
+    }
+
+    public long getArticlesCount() {
+        return articlesCount;
+    }
+
+    public GlobalFeedResponse(List<Articles> articles, long articlesCount) {
+        this.articles = articles;
+        this.articlesCount = articlesCount;
+    }
+
+    public void setArticles(List<Articles> articles) {
+
+        this.articles = articles;
+    }
+
+    public void setArticlesCount(long articlesCount) {
+        this.articlesCount = articlesCount;
+    }
 }
