@@ -76,6 +76,8 @@ dependencies {
     //Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
 
+    implementation 'com.github.markomilos:paginate:0.5.1'
+
     // Volley
     implementation 'com.android.volley:volley:1.1.1'
 

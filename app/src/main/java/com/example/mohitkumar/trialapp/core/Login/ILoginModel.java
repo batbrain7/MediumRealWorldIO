@@ -7,7 +7,7 @@ import retrofit2.Response;
 public interface ILoginModel {
 
     interface OnLoginFinishedListener {
-        void onError(Throwable throwable);
+        void onError(String error);
         void onLoginModelSuccess(String response);
     }
 

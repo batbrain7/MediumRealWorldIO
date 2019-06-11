@@ -9,6 +9,8 @@ import android.view.View;
 
 import com.example.mohitkumar.trialapp.R;
 import com.example.mohitkumar.trialapp.MainApplication;
+import com.example.mohitkumar.trialapp.Util.Constants;
+import com.example.mohitkumar.trialapp.Util.PrefManager;
 import com.example.mohitkumar.trialapp.core.Feed.APIClient;
 import com.example.mohitkumar.trialapp.core.Feed.GlobalfeedFragment;
 import com.example.mohitkumar.trialapp.core.Login.ILoginPresenter;
@@ -27,9 +29,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         presenter = new LoginPresenter();
-
-        APIClient apiClient = new APIClient();
-        apiClient.getGlobalFeed(20, 0);
+        PrefManager.putString(Constants.ACCESS_TOKEN, null);
+        loadFragments();
     }
 
     private void loadFragments() {
@@ -40,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
        // leagueFragmentAdapter.addFragments(new StandingsFragment(), this.getResources().getString(R.string.standings_fragment));
         binding.viewPager.setAdapter(leagueFragmentAdapter);
         binding.tabLayout.setupWithViewPager(binding.viewPager);
-
 
 
     }

@@ -7,7 +7,7 @@ import retrofit2.Response;
 public interface ISignUpModel {
 
     interface OnSignUpFinishedListener {
-        void onError(Throwable throwable);
+        void onError(String error);
         void onSignUpModelSuccess(String response);
     }
 

@@ -23,6 +23,8 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 
+import static com.android.volley.VolleyLog.TAG;
+
 public class CreatePost {
 
     public static void newService(String email, String password, ILoginModel.OnLoginFinishedListener loginFinishedListener){
@@ -46,6 +48,7 @@ public class CreatePost {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     Log.d("VOLLEYERROR", error.toString());
+                    loginFinishedListener.onError("Unable to login, status code = " + error.networkResponse.statusCode);
                 }
             }) {
                 @Override
@@ -91,6 +94,7 @@ public class CreatePost {
             item.put("password", password);
 
             final String requestBody = jsonBody.toString();
+            Log.d(TAG, requestBody.toString());
 
             StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
                 @Override

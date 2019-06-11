@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"
         android:text="@string/title"
         android:gravity="center"
+        android:padding="10dp"
         android:id="@+id/titleName"
         android:textAppearance="?android:textAppearanceLarge"
         />

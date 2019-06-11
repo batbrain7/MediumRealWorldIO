@@ -20,9 +20,4 @@ public interface API {
     @GET("api/articles")
     Observable<GlobalFeedResponse> getGlobalFeed(@Query("limit") long page, @Query("offset") long offset);
 
-    @POST("api/users/login")
-    Call<User> login(@Body JSONObject object);
-
-    @POST("api/users")
-    Call<User> signUp(@Body SUser sUser);
 }

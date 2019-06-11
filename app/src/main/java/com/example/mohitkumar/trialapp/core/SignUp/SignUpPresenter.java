@@ -36,8 +36,8 @@ public class SignUpPresenter implements ISignUpPresenter, ISignUpModel.OnSignUpF
     }
 
     @Override
-    public void onError(Throwable throwable) {
-        signUpView.onSignUpError("Error", throwable.toString());
+    public void onError(String error) {
+        signUpView.onSignUpError("Error", error);
     }
 
     @Override

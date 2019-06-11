@@ -10,8 +10,8 @@ import android.support.v7.util.DiffUtil;
 @Entity
 public class Articles {
 
-    @PrimaryKey(autoGenerate = true)
-    int id;
+//    @PrimaryKey(autoGenerate = true)
+//    int id;
 
     public String title;
     public String slug;

@@ -45,5 +45,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
     @Override
     public void onLoginError(String title, String message) {
         Log.d(TAG, "Login Error " + title + message);
+        Toast.makeText(this, "Unable to log you in, please try again", Toast.LENGTH_SHORT).show();
+        finish();
     }
 }

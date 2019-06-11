@@ -42,9 +42,9 @@ public class LoginPresenter implements ILoginPresenter, ILoginModel.OnLoginFinis
     }
 
     @Override
-    public void onError(Throwable throwable) {
-        Log.d(TAG, throwable.toString() + " THIS IS THE ERROR");
-        loginView.onLoginError("ERROR", throwable.toString());
+    public void onError(String throwable) {
+        Log.d(TAG, throwable + " THIS IS THE ERROR");
+        loginView.onLoginError("ERROR", throwable);
     }
 
     @Override
