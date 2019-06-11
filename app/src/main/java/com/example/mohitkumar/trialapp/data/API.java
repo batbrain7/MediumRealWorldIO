@@ -1,8 +1,9 @@
 package com.example.mohitkumar.trialapp.data;
 
 
-import com.example.mohitkumar.trialapp.data.Login.LoginResponse;
-import com.example.mohitkumar.trialapp.data.Login.User;
+import com.example.mohitkumar.trialapp.data.LoginSignUp.SUser;
+import com.example.mohitkumar.trialapp.data.LoginSignUp.SignUp;
+import com.example.mohitkumar.trialapp.data.LoginSignUp.User;
 import com.example.mohitkumar.trialapp.data.MainPage.GlobalFeedResponse;
 
 import org.json.JSONObject;
@@ -16,9 +17,12 @@ import retrofit2.http.Query;
 
 public interface API {
 
-    @GET("articles")
+    @GET("api/articles")
     Observable<GlobalFeedResponse> getGlobalFeed(@Query("limit") long page, @Query("offset") long offset);
 
-    @POST("users/login")
+    @POST("api/users/login")
     Call<User> login(@Body JSONObject object);
+
+    @POST("api/users")
+    Call<User> signUp(@Body SUser sUser);
 }

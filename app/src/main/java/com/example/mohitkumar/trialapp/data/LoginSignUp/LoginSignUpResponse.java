@@ -5,7 +5,7 @@ import com.google.gson.annotations.Expose;
 import lombok.Data;
 
 @Data
-public class LoginResponse {
+public class LoginSignUpResponse {
 
     @Expose(serialize = true)
     public String email;

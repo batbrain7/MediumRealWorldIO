@@ -38,7 +38,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
     @Override
     public void onLoginSuccess() {
         Log.d(TAG, "Login Successful");
-        Toast.makeText(this, "Login Successful", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show();
         finish();
     }
 

@@ -2,8 +2,10 @@ package com.example.mohitkumar.trialapp.core.Login;
 
 import android.util.Log;
 
+import com.example.mohitkumar.trialapp.MainApplication;
+import com.example.mohitkumar.trialapp.data.CreatePost;
 import com.example.mohitkumar.trialapp.data.CreateService;
-import com.example.mohitkumar.trialapp.data.Login.User;
+import com.example.mohitkumar.trialapp.data.LoginSignUp.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,20 +35,22 @@ public class LoginModel implements ILoginModel{
 
         Log.d(TAG, object.toString());
 
-        call = CreateService.getApi().login(object);
+//        call = CreateService.getApi().login(object);
+//
+//        call.enqueue(new Callback<User>() {
+//            @Override
+//            public void onResponse(Call<User> call, Response<User> response) {
+//                Log.d(TAG, response.toString() + "message in response " + response.message() + " code " + response.code());
+//                listener.onLoginModelSuccess(response);
+//            }
+//
+//            @Override
+//            public void onFailure(Call<User> call, Throwable t) {
+//                listener.onError(t);
+//            }
+//        });
 
-        call.enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                Log.d(TAG, response.toString() + "message in response " + response.message() + " code " + response.code());
-                listener.onLoginModelSuccess(response);
-            }
-
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                listener.onError(t);
-            }
-        });
+        CreatePost.newService(email, password, listener);
 
     }
 

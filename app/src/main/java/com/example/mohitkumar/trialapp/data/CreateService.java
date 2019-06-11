@@ -25,7 +25,7 @@ public final class CreateService {
                     .client(client)
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl("https://conduit.productionready.io/api/");
+            .baseUrl("https://conduit.productionready.io/");
 
 
     private static Retrofit retrofit;

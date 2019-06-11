@@ -40,6 +40,7 @@
             android:text="Sign Up"
             android:backgroundTint="@android:color/holo_green_light"
             android:id="@+id/signUp"
+            android:onClick="signUp"
             />
 
     </LinearLayout>

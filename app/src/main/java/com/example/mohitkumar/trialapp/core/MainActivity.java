@@ -14,6 +14,7 @@ import com.example.mohitkumar.trialapp.core.Feed.GlobalfeedFragment;
 import com.example.mohitkumar.trialapp.core.Login.ILoginPresenter;
 import com.example.mohitkumar.trialapp.core.Login.LoginActivity;
 import com.example.mohitkumar.trialapp.core.Login.LoginPresenter;
+import com.example.mohitkumar.trialapp.core.SignUp.SignUpActivity;
 import com.example.mohitkumar.trialapp.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
@@ -44,6 +45,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void signUp(View view) {
+        startActivity(new Intent(this, SignUpActivity.class));
+    }
     public void login(View view) {
         startActivity(new Intent(this, LoginActivity.class));
     }

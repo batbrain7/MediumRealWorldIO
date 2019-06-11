@@ -6,10 +6,8 @@ import static com.example.mohitkumar.trialapp.MainApplication.TAG;
 
 import com.example.mohitkumar.trialapp.Util.Constants;
 import com.example.mohitkumar.trialapp.Util.PrefManager;
-import com.example.mohitkumar.trialapp.data.Login.Login;
-import com.example.mohitkumar.trialapp.data.Login.LoginResponse;
-import com.example.mohitkumar.trialapp.data.Login.User;
-import com.google.gson.Gson;
+import com.example.mohitkumar.trialapp.data.LoginSignUp.LoginSignUpResponse;
+import com.example.mohitkumar.trialapp.data.LoginSignUp.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,7 +19,6 @@ public class LoginPresenter implements ILoginPresenter, ILoginModel.OnLoginFinis
 
     ILoginModel model;
     ILoginView loginView;
-    SharedPreferences preferences;
 
     public LoginPresenter() {
         this.model = new LoginModel();
@@ -51,16 +48,20 @@ public class LoginPresenter implements ILoginPresenter, ILoginModel.OnLoginFinis
     }
 
     @Override
-    public void onLoginModelSuccess(Response<User> response) {
-        if (response.body() == null)
+    public void onLoginModelSuccess(String response) {
+        if (response == null)
             Log.d(TAG, "Response is null" + " THIS IS THE TOKEN");
-        if (response.isSuccessful() && response.body() != null) {
-                User user = response.body();
-                LoginResponse loginResponse = user.user;
 
-                Log.d(TAG, loginResponse.token);
-                PrefManager.putString(Constants.ACCESS_TOKEN, loginResponse.token);
-                loginView.onLoginSuccess();
+        JSONObject object = null;
+        String token;
+        try {
+            object = new JSONObject(response);
+            token = object.getJSONObject("user").getString("token");
+            Log.d(TAG, token);
+            PrefManager.putString(Constants.ACCESS_TOKEN, token);
+            loginView.onLoginSuccess();
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 }
