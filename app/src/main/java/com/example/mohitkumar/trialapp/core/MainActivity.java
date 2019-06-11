@@ -11,6 +11,7 @@ import com.example.mohitkumar.trialapp.R;
 import com.example.mohitkumar.trialapp.MainApplication;
 import com.example.mohitkumar.trialapp.Util.Constants;
 import com.example.mohitkumar.trialapp.Util.PrefManager;
+import com.example.mohitkumar.trialapp.Util.Utils;
 import com.example.mohitkumar.trialapp.core.Feed.APIClient;
 import com.example.mohitkumar.trialapp.core.Feed.GlobalfeedFragment;
 import com.example.mohitkumar.trialapp.core.Login.ILoginPresenter;
@@ -29,20 +30,26 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         presenter = new LoginPresenter();
-        PrefManager.putString(Constants.ACCESS_TOKEN, null);
         loadFragments();
+        PrefManager.putString(Constants.ACCESS_TOKEN, null);
     }
 
     private void loadFragments() {
         MainFragmentAdapter leagueFragmentAdapter;
         leagueFragmentAdapter = new MainFragmentAdapter(getSupportFragmentManager());
+        if (Utils.isLoggedIn()) {
+         //   binding.signIn.setVisibility(View.GONE);
+         //   binding.signUp.setVisibility(View.GONE);
 
-        leagueFragmentAdapter.addFragments(new GlobalfeedFragment(), this.getResources().getString(R.string.global_Feed));
-       // leagueFragmentAdapter.addFragments(new StandingsFragment(), this.getResources().getString(R.string.standings_fragment));
+            leagueFragmentAdapter.addFragments(new GlobalfeedFragment(), this.getResources().getString(R.string.global_Feed));
+            // leagueFragmentAdapter.addFragments(new StandingsFragment(), this.getResources().getString(R.string.standings_fragment));
+            // add again the personal fragment
+
+        } else {
+            leagueFragmentAdapter.addFragments(new GlobalfeedFragment(), this.getResources().getString(R.string.global_Feed));
+        }
         binding.viewPager.setAdapter(leagueFragmentAdapter);
         binding.tabLayout.setupWithViewPager(binding.viewPager);
-
-
     }
 
     public void signUp(View view) {

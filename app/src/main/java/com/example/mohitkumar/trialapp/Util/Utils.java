@@ -16,10 +16,13 @@ public class Utils {
     }
 
     public static boolean isLoggedIn() {
+        if (PrefManager.getString(Constants.ACCESS_TOKEN, "") != null) {
+            return true;
+        }
         return false;
     }
 
     public void saveToken() {
-       // PrefManager
+       // Pref
     }
 }

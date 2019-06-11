@@ -7,12 +7,10 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v7.util.DiffUtil;
 
-@Entity
+import lombok.Data;
+
+@Data
 public class Articles {
-
-//    @PrimaryKey(autoGenerate = true)
-//    int id;
-
     public String title;
     public String slug;
     public String body;

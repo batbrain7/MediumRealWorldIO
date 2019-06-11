@@ -4,22 +4,28 @@
     >
     <data class="FeedItemBinding" />
 
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        >
+
     <LinearLayout
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         >
+
         <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
             android:id="@+id/imageArticle"
-            >
-        </ImageView>
+            android:layout_width="74dp"
+            android:layout_height="match_parent"
+            android:padding="4dp"></ImageView>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -30,17 +36,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/userArticle"
+                android:text="title"
+                android:layout_margin="5dp"
                 android:textAppearance="?android:textAppearanceLargePopupMenu"
             />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/date"
+                android:layout_marginLeft="5dp"
+                android:text="date"
                 />
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
             android:src="@drawable/ic_thumb_up_green_a400_24dp"
 
             />
@@ -49,19 +66,27 @@
             android:layout_height="wrap_content"
             android:id="@+id/favoriteCount"
             android:text="1"
+            android:layout_margin="3dp"
+            android:textAppearance="?android:textAppearanceLargePopupMenu"
             android:layout_weight="0.1"
             />
+        </LinearLayout>
+
     </LinearLayout>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/titleArticle"
+        android:layout_marginTop="5dp"
         android:textAppearance="?android:textAppearanceLarge"
         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/articleBody"
+        android:layout_margin="5dp"
         />
 </LinearLayout>
+    </android.support.v7.widget.CardView>
+
 </layout>

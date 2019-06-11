@@ -13,8 +13,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.mohitkumar.trialapp.R;
+import com.example.mohitkumar.trialapp.Util.Utils;
 import com.example.mohitkumar.trialapp.core.PaginationScrollListener;
 import com.example.mohitkumar.trialapp.data.MainPage.Articles;
 import com.example.mohitkumar.trialapp.databinding.FragmentGlobalfeedBinding;
@@ -51,11 +53,6 @@ public class GlobalfeedFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        loadData();
-    }
-
-    private void loadData() {
-
         adapter = new GlobalFeedAdapter(getActivity());
         linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         binding.teamsRecyclerView.setLayoutManager(linearLayoutManager);
@@ -63,7 +60,28 @@ public class GlobalfeedFragment extends Fragment {
         binding.teamsRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
         binding.teamsRecyclerView.setAdapter(adapter);
+        loadData();
 
+        adapter.setOnItemClickListener(new GlobalFeedAdapter.ClickListener() {
+            @Override
+            public void onItemClick(int position, View v) {
+
+            }
+        });
+
+        binding.pullToRefresh.setOnRefreshListener(() -> {
+            if (!Utils.hasNetwork()) {
+                Toast.makeText(getActivity(), "No internet connection !!", Toast.LENGTH_LONG).show();
+                binding.pullToRefresh.setRefreshing(false);
+                return;
+            }
+            loadData();
+            binding.pullToRefresh.setRefreshing(false);
+            return;
+        });
+    }
+
+    private void loadData() {
         binding.teamsRecyclerView.addOnScrollListener(new PaginationScrollListener(linearLayoutManager) {
             @Override
             protected void loadMoreItems() {

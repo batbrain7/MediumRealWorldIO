@@ -7,5 +7,4 @@ public interface ILoginView {
     void onLoginError(String title, String message);
 
 
-
 }

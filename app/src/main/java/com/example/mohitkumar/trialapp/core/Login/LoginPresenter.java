@@ -1,21 +1,13 @@
 package com.example.mohitkumar.trialapp.core.Login;
 
-import android.content.SharedPreferences;
 import android.util.Log;
 import static com.example.mohitkumar.trialapp.MainApplication.TAG;
-
 import com.example.mohitkumar.trialapp.Util.Constants;
 import com.example.mohitkumar.trialapp.Util.PrefManager;
-import com.example.mohitkumar.trialapp.data.LoginSignUp.LoginSignUpResponse;
-import com.example.mohitkumar.trialapp.data.LoginSignUp.User;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import retrofit2.Response;
-
-
-public class LoginPresenter implements ILoginPresenter, ILoginModel.OnLoginFinishedListener{
+public class LoginPresenter implements ILoginPresenter, ILoginModel.OnLoginFinishedListener {
 
     ILoginModel model;
     ILoginView loginView;
@@ -23,8 +15,6 @@ public class LoginPresenter implements ILoginPresenter, ILoginModel.OnLoginFinis
     public LoginPresenter() {
         this.model = new LoginModel();
     }
-
-
 
     @Override
     public void login(String email, String password) {

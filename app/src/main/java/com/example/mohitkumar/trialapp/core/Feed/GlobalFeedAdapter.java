@@ -1,6 +1,7 @@
 package com.example.mohitkumar.trialapp.core.Feed;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,22 +19,23 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.example.mohitkumar.trialapp.R;
+import com.example.mohitkumar.trialapp.core.comment.CommentActivity;
 import com.example.mohitkumar.trialapp.data.MainPage.Articles;
-import com.example.mohitkumar.trialapp.databinding.FeedItemBinding;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GlobalFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private static ClickListener clickListener;
 
-    Context context;
+    private Context context;
     private boolean isLoadingAdded = false;
-    List<Articles> articles;
-    int LOADING = 0;
-    int ITEM = 1;
+    private List<Articles> articles;
+    private int LOADING = 0;
+    private int ITEM = 1;
+    private String slug;
 
-    public GlobalFeedAdapter(Context context) {
+    GlobalFeedAdapter(Context context) {
         this.context = context;
         this.articles = new ArrayList<>();
     }
@@ -66,12 +68,15 @@ public class GlobalFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         switch (getItemViewType(i)) {
             case 1 :
+
+                // add null checks everywhere
                 ContentViewHolder contentViewHolder = (ContentViewHolder) viewHolder;
                 contentViewHolder.titleArticle.setText(article.title);
                 contentViewHolder.userArticle.setText(article.author.username);
                 contentViewHolder.articleBody.setText(article.body);
                 contentViewHolder.date.setText(article.createdAt);
                 contentViewHolder.favouriteCount.setText(Integer.toString(article.favoritesCount));
+                slug = article.slug;
                 Glide.with(context)
                         .asBitmap()
                         .load(article.author.image)
@@ -83,7 +88,8 @@ public class GlobalFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                             }
 
                             @Override
-                            public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource, boolean isFirstResource) {
+                            public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource,
+                                                                                                                    boolean isFirstResource) {
                                 contentViewHolder.imageView.setImageBitmap(resource);
                                 return true;
                             }
@@ -105,41 +111,22 @@ public class GlobalFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return (position == articles.size() - 1 && isLoadingAdded) ? LOADING : ITEM;
     }
 
-    class ContentViewHolder extends RecyclerView.ViewHolder {
-
-        TextView articleBody;
-        TextView titleArticle;
-        TextView favouriteCount;
-        TextView userArticle;
-        TextView date;
-        ImageView imageView;
-        public ContentViewHolder(@NonNull View itemView) {
-            super(itemView);
-            imageView = itemView.findViewById(R.id.imageArticle);
-            articleBody = itemView.findViewById(R.id.articleBody);
-            titleArticle = itemView.findViewById(R.id.titleArticle);
-            date = itemView.findViewById(R.id.date);
-            favouriteCount = itemView.findViewById(R.id.favoriteCount);
-            userArticle = itemView.findViewById(R.id.userArticle);
-        }
-    }
-
     class LoadingViewHolder extends RecyclerView.ViewHolder {
         public LoadingViewHolder(@NonNull View itemView) {
             super(itemView);
         }
     }
 
-    public void add(Articles mc) {
+    private void add(Articles mc) {
         articles.add(mc);
         notifyItemInserted(articles.size() - 1);
     }
 
-    public void addAll(List<Articles> mcList) {
+    void addAll(List<Articles> mcList) {
         for (Articles mc : mcList) { add(mc); }
     }
 
-    public void remove(Articles city) {
+    private void remove(Articles city) {
         int position = articles.indexOf(city);
         if (position > -1) {
             articles.remove(position);
@@ -154,12 +141,12 @@ public class GlobalFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public boolean isEmpty() { return getItemCount() == 0; }
 
-    public void addLoadingFooter() {
+    void addLoadingFooter() {
         isLoadingAdded = true;
         add(new Articles());
     }
 
-    public void removeLoadingFooter() {
+    void removeLoadingFooter() {
         isLoadingAdded = false;
 
         int position = articles.size() - 1;
@@ -170,7 +157,44 @@ public class GlobalFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
-    public Articles getItem(int position) {
+    public void setOnItemClickListener(ClickListener clickListener) {
+        GlobalFeedAdapter.clickListener = clickListener;
+    }
+
+    public interface ClickListener {
+        void onItemClick(int position, View v);
+    }
+
+    private Articles getItem(int position) {
         return articles.get(position);
+    }
+
+    class ContentViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        TextView articleBody;
+        TextView titleArticle;
+        TextView favouriteCount;
+        TextView userArticle;
+        TextView date;
+        ImageView imageView;
+        public ContentViewHolder(@NonNull View itemView) {
+            super(itemView);
+            itemView.setOnClickListener(this);
+            imageView = itemView.findViewById(R.id.imageArticle);
+            articleBody = itemView.findViewById(R.id.articleBody);
+            titleArticle = itemView.findViewById(R.id.titleArticle);
+            date = itemView.findViewById(R.id.date);
+            favouriteCount = itemView.findViewById(R.id.favoriteCount);
+            userArticle = itemView.findViewById(R.id.userArticle);
+        }
+
+
+        @Override
+        public void onClick(View view) {
+            clickListener.onItemClick(getAdapterPosition(), view);
+            Intent intent = new Intent(context, CommentActivity.class);
+            intent.putExtra("slug", slug);
+            context.startActivity(intent);
+        }
     }
 }
