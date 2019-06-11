@@ -1,9 +1,12 @@
 package com.example.mohitkumar.trialapp.core.comment;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.example.mohitkumar.trialapp.data.MainPage.Articles;
+import com.example.mohitkumar.trialapp.data.comment.Comment;
 import com.example.mohitkumar.trialapp.data.comment.Comments;
+import com.example.mohitkumar.trialapp.data.comment.PostComment;
 import com.example.mohitkumar.trialapp.data.comment.SingleArticle;
 
 import retrofit2.Response;
@@ -11,7 +14,7 @@ import retrofit2.Response;
 import static com.example.mohitkumar.trialapp.MainApplication.TAG;
 
 public class CommentPresenter implements ICommentPresenter, ICommentModel.OnCommentFetchFinishListener,
-                                    ICommentModel.OnArticleFetchFinishedListener {
+                                                                ICommentModel.OnArticleFetchFinishedListener, ICommentModel.OnCommentPostedListener {
 
     private ICommentModel model;
     private ICommentView commentView;
@@ -22,17 +25,22 @@ public class CommentPresenter implements ICommentPresenter, ICommentModel.OnComm
 
     @Override
     public void onAttach(ICommentView commentView) {
-        this.commentView  = commentView;
+        this.commentView = commentView;
     }
 
     @Override
     public void getArticleData(String slug) {
-        model.fetchArticle(slug, (ICommentModel.OnArticleFetchFinishedListener)this);
+        model.fetchArticle(slug, (ICommentModel.OnArticleFetchFinishedListener) this);
     }
 
     @Override
     public void getComments(String slug) {
-        model.fetchComments(slug, (ICommentModel.OnCommentFetchFinishListener)this);
+        model.fetchComments(slug, (ICommentModel.OnCommentFetchFinishListener) this);
+    }
+
+    @Override
+    public void postComment(String slug, PostComment comment) {
+        model.postComment(slug, comment, (ICommentModel.OnCommentPostedListener) this);
     }
 
     @Override
@@ -66,5 +74,17 @@ public class CommentPresenter implements ICommentPresenter, ICommentModel.OnComm
             Comments comments = response.body();
             commentView.onCommentsFetchSuccess(comments.comments);
         }
+    }
+
+    @Override
+    public void onCommentPostError(String error) {
+        commentView.onCommentPostError(error);
+    }
+
+    @Override
+    public void onCommentPostSuccess(Response<Comment> commentResponse) {
+
+        Comment comment = commentResponse.body();
+        commentView.onCommentPostSuccess(comment.toString());
     }
 }

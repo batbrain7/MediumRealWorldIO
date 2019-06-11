@@ -4,9 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_margin="5dp"
     android:padding="5dp"
     >
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/black"
+        ></View>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

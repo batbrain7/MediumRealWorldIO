@@ -15,4 +15,8 @@ public interface ICommentView {
     void onCommentsFetchSuccess(List<Comment> comment);
 
     void onCommentsFetchError(String message);
+
+    void onCommentPostSuccess(String message);
+
+    void onCommentPostError(String message);
 }

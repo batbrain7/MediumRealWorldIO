@@ -1,6 +1,12 @@
 package com.example.mohitkumar.trialapp.data;
 
 import android.util.Log;
+
+import com.example.mohitkumar.trialapp.Util.Constants;
+import com.example.mohitkumar.trialapp.Util.PrefManager;
+
+import java.io.IOException;
+
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -18,6 +24,17 @@ public final class CreateService {
 
     private static OkHttpClient client = new OkHttpClient.Builder()
                                                     .addInterceptor(interceptor)
+                                                    .addInterceptor(new Interceptor() {
+                                                        @Override
+                                                        public Response intercept(Chain chain) throws IOException {
+                                                            Request original = chain.request();
+                                                            Request request = original.newBuilder()
+                                                                    .addHeader("Content-Type", "application/json")
+                                                                    .method(original.method(), original.body())
+                                                                    .build();
+                                                            return chain.proceed(request);
+                                                        }
+                                                    })
                                                     .build();
 
     private static Retrofit.Builder retrofitBuilder =

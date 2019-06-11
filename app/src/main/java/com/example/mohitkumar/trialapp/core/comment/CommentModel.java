@@ -1,7 +1,10 @@
 package com.example.mohitkumar.trialapp.core.comment;
 
+import com.example.mohitkumar.trialapp.data.CreateAuthService;
 import com.example.mohitkumar.trialapp.data.CreateService;
+import com.example.mohitkumar.trialapp.data.comment.Comment;
 import com.example.mohitkumar.trialapp.data.comment.Comments;
+import com.example.mohitkumar.trialapp.data.comment.PostComment;
 import com.example.mohitkumar.trialapp.data.comment.SingleArticle;
 
 import retrofit2.Call;
@@ -13,6 +16,9 @@ public class CommentModel implements ICommentModel {
     Call<SingleArticle> call;
 
     Call<Comments> commentsCall;
+
+    Call<Comment> commentPostCall;
+
     @Override
     public void fetchArticle(String slug, OnArticleFetchFinishedListener listener) {
         call = CreateService.getApi().getSingleArticle(slug);
@@ -43,6 +49,23 @@ public class CommentModel implements ICommentModel {
             @Override
             public void onFailure(Call<Comments> call, Throwable t) {
                 listener.onCommentError(t.toString());
+            }
+        });
+    }
+
+    @Override
+    public void postComment(String slug, PostComment comment, OnCommentPostedListener listener) {
+        commentPostCall = CreateAuthService.getApi().postComment(slug, comment);
+
+        commentPostCall.enqueue(new Callback<Comment>() {
+            @Override
+            public void onResponse(Call<Comment> call, Response<Comment> response) {
+                listener.onCommentPostSuccess(response);
+            }
+
+            @Override
+            public void onFailure(Call<Comment> call, Throwable t) {
+                listener.onCommentPostError(t.toString());
             }
         });
     }

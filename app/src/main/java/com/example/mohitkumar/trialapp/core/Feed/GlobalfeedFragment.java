@@ -3,6 +3,7 @@ package com.example.mohitkumar.trialapp.core.Feed;
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,11 +14,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mohitkumar.trialapp.R;
 import com.example.mohitkumar.trialapp.Util.Utils;
 import com.example.mohitkumar.trialapp.core.PaginationScrollListener;
+import com.example.mohitkumar.trialapp.core.comment.CommentActivity;
 import com.example.mohitkumar.trialapp.data.MainPage.Articles;
 import com.example.mohitkumar.trialapp.databinding.FragmentGlobalfeedBinding;
 
@@ -64,8 +67,10 @@ public class GlobalfeedFragment extends Fragment {
 
         adapter.setOnItemClickListener(new GlobalFeedAdapter.ClickListener() {
             @Override
-            public void onItemClick(int position, View v) {
-
+            public void onItemClick(int position, View v, String slug) {
+                Intent intent = new Intent(getActivity(), CommentActivity.class);
+                intent.putExtra("slug", slug);
+                getActivity().startActivity(intent);
             }
         });
 

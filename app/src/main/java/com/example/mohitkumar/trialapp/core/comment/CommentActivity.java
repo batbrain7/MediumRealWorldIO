@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -21,6 +22,8 @@ import static com.example.mohitkumar.trialapp.MainApplication.TAG;
 import com.example.mohitkumar.trialapp.Util.Utils;
 import com.example.mohitkumar.trialapp.data.MainPage.Articles;
 import com.example.mohitkumar.trialapp.data.comment.Comment;
+import com.example.mohitkumar.trialapp.data.comment.CommentBody;
+import com.example.mohitkumar.trialapp.data.comment.PostComment;
 import com.example.mohitkumar.trialapp.databinding.CommentActivityBinding;
 
 import java.util.List;
@@ -31,7 +34,6 @@ public class CommentActivity extends AppCompatActivity implements ICommentView {
     ICommentPresenter presenter;
     CommentRecyclerAdapter adapter;
     String extra;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +87,6 @@ public class CommentActivity extends AppCompatActivity implements ICommentView {
 
             loadComments(extra);
         }
-
     }
 
     @Override
@@ -103,5 +104,27 @@ public class CommentActivity extends AppCompatActivity implements ICommentView {
     @Override
     public void onCommentsFetchError(String message) {
         Toast.makeText(this, "Unable to load comments " + message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onCommentPostSuccess(String message) {
+        Toast.makeText(this, "Comment Posted",Toast.LENGTH_LONG).show();
+        activityBinding.commentField.setText("");
+        recreate();
+    }
+
+    @Override
+    public void onCommentPostError(String message) {
+        Toast.makeText(this, "Unable to post your comment, error : " + message, Toast.LENGTH_LONG).show();
+    }
+
+    public void postComment(View view) {
+        if(!TextUtils.isEmpty(activityBinding.commentField.getText().toString())) {
+            CommentBody commentBody = new CommentBody();
+            commentBody.body = activityBinding.commentField.getText().toString();
+            PostComment post = new PostComment();
+            post.comment = commentBody;
+            presenter.postComment(extra, post);
+        }
     }
 }

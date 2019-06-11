@@ -77,6 +77,7 @@ public class GlobalFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 contentViewHolder.date.setText(article.createdAt);
                 contentViewHolder.favouriteCount.setText(Integer.toString(article.favoritesCount));
                 slug = article.slug;
+                contentViewHolder.slug = slug;
                 Glide.with(context)
                         .asBitmap()
                         .load(article.author.image)
@@ -162,7 +163,7 @@ public class GlobalFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public interface ClickListener {
-        void onItemClick(int position, View v);
+        void onItemClick(int position, View v, String s);
     }
 
     private Articles getItem(int position) {
@@ -177,6 +178,7 @@ public class GlobalFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         TextView userArticle;
         TextView date;
         ImageView imageView;
+        String slug;
         public ContentViewHolder(@NonNull View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
@@ -191,10 +193,7 @@ public class GlobalFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         @Override
         public void onClick(View view) {
-            clickListener.onItemClick(getAdapterPosition(), view);
-            Intent intent = new Intent(context, CommentActivity.class);
-            intent.putExtra("slug", slug);
-            context.startActivity(intent);
+            clickListener.onItemClick(getAdapterPosition(), view, slug);
         }
     }
 }

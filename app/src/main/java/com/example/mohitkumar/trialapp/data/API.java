@@ -7,6 +7,7 @@ import com.example.mohitkumar.trialapp.data.LoginSignUp.User;
 import com.example.mohitkumar.trialapp.data.MainPage.GlobalFeedResponse;
 import com.example.mohitkumar.trialapp.data.comment.Comment;
 import com.example.mohitkumar.trialapp.data.comment.Comments;
+import com.example.mohitkumar.trialapp.data.comment.PostComment;
 import com.example.mohitkumar.trialapp.data.comment.SingleArticle;
 
 import org.json.JSONObject;
@@ -31,5 +32,8 @@ public interface API {
 
     @GET("/api/articles/{slug}/comments")
     Call<Comments> getCommentsArticle(@Path("slug") String slug);
+
+    @POST("/api/articles/{slug}/comments")
+    Call<Comment> postComment(@Path("slug") String slug, @Body PostComment comment);
 
 }

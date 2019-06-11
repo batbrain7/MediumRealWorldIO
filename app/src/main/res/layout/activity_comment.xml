@@ -138,6 +138,7 @@
             android:background="@android:color/holo_green_light"
             android:textColor="@android:color/white"
             android:layout_gravity="center"
+            android:onClick="postComment"
             />
 
         <ProgressBar

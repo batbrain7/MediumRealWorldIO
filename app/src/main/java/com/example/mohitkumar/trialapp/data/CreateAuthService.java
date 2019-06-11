@@ -46,10 +46,16 @@ public final class CreateAuthService {
 
     private static Retrofit retrofit;
 
+    private static API api = getInstance().create(API.class);
+
     public static Retrofit getInstance() {
         if (retrofit == null) {
             retrofit = retrofitBuilder.build();
         }
         return retrofit;
+    }
+
+    public static API getApi() {
+        return api;
     }
 }

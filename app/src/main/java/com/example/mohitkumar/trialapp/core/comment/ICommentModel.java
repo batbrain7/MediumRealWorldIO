@@ -1,7 +1,9 @@
 package com.example.mohitkumar.trialapp.core.comment;
 
 
+import com.example.mohitkumar.trialapp.data.comment.Comment;
 import com.example.mohitkumar.trialapp.data.comment.Comments;
+import com.example.mohitkumar.trialapp.data.comment.PostComment;
 import com.example.mohitkumar.trialapp.data.comment.SingleArticle;
 
 import retrofit2.Response;
@@ -17,9 +19,16 @@ public interface ICommentModel {
 
     void fetchComments(String slug, ICommentModel.OnCommentFetchFinishListener listener);
 
+    void postComment(String slug, PostComment comment, ICommentModel.OnCommentPostedListener listener);
+
     interface OnCommentFetchFinishListener {
         void onCommentError(String error);
         void onCommentsFetchSuccess(Response<Comments> response);
+    }
+
+    interface OnCommentPostedListener {
+        void onCommentPostError(String error);
+        void onCommentPostSuccess(Response<Comment> commentResponse);
     }
 
     void cancelFetch();
