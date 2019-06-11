@@ -1,4 +1,4 @@
-package com.example.mohitkumar.trialapp.data.Login;
+package com.example.mohitkumar.trialapp.data.LoginSignUp;
 
 import com.google.gson.annotations.Expose;
 
