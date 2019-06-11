@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import static com.example.mohitkumar.trialapp.MainApplication.TAG;
 import com.example.mohitkumar.trialapp.R;
+import com.example.mohitkumar.trialapp.Util.Constants;
+import com.example.mohitkumar.trialapp.Util.PrefManager;
 import com.example.mohitkumar.trialapp.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity implements ILoginView{
@@ -37,6 +39,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
 
     @Override
     public void onLoginSuccess() {
+        PrefManager.putBoolean(Constants.LOG_IN, true);
         Log.d(TAG, "Login Successful");
         Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show();
         finish();

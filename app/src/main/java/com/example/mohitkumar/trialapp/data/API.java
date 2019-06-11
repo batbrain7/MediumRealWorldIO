@@ -5,9 +5,13 @@ import com.example.mohitkumar.trialapp.data.LoginSignUp.SUser;
 import com.example.mohitkumar.trialapp.data.LoginSignUp.SignUp;
 import com.example.mohitkumar.trialapp.data.LoginSignUp.User;
 import com.example.mohitkumar.trialapp.data.MainPage.GlobalFeedResponse;
+import com.example.mohitkumar.trialapp.data.comment.Comment;
+import com.example.mohitkumar.trialapp.data.comment.Comments;
 import com.example.mohitkumar.trialapp.data.comment.SingleArticle;
 
 import org.json.JSONObject;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.Call;
@@ -25,6 +29,7 @@ public interface API {
     @GET("api/articles/{slug}")
     Call<SingleArticle> getSingleArticle(@Path("slug") String slug);
 
-    //@GET("/api/articles/{slug}/comments")
+    @GET("/api/articles/{slug}/comments")
+    Call<Comments> getCommentsArticle(@Path("slug") String slug);
 
 }

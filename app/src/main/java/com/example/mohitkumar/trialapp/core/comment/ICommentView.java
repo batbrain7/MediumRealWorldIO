@@ -1,6 +1,10 @@
 package com.example.mohitkumar.trialapp.core.comment;
 
 import com.example.mohitkumar.trialapp.data.MainPage.Articles;
+import com.example.mohitkumar.trialapp.data.comment.Comment;
+import com.example.mohitkumar.trialapp.data.comment.Comments;
+
+import java.util.List;
 
 public interface ICommentView {
 
@@ -8,7 +12,7 @@ public interface ICommentView {
 
     void onArticleFetchError(String message);
 
-    void onCommentsFetchSuccess();
+    void onCommentsFetchSuccess(List<Comment> comment);
 
     void onCommentsFetchError(String message);
 }

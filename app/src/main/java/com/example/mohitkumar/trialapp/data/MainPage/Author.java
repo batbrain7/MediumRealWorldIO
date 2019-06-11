@@ -1,5 +1,8 @@
 package com.example.mohitkumar.trialapp.data.MainPage;
 
+import lombok.Data;
+
+@Data
 public class Author {
 
     public String username;

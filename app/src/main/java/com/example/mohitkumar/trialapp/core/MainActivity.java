@@ -5,14 +5,14 @@ import android.databinding.DataBindingUtil;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.example.mohitkumar.trialapp.R;
-import com.example.mohitkumar.trialapp.MainApplication;
+import static com.example.mohitkumar.trialapp.MainApplication.TAG;
 import com.example.mohitkumar.trialapp.Util.Constants;
 import com.example.mohitkumar.trialapp.Util.PrefManager;
 import com.example.mohitkumar.trialapp.Util.Utils;
-import com.example.mohitkumar.trialapp.core.Feed.APIClient;
 import com.example.mohitkumar.trialapp.core.Feed.GlobalfeedFragment;
 import com.example.mohitkumar.trialapp.core.Login.ILoginPresenter;
 import com.example.mohitkumar.trialapp.core.Login.LoginActivity;
@@ -31,15 +31,15 @@ public class MainActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         presenter = new LoginPresenter();
         loadFragments();
-        PrefManager.putString(Constants.ACCESS_TOKEN, null);
+        Log.d("TrialApp", PrefManager.getBoolean(Constants.LOG_IN) + " ");
     }
 
     private void loadFragments() {
         MainFragmentAdapter leagueFragmentAdapter;
         leagueFragmentAdapter = new MainFragmentAdapter(getSupportFragmentManager());
         if (Utils.isLoggedIn()) {
-         //   binding.signIn.setVisibility(View.GONE);
-         //   binding.signUp.setVisibility(View.GONE);
+            binding.signIn.setVisibility(View.GONE);
+            binding.signUp.setVisibility(View.GONE);
 
             leagueFragmentAdapter.addFragments(new GlobalfeedFragment(), this.getResources().getString(R.string.global_Feed));
             // leagueFragmentAdapter.addFragments(new StandingsFragment(), this.getResources().getString(R.string.standings_fragment));

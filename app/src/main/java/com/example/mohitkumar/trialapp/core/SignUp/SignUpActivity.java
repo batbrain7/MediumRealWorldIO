@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.mohitkumar.trialapp.R;
+import com.example.mohitkumar.trialapp.Util.Constants;
+import com.example.mohitkumar.trialapp.Util.PrefManager;
 import com.example.mohitkumar.trialapp.databinding.ActivitySignUpBinding;
 
 import static com.example.mohitkumar.trialapp.MainApplication.TAG;
@@ -29,6 +31,7 @@ public class SignUpActivity extends AppCompatActivity implements ISignUpView {
     @Override
     public void onSignUpSuccess() {
         Log.d(TAG, "Sign Up Successful");
+        PrefManager.putBoolean(Constants.LOG_IN, true);
         Toast.makeText(this, "Sign Up Successful", Toast.LENGTH_SHORT).show();
         finish();
     }

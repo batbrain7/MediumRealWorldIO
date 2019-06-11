@@ -111,6 +111,14 @@
             android:id="@+id/articleBody"
             android:textAppearance="?android:textAppearance"
             />
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/recyclerComments"
+            >
+        </android.support.v7.widget.RecyclerView>
         
         <EditText
             android:layout_width="match_parent"
@@ -131,13 +139,7 @@
             android:textColor="@android:color/white"
             android:layout_gravity="center"
             />
-        <android.support.v7.widget.RecyclerView
-            android:layout_margin="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/recyclerComments"
-            >
-        </android.support.v7.widget.RecyclerView>
+
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

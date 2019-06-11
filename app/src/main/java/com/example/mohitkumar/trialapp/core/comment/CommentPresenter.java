@@ -3,6 +3,7 @@ package com.example.mohitkumar.trialapp.core.comment;
 import android.util.Log;
 
 import com.example.mohitkumar.trialapp.data.MainPage.Articles;
+import com.example.mohitkumar.trialapp.data.comment.Comments;
 import com.example.mohitkumar.trialapp.data.comment.SingleArticle;
 
 import retrofit2.Response;
@@ -35,7 +36,7 @@ public class CommentPresenter implements ICommentPresenter, ICommentModel.OnComm
     }
 
     @Override
-    public void onError(String error) {
+    public void onArticleError(String error) {
         commentView.onArticleFetchError(error);
     }
 
@@ -52,7 +53,18 @@ public class CommentPresenter implements ICommentPresenter, ICommentModel.OnComm
     }
 
     @Override
-    public void onCommentsFetchSuccess(String response) {
+    public void onCommentError(String error) {
+        commentView.onCommentsFetchError(error);
+    }
 
+    @Override
+    public void onCommentsFetchSuccess(Response<Comments> response) {
+        if (response.body() == null) {
+            Log.d(TAG, "Response Body is null, code : " + response.code());
+        } else {
+            Log.d(TAG, response.body().toString());
+            Comments comments = response.body();
+            commentView.onCommentsFetchSuccess(comments.comments);
+        }
     }
 }

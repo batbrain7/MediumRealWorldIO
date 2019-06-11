@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -18,21 +19,25 @@ import com.example.mohitkumar.trialapp.R;
 import static com.example.mohitkumar.trialapp.MainApplication.TAG;
 
 import com.example.mohitkumar.trialapp.Util.Utils;
-import com.example.mohitkumar.trialapp.core.Login.ILoginPresenter;
-import com.example.mohitkumar.trialapp.core.Login.LoginPresenter;
 import com.example.mohitkumar.trialapp.data.MainPage.Articles;
+import com.example.mohitkumar.trialapp.data.comment.Comment;
 import com.example.mohitkumar.trialapp.databinding.CommentActivityBinding;
+
+import java.util.List;
 
 public class CommentActivity extends AppCompatActivity implements ICommentView {
 
     CommentActivityBinding activityBinding;
     ICommentPresenter presenter;
+    CommentRecyclerAdapter adapter;
+    String extra;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activityBinding = DataBindingUtil.setContentView(this, R.layout.activity_comment);
-        String extra = getIntent().getStringExtra("slug");
+        extra = getIntent().getStringExtra("slug");
         presenter = new CommentPresenter();
         presenter.onAttach(this);
         if (extra != null) {
@@ -42,6 +47,10 @@ public class CommentActivity extends AppCompatActivity implements ICommentView {
 
     private void loadArticle(String slug) {
         presenter.getArticleData(slug);
+    }
+
+    private void loadComments(String slug) {
+        presenter.getComments(slug);
     }
 
     @Override
@@ -73,22 +82,26 @@ public class CommentActivity extends AppCompatActivity implements ICommentView {
         if (Utils.isLoggedIn()) {
             activityBinding.commentField.setVisibility(View.VISIBLE);
             activityBinding.postComment.setVisibility(View.VISIBLE);
+
+            loadComments(extra);
         }
 
     }
 
     @Override
     public void onArticleFetchError(String message) {
-
+        Toast.makeText(this, "Unable to load article " + message, Toast.LENGTH_LONG).show();
     }
 
     @Override
-    public void onCommentsFetchSuccess() {
-
+    public void onCommentsFetchSuccess(List<Comment> comments) {
+        adapter = new CommentRecyclerAdapter(this, comments);
+        activityBinding.recyclerComments.setLayoutManager(new LinearLayoutManager(this));
+        activityBinding.recyclerComments.setAdapter(adapter);
     }
 
     @Override
     public void onCommentsFetchError(String message) {
-
+        Toast.makeText(this, "Unable to load comments " + message, Toast.LENGTH_LONG).show();
     }
 }

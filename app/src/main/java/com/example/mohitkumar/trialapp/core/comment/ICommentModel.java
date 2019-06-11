@@ -1,6 +1,7 @@
 package com.example.mohitkumar.trialapp.core.comment;
 
 
+import com.example.mohitkumar.trialapp.data.comment.Comments;
 import com.example.mohitkumar.trialapp.data.comment.SingleArticle;
 
 import retrofit2.Response;
@@ -8,7 +9,7 @@ import retrofit2.Response;
 public interface ICommentModel {
 
     interface OnArticleFetchFinishedListener {
-        void onError(String error);
+        void onArticleError(String error);
         void onArticleFetchSuccess(Response<SingleArticle> response);
     }
 
@@ -17,8 +18,8 @@ public interface ICommentModel {
     void fetchComments(String slug, ICommentModel.OnCommentFetchFinishListener listener);
 
     interface OnCommentFetchFinishListener {
-        void onError(String error);
-        void onCommentsFetchSuccess(String response);
+        void onCommentError(String error);
+        void onCommentsFetchSuccess(Response<Comments> response);
     }
 
     void cancelFetch();
