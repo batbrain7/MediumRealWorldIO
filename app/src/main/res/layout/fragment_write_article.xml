@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".core.writeArticle.WriteArticleFragment">
+    <data class="WriteArticleBinding"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Article Title"
+                android:layout_margin="20dp"
+                android:id="@+id/articleTitle"
+                />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="What's this article about?"
+                android:layout_margin="20dp"
+                android:id="@+id/articleAbout"
+                />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:hint="Write your article(in markdown)"
+                android:layout_margin="20dp"
+                android:gravity="start"
+                android:id="@+id/articleBody"
+                />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Tags"
+                android:layout_margin="20dp"
+                android:id="@+id/enterTags"
+                android:imeOptions="actionDone"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Publish"
+                android:id="@+id/publishButton"
+                android:background="@android:color/holo_green_dark"
+                android:textColor="@android:color/white"
+                android:layout_gravity="center"
+                android:onClick="publish"
+                />
+        </LinearLayout>
+    </ScrollView>
+</layout>

@@ -1,18 +1,13 @@
 package com.example.mohitkumar.trialapp.data;
 
 
-import com.example.mohitkumar.trialapp.data.LoginSignUp.SUser;
-import com.example.mohitkumar.trialapp.data.LoginSignUp.SignUp;
-import com.example.mohitkumar.trialapp.data.LoginSignUp.User;
+import com.example.mohitkumar.trialapp.core.PersonalActivity;
 import com.example.mohitkumar.trialapp.data.MainPage.GlobalFeedResponse;
 import com.example.mohitkumar.trialapp.data.comment.Comment;
 import com.example.mohitkumar.trialapp.data.comment.Comments;
 import com.example.mohitkumar.trialapp.data.comment.PostComment;
 import com.example.mohitkumar.trialapp.data.comment.SingleArticle;
-
-import org.json.JSONObject;
-
-import java.util.List;
+import com.example.mohitkumar.trialapp.data.writearticle.WriteArticle;
 
 import io.reactivex.Observable;
 import retrofit2.Call;
@@ -36,4 +31,6 @@ public interface API {
     @POST("/api/articles/{slug}/comments")
     Call<Comment> postComment(@Path("slug") String slug, @Body PostComment comment);
 
+    @POST("/api/articles")
+    Call<SingleArticle> postArticle(@Body WriteArticle article);
 }

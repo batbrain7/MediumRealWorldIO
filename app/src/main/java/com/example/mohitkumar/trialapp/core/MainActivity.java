@@ -2,14 +2,15 @@ package com.example.mohitkumar.trialapp.core;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.support.v7.app.AlertDialog;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
+import android.view.MenuItem;
 
 import com.example.mohitkumar.trialapp.R;
-import static com.example.mohitkumar.trialapp.MainApplication.TAG;
 import com.example.mohitkumar.trialapp.Util.Constants;
 import com.example.mohitkumar.trialapp.Util.PrefManager;
 import com.example.mohitkumar.trialapp.Util.Utils;
@@ -24,27 +25,84 @@ public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
     ILoginPresenter presenter;
+    private ActionBarDrawerToggle actionBarDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         presenter = new LoginPresenter();
-        loadFragments();
+
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, binding.activityMain, R.string.Open, R.string.Close);
+
+        binding.activityMain.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         Log.d("TrialApp", PrefManager.getBoolean(Constants.LOG_IN) + " ");
+
+        if (Utils.isLoggedIn()) {
+            binding.nv.getMenu().clear();
+            binding.nv.inflateMenu(R.menu.navigation);
+        } else {
+            binding.nv.getMenu().clear();
+            binding.nv.inflateMenu(R.menu.nav_logout_menu);
+        }
+        setNavBar();
+        loadFragments();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(actionBarDrawerToggle.onOptionsItemSelected(item))
+            return true;
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void setNavBar() {
+        binding.nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                if (Utils.isLoggedIn()) {
+                    int id = menuItem.getItemId();
+                    switch (id) {
+                        case R.id.newArticle :
+                            openClassWrite("Write");
+                            break;
+                        case R.id.settings :
+                            openClassWrite("Settings");
+                            break;
+                        case R.id.myprofile :
+                            openClassWrite("Profile");
+                            break;
+                        default:
+                            return true;
+                    }
+                } else {
+                    int id = menuItem.getItemId();
+                    switch (id) {
+                        case R.id.signIn :
+                            login();
+                            break;
+                        case R.id.signUp :
+                            signUp();
+                            break;
+                        default:
+                            return true;
+                    }
+                }
+                return true;
+            }
+        });
     }
 
     private void loadFragments() {
         MainFragmentAdapter leagueFragmentAdapter;
         leagueFragmentAdapter = new MainFragmentAdapter(getSupportFragmentManager());
         if (Utils.isLoggedIn()) {
-            binding.signIn.setVisibility(View.GONE);
-            binding.signUp.setVisibility(View.GONE);
-
             leagueFragmentAdapter.addFragments(new GlobalfeedFragment(), this.getResources().getString(R.string.global_Feed));
-            // leagueFragmentAdapter.addFragments(new StandingsFragment(), this.getResources().getString(R.string.standings_fragment));
-            // add again the personal fragment
-
         } else {
             leagueFragmentAdapter.addFragments(new GlobalfeedFragment(), this.getResources().getString(R.string.global_Feed));
         }
@@ -52,10 +110,17 @@ public class MainActivity extends AppCompatActivity {
         binding.tabLayout.setupWithViewPager(binding.viewPager);
     }
 
-    public void signUp(View view) {
+    public void signUp() {
         startActivity(new Intent(this, SignUpActivity.class));
     }
-    public void login(View view) {
+
+    public void login() {
         startActivity(new Intent(this, LoginActivity.class));
+    }
+
+    public void openClassWrite(String string) {
+        Intent intent = new Intent(this, PersonalActivity.class);
+        intent.putExtra("frag", string);
+        startActivity(intent);
     }
 }

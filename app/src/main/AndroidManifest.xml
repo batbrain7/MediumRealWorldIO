@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".core.comment.CommentActivity"></activity>
+        <activity android:name=".core.PersonalActivity"></activity>
+        <activity android:name=".core.comment.CommentActivity" />
         <activity android:name=".core.SignUp.SignUpActivity" />
         <activity android:name=".core.MainActivity">
             <intent-filter>
