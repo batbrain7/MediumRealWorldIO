@@ -1,6 +1,7 @@
 package com.example.mohitkumar.trialapp.core.comment;
 
 import android.content.Context;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 
 import com.example.mohitkumar.trialapp.R;
 import com.example.mohitkumar.trialapp.data.comment.Comment;
+import com.example.mohitkumar.trialapp.util.Constants;
+import com.example.mohitkumar.trialapp.util.PrefManager;
 
 import java.util.List;
 
@@ -18,10 +21,12 @@ public class CommentRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     private Context context;
     List<Comment> comments;
+    ICommentPresenter presenter;
 
-    public CommentRecyclerAdapter(Context context, List<Comment> comments) {
+    public CommentRecyclerAdapter(Context context, List<Comment> comments, ICommentPresenter presenter) {
         this.context = context;
         this.comments = comments;
+        this.presenter = presenter;
     }
 
     @NonNull
@@ -38,6 +43,15 @@ public class CommentRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         holder.username.setText(comment.author.username);
         holder.date.setText(comment.createdAt);
         holder.comment.setText(comment.body);
+        if (comment.author.username.equals(PrefManager.getString(Constants.USERNAME, ""))) {
+            holder.deleteButton.setVisibility(View.VISIBLE);
+            holder.deleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+        }
     }
 
     @Override

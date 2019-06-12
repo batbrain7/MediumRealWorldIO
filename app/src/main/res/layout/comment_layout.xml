@@ -38,6 +38,8 @@
             android:layout_height="20dp"
             android:layout_gravity="end"
             android:layout_margin="5dp"
+            android:visibility="gone"
+            android:src="@drawable/ic_delete_red_500_24dp"
             android:id="@+id/deleteButton"
             />
     </LinearLayout>
