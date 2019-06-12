@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="5dp"
     >
     <View
         android:layout_width="match_parent"
@@ -15,26 +14,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/commentText"
-        android:textAppearance="?textAppearanceLargePopupMenu"
         />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@android:color/darker_gray"
+        android:background="@android:color/background_light"
         >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" 
             android:id="@+id/userName"
             android:layout_margin="5dp"
-            android:textColor="@android:color/black"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/datePosted"
-            android:textColor="@android:color/black"
             android:layout_margin="5dp"
             />
         <ImageView

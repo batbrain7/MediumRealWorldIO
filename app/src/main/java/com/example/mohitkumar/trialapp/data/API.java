@@ -14,6 +14,7 @@ import com.example.mohitkumar.trialapp.data.writearticle.WriteArticle;
 import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -40,6 +41,12 @@ public interface API {
     @POST("api/articles/{slug}/comments")
     Call<Comment> postComment(@Path("slug") String slug, @Body PostComment comment);
 
+    @POST("api/articles/{slug}/favorite")
+    Call<SingleArticle> favoriteArticleInCommentActivity(@Path("slug") String slug);
+
+    @DELETE("api/articles/{slug}/favorite")
+    Call<SingleArticle> unFavoriteArticle(@Path("slug") String slug);
+
     @POST("api/articles")
     Call<SingleArticle> postArticle(@Body WriteArticle article);
 
@@ -52,6 +59,8 @@ public interface API {
     @GET("api/articles/feed")
     Observable<GlobalFeedResponse> getMyFeed(@Query("limit") long page, @Query("offset") long offset);
 
-    @POST("/api/articles/{slug}/favorite")
+    @POST("api/articles/{slug}/favorite")
     Observable<SingleArticle> favoriteArticle(@Path("slug") String slug);
+
+
 }

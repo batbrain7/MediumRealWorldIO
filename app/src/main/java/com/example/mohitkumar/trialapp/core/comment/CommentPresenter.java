@@ -12,7 +12,7 @@ import retrofit2.Response;
 import static com.example.mohitkumar.trialapp.MainApplication.TAG;
 
 public class CommentPresenter implements ICommentPresenter, ICommentModel.OnCommentFetchFinishListener,
-                                                                ICommentModel.OnArticleFetchFinishedListener, ICommentModel.OnCommentPostedListener {
+        ICommentModel.OnArticleFetchFinishedListener, ICommentModel.OnCommentPostedListener, ICommentModel.OnFavoriteUnFavoriteListener {
 
     private ICommentModel model;
     private ICommentView commentView;
@@ -29,16 +29,31 @@ public class CommentPresenter implements ICommentPresenter, ICommentModel.OnComm
     @Override
     public void getArticleData(String slug) {
         model.fetchArticle(slug, (ICommentModel.OnArticleFetchFinishedListener) this);
+        commentView.displayProgress();
     }
 
     @Override
     public void getComments(String slug) {
         model.fetchComments(slug, (ICommentModel.OnCommentFetchFinishListener) this);
+        commentView.displayProgress();
     }
 
     @Override
     public void postComment(String slug, PostComment comment) {
         model.postComment(slug, comment, (ICommentModel.OnCommentPostedListener) this);
+        commentView.displayProgress();
+    }
+
+    @Override
+    public void favorite(String slug) {
+        model.favoriteArticle(slug, (ICommentModel.OnFavoriteUnFavoriteListener) this);
+        commentView.displayProgress();
+    }
+
+    @Override
+    public void unFavorite(String slug) {
+        model.unFavoriteArticle(slug, (ICommentModel.OnFavoriteUnFavoriteListener) this);
+        commentView.displayProgress();
     }
 
     @Override
@@ -84,5 +99,18 @@ public class CommentPresenter implements ICommentPresenter, ICommentModel.OnComm
 
         Comment comment = commentResponse.body();
         commentView.onCommentPostSuccess(comment.toString());
+    }
+
+    @Override
+    public void onFavoriteUnfFavoriteError(String error) {
+        commentView.onFavoriteUnfavoriteError(error);
+    }
+
+    @Override
+    public void onFavoriteUnfFavoriteSuccess(Response<SingleArticle> response) {
+
+        SingleArticle singleArticle = response.body();
+     //   Log.d(TAG, response.body().article.toString());
+        commentView.onFavoriteUnfavoriteSuccess(singleArticle);
     }
 }

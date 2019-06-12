@@ -1,8 +1,10 @@
 package com.example.mohitkumar.trialapp.core.comment;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,6 +21,7 @@ import com.bumptech.glide.request.target.Target;
 import com.example.mohitkumar.trialapp.R;
 import static com.example.mohitkumar.trialapp.MainApplication.TAG;
 
+import com.example.mohitkumar.trialapp.data.comment.SingleArticle;
 import com.example.mohitkumar.trialapp.util.Utils;
 import com.example.mohitkumar.trialapp.data.mainpage.Articles;
 import com.example.mohitkumar.trialapp.data.comment.Comment;
@@ -34,6 +37,7 @@ public class CommentActivity extends AppCompatActivity implements ICommentView {
     ICommentPresenter presenter;
     CommentRecyclerAdapter adapter;
     String extra;
+    boolean isFavorite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,30 +61,9 @@ public class CommentActivity extends AppCompatActivity implements ICommentView {
 
     @Override
     public void onArticleFetchSuccess(Articles article) {
-        Toast.makeText(this, "Fetched the article", Toast.LENGTH_SHORT).show();
-        activityBinding.titleText.setText(article.title);
-        activityBinding.articleBody.setText(article.body);
-        activityBinding.userArticle.setText(article.author.username);
-        activityBinding.date.setText(article.createdAt);
-        activityBinding.favoriteCount.setText(Integer.toString(article.favoritesCount));
-        Glide.with(this)
-                .asBitmap()
-                .load(article.author.image)
-                .listener(new RequestListener<Bitmap>() {
-                    @Override
-                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
-                       // Toast.makeText(this, "ERROR in image loading", Toast.LENGTH_LONG).show();
-                        Log.d(TAG, "Error in loading the image");
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource,
-                                                   boolean isFirstResource) {
-                        activityBinding.imageArticle.setImageBitmap(resource);
-                        return true;
-                    }
-                }).submit();
+       // Toast.makeText(this, "Fetched the article", Toast.LENGTH_SHORT).show();
+        Log.d(TAG , "Article :  " + article.favorited + " " + extra);
+        setUI(article);
         if (Utils.isLoggedIn()) {
             activityBinding.commentField.setVisibility(View.VISIBLE);
             activityBinding.postComment.setVisibility(View.VISIBLE);
@@ -99,23 +82,54 @@ public class CommentActivity extends AppCompatActivity implements ICommentView {
         adapter = new CommentRecyclerAdapter(this, comments);
         activityBinding.recyclerComments.setLayoutManager(new LinearLayoutManager(this));
         activityBinding.recyclerComments.setAdapter(adapter);
+        activityBinding.progressBar.setVisibility(View.GONE);
     }
 
     @Override
     public void onCommentsFetchError(String message) {
         Toast.makeText(this, "Unable to load comments " + message, Toast.LENGTH_LONG).show();
+        activityBinding.progressBar.setVisibility(View.GONE);
     }
 
     @Override
     public void onCommentPostSuccess(String message) {
         Toast.makeText(this, "Comment Posted",Toast.LENGTH_LONG).show();
         activityBinding.commentField.setText("");
+        activityBinding.progressBar.setVisibility(View.GONE);
         recreate();
     }
 
     @Override
     public void onCommentPostError(String message) {
         Toast.makeText(this, "Unable to post your comment, error : " + message, Toast.LENGTH_LONG).show();
+        activityBinding.progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onFavoriteUnfavoriteSuccess(SingleArticle article) {
+       // setButtonColors(isFavorited);
+        activityBinding.progressBar.setVisibility(View.GONE);
+        Toast.makeText(this, "FAV" + article.article.favorited, Toast.LENGTH_LONG).show();
+        Log.d(TAG, "VALUE : " + article.article.favorited);
+
+        setUI(article.article);
+       // loadArticle(extra);
+       // Intent intent = new Intent(this, CommentActivity.class);
+      //  intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+      //  intent.putExtra("slug", extra);
+      //  startActivity(intent);
+       // finish();
+    }
+
+    @Override
+    public void onFavoriteUnfavoriteError(String error) {
+        Toast.makeText(this, "ERRRORRR", Toast.LENGTH_LONG).show();
+        activityBinding.progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void displayProgress() {
+        activityBinding.progressBar.setVisibility(View.VISIBLE);
     }
 
     public void postComment(View view) {
@@ -126,5 +140,65 @@ public class CommentActivity extends AppCompatActivity implements ICommentView {
             post.comment = commentBody;
             presenter.postComment(extra, post);
         }
+    }
+
+    public void follow(View view) {
+        if (Utils.isLoggedIn()) {
+
+        } else {
+            Toast.makeText(this, "Please either login or sign up first", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void favorite(View view) {
+        if (Utils.isLoggedIn()) {
+            if (activityBinding.favoriteButton.getText().equals("FAVORITE")) {
+                presenter.favorite(extra);
+            } else {
+                presenter.unFavorite(extra);
+            }
+        } else {
+            Toast.makeText(this, "Please either login or sign up first", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void setButtonColors(boolean isFavorite) {
+        if (isFavorite) {
+            activityBinding.favoriteButton.setText("UNFAVORITE");
+            activityBinding.favoriteButton.setBackgroundColor(ContextCompat.getColor(this, android.R.color.holo_green_dark));
+            activityBinding.favoriteButton.setTextColor(ContextCompat.getColor(this, android.R.color.white));
+        } else {
+            activityBinding.favoriteButton.setText("FAVORITE");
+            activityBinding.favoriteButton.setBackgroundColor(ContextCompat.getColor(this, android.R.color.white));
+            activityBinding.favoriteButton.setTextColor(ContextCompat.getColor(this, android.R.color.holo_green_dark));
+        }
+    }
+
+    public void setUI(Articles article) {
+        activityBinding.titleText.setText(article.title);
+        activityBinding.articleBody.setText(article.body);
+        activityBinding.userArticle.setText(article.author.username);
+        activityBinding.date.setText(article.createdAt);
+        activityBinding.favoriteCount.setText(Integer.toString(article.favoritesCount));
+        setButtonColors(article.favorited);
+        Glide.with(this)
+                .asBitmap()
+                .load(article.author.image)
+                .listener(new RequestListener<Bitmap>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
+                        // Toast.makeText(this, "ERROR in image loading", Toast.LENGTH_LONG).show();
+                        Log.d(TAG, "Error in loading the image");
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Bitmap resource, Object model, Target<Bitmap> target, DataSource dataSource,
+                                                   boolean isFirstResource) {
+                        activityBinding.imageArticle.setImageBitmap(resource);
+                        return true;
+                    }
+                }).submit();
+
     }
 }

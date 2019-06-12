@@ -71,7 +71,40 @@ public class CommentModel implements ICommentModel {
     }
 
     @Override
-    public void cancelFetch() {
+    public void favoriteArticle(String slug, OnFavoriteUnFavoriteListener listener) {
+        call = AuthService.getApi().favoriteArticleInCommentActivity(slug);
 
+        call.enqueue(new Callback<SingleArticle>() {
+            @Override
+            public void onResponse(Call<SingleArticle> call, Response<SingleArticle> response) {
+                listener.onFavoriteUnfFavoriteSuccess(response);
+            }
+
+            @Override
+            public void onFailure(Call<SingleArticle> call, Throwable t) {
+                listener.onFavoriteUnfFavoriteError(t.toString());
+            }
+        });
+    }
+
+    @Override
+    public void unFavoriteArticle(String slug, OnFavoriteUnFavoriteListener listener) {
+        call = AuthService.getApi().unFavoriteArticle(slug);
+
+        call.enqueue(new Callback<SingleArticle>() {
+            @Override
+            public void onResponse(Call<SingleArticle> call, Response<SingleArticle> response) {
+                listener.onFavoriteUnfFavoriteSuccess(response);
+            }
+
+            @Override
+            public void onFailure(Call<SingleArticle> call, Throwable t) {
+                listener.onFavoriteUnfFavoriteError(t.toString());
+            }
+        });
+    }
+
+    @Override
+    public void cancelFetch() {
     }
 }

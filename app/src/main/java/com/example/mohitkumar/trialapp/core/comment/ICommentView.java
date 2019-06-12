@@ -1,5 +1,6 @@
 package com.example.mohitkumar.trialapp.core.comment;
 
+import com.example.mohitkumar.trialapp.data.comment.SingleArticle;
 import com.example.mohitkumar.trialapp.data.mainpage.Articles;
 import com.example.mohitkumar.trialapp.data.comment.Comment;
 
@@ -18,4 +19,10 @@ public interface ICommentView {
     void onCommentPostSuccess(String message);
 
     void onCommentPostError(String message);
+
+    void onFavoriteUnfavoriteSuccess(SingleArticle article);
+
+    void onFavoriteUnfavoriteError(String erro);
+
+    void displayProgress();
 }

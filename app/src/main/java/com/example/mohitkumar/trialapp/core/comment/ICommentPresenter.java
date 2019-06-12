@@ -12,5 +12,8 @@ public interface ICommentPresenter {
 
     void postComment(String slug, PostComment comment);
 
+    void favorite(String slug);
+
+    void unFavorite(String slug);
     
 }

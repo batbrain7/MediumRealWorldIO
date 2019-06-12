@@ -87,7 +87,7 @@ public class GlobalFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 // add null checks everywhere
                 ContentViewHolder contentViewHolder = (ContentViewHolder) viewHolder;
                 contentViewHolder.titleArticle.setText(article.title);
-                contentViewHolder.articleBody.setText(article.body);
+                contentViewHolder.articleBody.setText(article.body.toCharArray(), 0, Math.min(article.body.length(), 20));
                 contentViewHolder.date.setText(article.createdAt);
                 contentViewHolder.favouriteCount.setText(Integer.toString(article.favoritesCount));
                 slug = article.slug;

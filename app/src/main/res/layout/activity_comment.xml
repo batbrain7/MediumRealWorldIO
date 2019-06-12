@@ -81,18 +81,19 @@
                         android:background="@android:color/white"
                         android:text="Follow "
                         android:id="@+id/followButton"
+                        android:onClick="follow"
                         />
 
-                    <Button
-                        android:layout_marginLeft="5dp"
-                        android:layout_gravity="end"
-                        android:layout_width="wrap_content"
-                        android:layout_height="25dp"
-                        android:background="@android:color/white"
-                        android:text="Favorite "
-                        android:textColor="@android:color/holo_green_dark"
-                        android:id="@+id/favoriteButton"
-                        />
+                        <Button
+                            android:id="@+id/favoriteButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="end"
+                            android:layout_marginLeft="5dp"
+                            android:background="@android:color/white"
+                            android:onClick="favorite"
+                            android:text="Favorite "
+                            android:textColor="@android:color/holo_green_dark" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

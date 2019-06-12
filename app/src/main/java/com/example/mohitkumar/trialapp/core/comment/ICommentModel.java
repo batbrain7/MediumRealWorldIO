@@ -21,6 +21,10 @@ public interface ICommentModel {
 
     void postComment(String slug, PostComment comment, ICommentModel.OnCommentPostedListener listener);
 
+    void favoriteArticle(String slug, OnFavoriteUnFavoriteListener listener);
+
+    void unFavoriteArticle(String slug, OnFavoriteUnFavoriteListener listener);
+
     interface OnCommentFetchFinishListener {
         void onCommentError(String error);
         void onCommentsFetchSuccess(Response<CommentResponse> response);
@@ -29,6 +33,11 @@ public interface ICommentModel {
     interface OnCommentPostedListener {
         void onCommentPostError(String error);
         void onCommentPostSuccess(Response<Comment> commentResponse);
+    }
+
+    interface OnFavoriteUnFavoriteListener {
+        void onFavoriteUnfFavoriteError(String error);
+        void onFavoriteUnfFavoriteSuccess(Response<SingleArticle> response);
     }
 
     void cancelFetch();
