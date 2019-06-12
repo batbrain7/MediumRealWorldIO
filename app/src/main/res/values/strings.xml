@@ -4,7 +4,9 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="global_Feed">Global Feed</string>
-    <string name="my_feed">My Feed</string>
+    <string name="your_feed">Your Feed</string>
+    <string name="my_feed">My feed</string>
+    <string name="favorited_articles">Favorited</string>
     <!--<string name="app_name">TrialApp</string>-->
     <!--<string name="app_name">TrialApp</string>-->
     <!--<string name="app_name">TrialApp</string>-->

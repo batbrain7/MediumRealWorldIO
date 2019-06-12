@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.support.v4.app.Fragment;
 import com.example.mohitkumar.trialapp.R;
 import com.example.mohitkumar.trialapp.core.feed.MyFeedFragment;
+import com.example.mohitkumar.trialapp.core.profile.ProfileActivity;
 import com.example.mohitkumar.trialapp.util.Constants;
 import com.example.mohitkumar.trialapp.util.PrefManager;
 import com.example.mohitkumar.trialapp.util.Utils;
@@ -77,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                             openClassWrite("Settings");
                             break;
                         case R.id.myprofile :
-                            openClassWrite("Profile");
+                            openClassProfile();
                             break;
                         default:
                             return true;
@@ -105,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         leagueFragmentAdapter = new MainFragmentAdapter(getSupportFragmentManager());
         if (Utils.isLoggedIn()) {
             leagueFragmentAdapter.addFragments(new GlobalFeedFragment(), this.getResources().getString(R.string.global_Feed));
-            leagueFragmentAdapter.addFragments(new MyFeedFragment(), this.getResources().getString(R.string.my_feed));
+            leagueFragmentAdapter.addFragments(new MyFeedFragment(), this.getResources().getString(R.string.your_feed));
         } else {
             leagueFragmentAdapter.addFragments(new GlobalFeedFragment(), this.getResources().getString(R.string.global_Feed));
         }
@@ -125,5 +126,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, PersonalActivity.class);
         intent.putExtra("frag", string);
         startActivity(intent);
+    }
+
+    public void openClassProfile() {
+        startActivity(new Intent(this, ProfileActivity.class));
     }
 }
