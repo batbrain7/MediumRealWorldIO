@@ -5,6 +5,7 @@ import com.example.mohitkumar.trialapp.data.comment.Comment;
 import com.example.mohitkumar.trialapp.data.comment.CommentResponse;
 import com.example.mohitkumar.trialapp.data.comment.PostComment;
 import com.example.mohitkumar.trialapp.data.comment.SingleArticle;
+import com.example.mohitkumar.trialapp.data.settings.ProfileResponse;
 
 import retrofit2.Response;
 
@@ -24,6 +25,15 @@ public interface ICommentModel {
     void favoriteArticle(String slug, OnFavoriteUnFavoriteListener listener);
 
     void unFavoriteArticle(String slug, OnFavoriteUnFavoriteListener listener);
+
+    void follow(String username, OnFollowUnFollowListener listener);
+
+    void unFollow(String username, OnFollowUnFollowListener listener);
+
+    interface OnFollowUnFollowListener {
+        void onFollowUnFollowError(String error);
+        void onFollowUnFollowSuccess(Response<ProfileResponse> response);
+    }
 
     interface OnCommentFetchFinishListener {
         void onCommentError(String error);

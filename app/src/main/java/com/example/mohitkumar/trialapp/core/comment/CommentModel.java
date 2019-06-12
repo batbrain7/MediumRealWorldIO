@@ -6,6 +6,7 @@ import com.example.mohitkumar.trialapp.data.comment.Comment;
 import com.example.mohitkumar.trialapp.data.comment.CommentResponse;
 import com.example.mohitkumar.trialapp.data.comment.PostComment;
 import com.example.mohitkumar.trialapp.data.comment.SingleArticle;
+import com.example.mohitkumar.trialapp.data.settings.ProfileResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -18,6 +19,8 @@ public class CommentModel implements ICommentModel {
     Call<CommentResponse> commentsCall;
 
     Call<Comment> commentPostCall;
+
+    Call<ProfileResponse> followCall;
 
     @Override
     public void fetchArticle(String slug, OnArticleFetchFinishedListener listener) {
@@ -100,6 +103,40 @@ public class CommentModel implements ICommentModel {
             @Override
             public void onFailure(Call<SingleArticle> call, Throwable t) {
                 listener.onFavoriteUnfFavoriteError(t.toString());
+            }
+        });
+    }
+
+    @Override
+    public void follow(String username, OnFollowUnFollowListener listener) {
+        followCall = AuthService.getApi().followUser(username);
+
+        followCall.enqueue(new Callback<ProfileResponse>() {
+            @Override
+            public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
+                listener.onFollowUnFollowSuccess(response);
+            }
+
+            @Override
+            public void onFailure(Call<ProfileResponse> call, Throwable t) {
+                listener.onFollowUnFollowError(t.toString());
+            }
+        });
+    }
+
+    @Override
+    public void unFollow(String username, OnFollowUnFollowListener listener) {
+        followCall = AuthService.getApi().unFollowUser(username);
+
+        followCall.enqueue(new Callback<ProfileResponse>() {
+            @Override
+            public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
+                listener.onFollowUnFollowSuccess(response);
+            }
+
+            @Override
+            public void onFailure(Call<ProfileResponse> call, Throwable t) {
+                listener.onFollowUnFollowError(t.toString());
             }
         });
     }

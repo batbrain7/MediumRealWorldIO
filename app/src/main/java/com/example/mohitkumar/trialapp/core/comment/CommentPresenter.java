@@ -6,13 +6,15 @@ import com.example.mohitkumar.trialapp.data.comment.Comment;
 import com.example.mohitkumar.trialapp.data.comment.CommentResponse;
 import com.example.mohitkumar.trialapp.data.comment.PostComment;
 import com.example.mohitkumar.trialapp.data.comment.SingleArticle;
+import com.example.mohitkumar.trialapp.data.settings.ProfileResponse;
 
 import retrofit2.Response;
 
 import static com.example.mohitkumar.trialapp.MainApplication.TAG;
 
 public class CommentPresenter implements ICommentPresenter, ICommentModel.OnCommentFetchFinishListener,
-        ICommentModel.OnArticleFetchFinishedListener, ICommentModel.OnCommentPostedListener, ICommentModel.OnFavoriteUnFavoriteListener {
+                                    ICommentModel.OnArticleFetchFinishedListener, ICommentModel.OnCommentPostedListener,
+                                            ICommentModel.OnFavoriteUnFavoriteListener, ICommentModel.OnFollowUnFollowListener {
 
     private ICommentModel model;
     private ICommentView commentView;
@@ -57,6 +59,18 @@ public class CommentPresenter implements ICommentPresenter, ICommentModel.OnComm
     }
 
     @Override
+    public void follow(String username) {
+        model.follow(username, this);
+        commentView.displayProgress();
+    }
+
+    @Override
+    public void unFollow(String username) {
+        model.unFollow(username, this);
+        commentView.displayProgress();
+    }
+
+    @Override
     public void onArticleError(String error) {
         commentView.onArticleFetchError(error);
     }
@@ -70,7 +84,6 @@ public class CommentPresenter implements ICommentPresenter, ICommentModel.OnComm
             SingleArticle article = response.body();
             commentView.onArticleFetchSuccess(article.article);
         }
-
     }
 
     @Override
@@ -112,5 +125,16 @@ public class CommentPresenter implements ICommentPresenter, ICommentModel.OnComm
         SingleArticle singleArticle = response.body();
      //   Log.d(TAG, response.body().article.toString());
         commentView.onFavoriteUnfavoriteSuccess(singleArticle);
+    }
+
+    @Override
+    public void onFollowUnFollowError(String error) {
+        commentView.onFollowUnFollowError(error);
+    }
+
+    @Override
+    public void onFollowUnFollowSuccess(Response<ProfileResponse> response) {
+        ProfileResponse profileResponse = response.body();
+        commentView.onFollowUnFollowSuccess(profileResponse);
     }
 }

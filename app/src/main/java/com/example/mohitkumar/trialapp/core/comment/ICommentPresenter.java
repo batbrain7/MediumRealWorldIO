@@ -15,5 +15,8 @@ public interface ICommentPresenter {
     void favorite(String slug);
 
     void unFavorite(String slug);
-    
+
+    void follow(String username);
+
+    void unFollow(String username);
 }

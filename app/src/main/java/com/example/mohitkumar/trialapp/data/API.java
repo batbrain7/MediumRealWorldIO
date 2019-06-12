@@ -62,5 +62,9 @@ public interface API {
     @POST("api/articles/{slug}/favorite")
     Observable<SingleArticle> favoriteArticle(@Path("slug") String slug);
 
+    @POST("api/profiles/{username}/follow")
+    Call<ProfileResponse> followUser(@Path("username") String username);
 
+    @DELETE("api/profiles/{username}/follow")
+    Call<ProfileResponse> unFollowUser(@Path("username") String username);
 }
