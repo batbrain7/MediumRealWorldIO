@@ -1,8 +1,6 @@
 package com.example.mohitkumar.trialapp.data;
 
-
 import com.example.mohitkumar.trialapp.data.loginsignup.LUser;
-import com.example.mohitkumar.trialapp.data.loginsignup.LoginSignUpResponse;
 import com.example.mohitkumar.trialapp.data.loginsignup.SUser;
 import com.example.mohitkumar.trialapp.data.loginsignup.User;
 import com.example.mohitkumar.trialapp.data.mainpage.GlobalFeedResponse;
