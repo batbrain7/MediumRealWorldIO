@@ -62,7 +62,7 @@ public class GlobalFeedFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        adapter = new GlobalFeedAdapter(getActivity());
+        adapter = new GlobalFeedAdapter(getActivity(), viewModel);
         linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         binding.teamsRecyclerView.setLayoutManager(linearLayoutManager);
 
@@ -71,29 +71,6 @@ public class GlobalFeedFragment extends Fragment {
         binding.teamsRecyclerView.setAdapter(adapter);
         viewModel.getProgress().observe(this, binding.progressBar::setVisibility);
         loadData();
-
-        adapter.setOnItemClickListener(new GlobalFeedAdapter.ClickListener() {
-            @Override
-            public void onItemClick(int position, View v, String slug) {
-                LinearLayout linearLayout = v.findViewById(R.id.favoriteArticle);
-                linearLayout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        callViewModel(slug);
-                    }
-                });
-
-                TextView textView = v.findViewById(R.id.titleArticle);
-                textView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(getActivity(), CommentActivity.class);
-                        intent.putExtra("slug", slug);
-                        getActivity().startActivity(intent);
-                    }
-                });
-            }
-        });
 
         binding.pullToRefresh.setOnRefreshListener(() -> {
             if (!Utils.hasNetwork()) {
@@ -174,8 +151,8 @@ public class GlobalFeedFragment extends Fragment {
 
     private void callViewModel(String slug) {
         viewModel.favoriteArticle(slug).observe(this, singleArticle -> {
-            Log.d(TAG, "CAlled ViewModel " + singleArticle.toString());
-            onStart();
+            Log.d(TAG, "CalledViewModel " + singleArticle.toString());
+            //onStart();
         });
     }
 
