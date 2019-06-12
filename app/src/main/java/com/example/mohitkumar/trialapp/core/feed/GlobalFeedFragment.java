@@ -9,12 +9,17 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mohitkumar.trialapp.R;
+import com.example.mohitkumar.trialapp.data.comment.SingleArticle;
 import com.example.mohitkumar.trialapp.util.Utils;
 import com.example.mohitkumar.trialapp.core.PaginationScrollListener;
 import com.example.mohitkumar.trialapp.core.comment.CommentActivity;
@@ -23,13 +28,15 @@ import com.example.mohitkumar.trialapp.databinding.FragmentGlobalfeedBinding;
 
 import java.util.List;
 
+import static com.example.mohitkumar.trialapp.MainApplication.TAG;
+
 /**
  * A simple {@link Fragment} subclass.
  */
-public class GlobalfeedFragment extends Fragment {
+public class GlobalFeedFragment extends Fragment {
 
 
-    public GlobalfeedFragment() {
+    public GlobalFeedFragment() {
         // Required empty public constructor
     }
 
@@ -68,9 +75,23 @@ public class GlobalfeedFragment extends Fragment {
         adapter.setOnItemClickListener(new GlobalFeedAdapter.ClickListener() {
             @Override
             public void onItemClick(int position, View v, String slug) {
-                Intent intent = new Intent(getActivity(), CommentActivity.class);
-                intent.putExtra("slug", slug);
-                getActivity().startActivity(intent);
+                LinearLayout linearLayout = v.findViewById(R.id.favoriteArticle);
+                linearLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        callViewModel(slug);
+                    }
+                });
+
+                TextView textView = v.findViewById(R.id.titleArticle);
+                textView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getActivity(), CommentActivity.class);
+                        intent.putExtra("slug", slug);
+                        getActivity().startActivity(intent);
+                    }
+                });
             }
         });
 
@@ -148,6 +169,13 @@ public class GlobalfeedFragment extends Fragment {
 
             if (currentPage != TOTAL_PAGES) adapter.addLoadingFooter();
             else isLastPage = true;
+        });
+    }
+
+    private void callViewModel(String slug) {
+        viewModel.favoriteArticle(slug).observe(this, singleArticle -> {
+            Log.d(TAG, "CAlled ViewModel " + singleArticle.toString());
+            onStart();
         });
     }
 

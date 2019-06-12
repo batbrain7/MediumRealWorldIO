@@ -51,4 +51,7 @@ public interface API {
 
     @GET("api/articles/feed")
     Observable<GlobalFeedResponse> getMyFeed(@Query("limit") long page, @Query("offset") long offset);
+
+    @POST("/api/articles/{slug}/favorite")
+    Observable<SingleArticle> favoriteArticle(@Path("slug") String slug);
 }

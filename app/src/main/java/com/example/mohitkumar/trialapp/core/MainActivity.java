@@ -10,12 +10,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 
+import android.support.v4.app.Fragment;
 import com.example.mohitkumar.trialapp.R;
 import com.example.mohitkumar.trialapp.core.feed.MyFeedFragment;
 import com.example.mohitkumar.trialapp.util.Constants;
 import com.example.mohitkumar.trialapp.util.PrefManager;
 import com.example.mohitkumar.trialapp.util.Utils;
-import com.example.mohitkumar.trialapp.core.feed.GlobalfeedFragment;
+import com.example.mohitkumar.trialapp.core.feed.GlobalFeedFragment;
 import com.example.mohitkumar.trialapp.core.login.ILoginPresenter;
 import com.example.mohitkumar.trialapp.core.login.LoginActivity;
 import com.example.mohitkumar.trialapp.core.login.LoginPresenter;
@@ -103,10 +104,10 @@ public class MainActivity extends AppCompatActivity {
         MainFragmentAdapter leagueFragmentAdapter;
         leagueFragmentAdapter = new MainFragmentAdapter(getSupportFragmentManager());
         if (Utils.isLoggedIn()) {
-            leagueFragmentAdapter.addFragments(new GlobalfeedFragment(), this.getResources().getString(R.string.global_Feed));
+            leagueFragmentAdapter.addFragments(new GlobalFeedFragment(), this.getResources().getString(R.string.global_Feed));
             leagueFragmentAdapter.addFragments(new MyFeedFragment(), this.getResources().getString(R.string.my_feed));
         } else {
-            leagueFragmentAdapter.addFragments(new GlobalfeedFragment(), this.getResources().getString(R.string.global_Feed));
+            leagueFragmentAdapter.addFragments(new GlobalFeedFragment(), this.getResources().getString(R.string.global_Feed));
         }
         binding.viewPager.setAdapter(leagueFragmentAdapter);
         binding.tabLayout.setupWithViewPager(binding.viewPager);

@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.example.mohitkumar.trialapp.data.APIService;
 import com.example.mohitkumar.trialapp.data.mainpage.Articles;
+import com.example.mohitkumar.trialapp.data.mainpage.GlobalFeedResponse;
 
 import java.util.List;
 
@@ -15,18 +16,18 @@ public class MyFeedViewModel extends ViewModel {
     private APIService service;
     private List<Articles> articlesList;
     private final MutableLiveData<Integer> progress = new MutableLiveData<>();
-    private final MutableLiveData<List<Articles>> articles = new MutableLiveData<>();
+    private final MutableLiveData<GlobalFeedResponse> articles = new MutableLiveData<>();
 
     public MyFeedViewModel() {
         service = new APIClient();
     }
 
-    public MutableLiveData<List<Articles>> getArticlesList(long offset) {
+    public MutableLiveData<GlobalFeedResponse> getArticlesList(long offset) {
         service.getMyFeed(20, offset)
                 .doOnSubscribe(disposable -> progress.setValue(0))
                 .doFinally(() -> progress.setValue(8))
                 .subscribe(status -> {
-                    articles.setValue(status.getArticles());
+                    articles.setValue(status);
                 }, error -> {
                     Log.i("HeadlineFragment.class", "onStart: " + error);
                 });

@@ -1,15 +1,20 @@
 package com.example.mohitkumar.trialapp.core.feed;
 
+import android.arch.lifecycle.LifecycleOwner;
+import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,16 +32,18 @@ import java.util.List;
 public class GlobalFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static ClickListener clickListener;
 
-    private Context context;
+    Context context;
     private boolean isLoadingAdded = false;
     private List<Articles> articles;
     private int LOADING = 0;
     private int ITEM = 1;
     private String slug;
+    GlobalViewModel viewModel;
 
     GlobalFeedAdapter(Context context) {
         this.context = context;
         this.articles = new ArrayList<>();
+        viewModel = ViewModelProviders.of((FragmentActivity) context).get(GlobalViewModel.class);
     }
 
     public List<Articles> getArticles() {
@@ -96,6 +103,7 @@ public class GlobalFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                 }
                             }).submit();
                 }
+
                 break;
             case 0:
                 break;
@@ -186,7 +194,7 @@ public class GlobalFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         TextView date;
         ImageView imageView;
         String slug;
-
+        LinearLayout layout;
         public ContentViewHolder(@NonNull View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
@@ -196,6 +204,7 @@ public class GlobalFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             date = itemView.findViewById(R.id.date);
             favouriteCount = itemView.findViewById(R.id.favoriteCount);
             userArticle = itemView.findViewById(R.id.userArticle);
+            layout = itemView.findViewById(R.id.favoriteArticle);
         }
 
 

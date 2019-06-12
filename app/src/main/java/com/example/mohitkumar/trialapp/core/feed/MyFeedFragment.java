@@ -1,13 +1,11 @@
 package com.example.mohitkumar.trialapp.core.feed;
 
-
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
@@ -15,16 +13,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import com.example.mohitkumar.trialapp.R;
 import com.example.mohitkumar.trialapp.core.PaginationScrollListener;
 import com.example.mohitkumar.trialapp.core.comment.CommentActivity;
 import com.example.mohitkumar.trialapp.data.mainpage.Articles;
 import com.example.mohitkumar.trialapp.databinding.MyFeedBinding;
 import com.example.mohitkumar.trialapp.util.Utils;
-
 import java.util.List;
-
 import static com.example.mohitkumar.trialapp.MainApplication.TAG;
 
 
@@ -37,8 +32,6 @@ public class MyFeedFragment extends Fragment {
     public MyFeedFragment() {
         // Required empty public constructor
     }
-
-
 
     MyFeedBinding binding;
     LinearLayoutManager linearLayoutManager;
@@ -123,20 +116,20 @@ public class MyFeedFragment extends Fragment {
                 return isLoading;
             }
         });
-
         loadArticlesFirst();
-
     }
 
     private void loadArticlesFirst() {
-        viewModel.getArticlesList(0).observe(this, list -> {
-            List<Articles> articlesList = list;
+        viewModel.getArticlesList(0).observe(this, globalFeedResponse -> {
             binding.progressBar.setVisibility(View.GONE);
-            adapter.addAll(articlesList);
-            if (articlesList.size() == 0) {
-                Toast.makeText(getActivity(), "No articles here... yet", Toast.LENGTH_LONG).show();
-                Log.d(TAG, "No articles here... yet");
+            if (globalFeedResponse.getArticlesCount() == 0) {
+                binding.textNothinghere.setVisibility(View.VISIBLE);
+           //     Toast.makeText(getContext(), "No articles here.....yet", Toast.LENGTH_LONG).show();
+                return;
             }
+            List<Articles> articlesList = globalFeedResponse.getArticles();
+
+            adapter.addAll(articlesList);
 
             if (currentPage <= TOTAL_PAGES)
                 adapter.addLoadingFooter();
@@ -146,11 +139,16 @@ public class MyFeedFragment extends Fragment {
     }
 
     private void loadNextPage() {
-        viewModel.getArticlesList(currentPage).observe(this, list -> {
+        viewModel.getArticlesList(currentPage).observe(this, globalFeedResponse -> {
             adapter.removeLoadingFooter();
             isLoading = false;
-
-            List<Articles> results = list;
+            if (globalFeedResponse.getArticlesCount() == 0) {
+                binding.textNothinghere.setVisibility(View.VISIBLE);
+         //       Toast.makeText(getContext(), "No articles here... yet", Toast.LENGTH_LONG).show();
+                Log.d(TAG, "No articles here... yet");
+                return;
+            }
+            List<Articles> results = globalFeedResponse.getArticles();
             adapter.addAll(results);
 
             if (currentPage != TOTAL_PAGES) adapter.addLoadingFooter();
