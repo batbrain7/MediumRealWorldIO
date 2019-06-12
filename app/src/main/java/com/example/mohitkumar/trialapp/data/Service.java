@@ -24,7 +24,7 @@ public final class Service {
                                                         public Response intercept(Chain chain) throws IOException {
                                                             Request original = chain.request();
                                                             Request request = original.newBuilder()
-                                                                    .addHeader("Content-Type", "application/json")
+                                                                    .addHeader("Content-Type", "application/json; charset=UTF-8")
                                                                     .method(original.method(), original.body())
                                                                     .build();
                                                             return chain.proceed(request);

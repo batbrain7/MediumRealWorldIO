@@ -9,6 +9,7 @@ import com.example.mohitkumar.trialapp.data.comment.Comment;
 import com.example.mohitkumar.trialapp.data.comment.CommentResponse;
 import com.example.mohitkumar.trialapp.data.comment.PostComment;
 import com.example.mohitkumar.trialapp.data.comment.SingleArticle;
+import com.example.mohitkumar.trialapp.data.settings.UserPOJO;
 import com.example.mohitkumar.trialapp.data.writearticle.WriteArticle;
 
 import io.reactivex.Observable;
@@ -51,10 +52,10 @@ public interface API {
     Call<SingleArticle> postArticle(@Body WriteArticle article);
 
     @GET("api/profiles/{username}")
-    Call<ProfileResponse> getProfile(@Path("username") String username, @Body String string);
+    Call<ProfileResponse> getProfile(@Path("username") String username);
 
     @PUT("api/user")
-    Call<User> updateProfile(@Body String object);
+    Call<User> updateProfile(@Body UserPOJO object);
 
     @GET("api/articles/feed")
     Observable<GlobalFeedResponse> getMyFeed(@Query("limit") long page, @Query("offset") long offset);

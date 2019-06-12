@@ -2,14 +2,15 @@ package com.example.mohitkumar.trialapp.core.settings;
 
 import com.example.mohitkumar.trialapp.data.loginsignup.User;
 import com.example.mohitkumar.trialapp.data.settings.ProfileResponse;
+import com.example.mohitkumar.trialapp.data.settings.UserPOJO;
 
 import retrofit2.Response;
 
 public interface ISettingsModel {
 
-    void updateSettings(String username, String object, ISettingsModel.OnSettingsUpdateListener listener);
+    void updateSettings(UserPOJO object, ISettingsModel.OnSettingsUpdateListener listener);
 
-    void getProfile(String username);
+    void getProfile(String username, ISettingsModel.OnFetchProfileListener listener);
 
     interface OnSettingsUpdateListener {
         void onSettingsUpdateError(String error);

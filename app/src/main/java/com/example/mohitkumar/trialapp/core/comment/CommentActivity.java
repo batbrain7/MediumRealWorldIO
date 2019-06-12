@@ -69,16 +69,19 @@ public class CommentActivity extends AppCompatActivity implements ICommentView {
 
             loadComments(extra);
         }
+        activityBinding.progressBar.setVisibility(View.GONE);
+
     }
 
     @Override
     public void onArticleFetchError(String message) {
         Toast.makeText(this, "Unable to load article " + message, Toast.LENGTH_LONG).show();
+        activityBinding.progressBar.setVisibility(View.GONE);
     }
 
     @Override
     public void onCommentsFetchSuccess(List<Comment> comments) {
-        adapter = new CommentRecyclerAdapter(this, comments);
+        adapter = new CommentRecyclerAdapter(this, comments, presenter);
         activityBinding.recyclerComments.setLayoutManager(new LinearLayoutManager(this));
         activityBinding.recyclerComments.setAdapter(adapter);
         activityBinding.progressBar.setVisibility(View.GONE);

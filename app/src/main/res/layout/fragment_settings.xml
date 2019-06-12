@@ -1,90 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".core.settings.SettingsFragment"
-    >
-    <data class="SettingsBinding"/>
+    tools:context=".core.settings.SettingsFragment">
+
+    <data class="SettingsBinding" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Your Settings"
-            android:textAppearance="?android:textAppearanceLarge"
-            android:gravity="center"
-            android:layout_margin="10dp"
-            />
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/urlImage"
-            android:layout_margin="10dp"
-            android:hint="URL of profile picture"
-            />
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/userName"
-            android:layout_margin="10dp"
-            android:hint="username"
-            />
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:id="@+id/bio"
-            android:gravity="start"
-            android:layout_margin="10dp"
-            android:hint="Short bio about you"
-            />
 
-        <EditText
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/email"
-            android:layout_margin="10dp"
-            android:hint="Email Address"
-            />
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/newPassword"
-            android:hint="New Password"
-            android:layout_margin="10dp"
-            />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/holo_green_dark"
-            android:layout_gravity="end"
-            android:layout_margin="10dp"
-            android:padding="5dp"
-            android:id="@+id/updateSettings"
-            android:text="update settings"
-            android:textColor="@android:color/white"
-            />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_margin="10dp"
-            android:background="@android:color/black"
-            ></View>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:id="@+id/logOut"
-            android:background="@android:color/white"
-            android:textColor="@android:color/holo_red_dark"
-            android:text="log out"
-            />
-    </LinearLayout>
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:gravity="center"
+                    android:text="Your Settings"
+                    android:textAppearance="?android:textAppearanceLarge" />
+
+                <EditText
+                    android:id="@+id/urlImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:hint="URL of profile picture" />
+
+                <EditText
+                    android:id="@+id/userName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:hint="username" />
+
+                <EditText
+                    android:id="@+id/bio"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_margin="10dp"
+                    android:gravity="start"
+                    android:hint="Short bio about you" />
+
+                <EditText
+                    android:id="@+id/email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:hint="Email Address" />
+
+                <EditText
+                    android:id="@+id/newPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:hint="New Password" />
+
+                <Button
+                    android:id="@+id/updateSettings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_margin="10dp"
+                    android:background="@android:color/holo_green_dark"
+                    android:padding="5dp"
+                    android:text="update settings"
+                    android:textColor="@android:color/white" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_margin="10dp"
+                    android:background="@android:color/black"></View>
+
+                <Button
+                    android:id="@+id/logOut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@android:color/white"
+                    android:text="log out"
+                    android:textColor="@android:color/holo_red_dark" />
+            </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone" />
+        </FrameLayout>
     </ScrollView>
 </layout>

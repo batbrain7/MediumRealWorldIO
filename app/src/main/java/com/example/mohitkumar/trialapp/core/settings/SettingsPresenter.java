@@ -2,6 +2,7 @@ package com.example.mohitkumar.trialapp.core.settings;
 
 import android.util.Log;
 
+import com.example.mohitkumar.trialapp.data.settings.UserPOJO;
 import com.example.mohitkumar.trialapp.util.Constants;
 import com.example.mohitkumar.trialapp.util.PrefManager;
 import com.example.mohitkumar.trialapp.data.loginsignup.User;
@@ -26,13 +27,15 @@ public class SettingsPresenter implements ISettingsPresenter, ISettingsModel.OnS
     }
 
     @Override
-    public void updateSettings(String username, String object) {
-        model.updateSettings(username, object, (ISettingsModel.OnSettingsUpdateListener) this);
+    public void updateSettings(UserPOJO object) {
+        model.updateSettings(object, (ISettingsModel.OnSettingsUpdateListener) this);
+        view.displayProgress();
     }
 
     @Override
     public void getProfile(String username) {
-        model.getProfile(username);
+        model.getProfile(username, this);
+        view.displayProgress();
     }
 
 
@@ -52,19 +55,19 @@ public class SettingsPresenter implements ISettingsPresenter, ISettingsModel.OnS
             Log.d(TAG, "user is null");
         } else {
             PrefManager.putString(Constants.USERNAME, user.user.username);
-            PrefManager.putString(Constants.USERNAME, user.user.username);
-            PrefManager.putString(Constants.USERNAME, user.user.username);
+            PrefManager.putString(Constants.ACCESS_TOKEN, user.user.token);
+            PrefManager.putString(Constants.EMAIL, user.user.email);
             view.onSettingsUpdateSuccess(user.toString());
         }
     }
 
     @Override
     public void onProfileFetchError(String error) {
-
+        view.onProfileFetchError(error);
     }
 
     @Override
     public void onProfileFetchSuccess(Response<ProfileResponse> response) {
-
+        view.onProfileFetchSuccess(response.body());
     }
 }

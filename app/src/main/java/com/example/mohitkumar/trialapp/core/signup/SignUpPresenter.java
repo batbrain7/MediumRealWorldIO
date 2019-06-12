@@ -49,6 +49,8 @@ public class SignUpPresenter implements ISignUpPresenter, ISignUpModel.OnSignUpF
             LoginSignUpResponse upResponse;
             upResponse = user.user;
             PrefManager.putString(Constants.ACCESS_TOKEN, upResponse.token);
+            PrefManager.putString(Constants.USERNAME, upResponse.username);
+            PrefManager.putString(Constants.EMAIL, upResponse.email);
             signUpView.onSignUpSuccess();
         }
 //        JSONObject object = null;

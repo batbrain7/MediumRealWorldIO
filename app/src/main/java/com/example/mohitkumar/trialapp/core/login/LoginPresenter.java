@@ -51,6 +51,8 @@ public class LoginPresenter implements ILoginPresenter, ILoginModel.OnLoginFinis
             LoginSignUpResponse upResponse;
             upResponse = user.user;
             PrefManager.putString(Constants.ACCESS_TOKEN, upResponse.token);
+            PrefManager.putString(Constants.EMAIL, upResponse.email);
+            PrefManager.putString(Constants.USERNAME, upResponse.username);
             loginView.onLoginSuccess();
         }
 

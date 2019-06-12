@@ -3,6 +3,7 @@ package com.example.mohitkumar.trialapp.core.settings;
 import com.example.mohitkumar.trialapp.data.AuthService;
 import com.example.mohitkumar.trialapp.data.loginsignup.User;
 import com.example.mohitkumar.trialapp.data.settings.ProfileResponse;
+import com.example.mohitkumar.trialapp.data.settings.UserPOJO;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -14,7 +15,7 @@ public class SettingsModel implements ISettingsModel {
     Call<User> updateCall;
 
     @Override
-    public void updateSettings(String username , String object, OnSettingsUpdateListener listener) {
+    public void updateSettings(UserPOJO object, OnSettingsUpdateListener listener) {
         updateCall = AuthService.getApi().updateProfile(object);
         updateCall.enqueue(new Callback<User>() {
             @Override
@@ -32,8 +33,20 @@ public class SettingsModel implements ISettingsModel {
     }
 
     @Override
-    public void getProfile(String username) {
+    public void getProfile(String username, ISettingsModel.OnFetchProfileListener listener) {
+        call = AuthService.getApi().getProfile(username);
 
+        call.enqueue(new Callback<ProfileResponse>() {
+            @Override
+            public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
+                listener.onProfileFetchSuccess(response);
+            }
+
+            @Override
+            public void onFailure(Call<ProfileResponse> call, Throwable t) {
+                listener.onProfileFetchError(t.toString());
+            }
+        });
     }
 
     @Override
