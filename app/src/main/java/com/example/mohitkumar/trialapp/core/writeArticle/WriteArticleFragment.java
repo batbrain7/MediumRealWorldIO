@@ -40,6 +40,7 @@ public class WriteArticleFragment extends Fragment implements IWriteArticleView{
     @Override
     public void onStart() {
         super.onStart();
+        presenter.onAttach(this);
         binding.publishButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,6 +67,9 @@ public class WriteArticleFragment extends Fragment implements IWriteArticleView{
     public void onArticlePostSuccess(String message) {
         Toast.makeText(getActivity(), "Post Successful", Toast.LENGTH_LONG).show();
         Log.d(TAG, message);
+        binding.articleAbout.setText("");
+        binding.articleTitle.setText("");
+        binding.articleBody.setText("");
     }
 
     @Override

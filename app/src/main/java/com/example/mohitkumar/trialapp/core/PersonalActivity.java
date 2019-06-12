@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.mohitkumar.trialapp.R;
+import com.example.mohitkumar.trialapp.core.Settings.SettingsFragment;
 import com.example.mohitkumar.trialapp.core.writeArticle.WriteArticleFragment;
 
 public class PersonalActivity extends AppCompatActivity {
@@ -27,6 +28,7 @@ public class PersonalActivity extends AppCompatActivity {
                 fragmentTransaction.replace(R.id.frameLayout, new WriteArticleFragment());
                 break;
             case "Settings":
+                fragmentTransaction.replace(R.id.frameLayout, new SettingsFragment());
                 break;
             case "Profile":
                 break;

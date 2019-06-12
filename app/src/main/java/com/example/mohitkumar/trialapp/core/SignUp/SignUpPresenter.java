@@ -46,11 +46,20 @@ public class SignUpPresenter implements ISignUpPresenter, ISignUpModel.OnSignUpF
             Log.d(TAG, "Response is null" + " THIS IS THE TOKEN");
         JSONObject object = null;
         String token;
+        String email;
+        String username;
+        String bio;
         try {
             object = new JSONObject(response);
             token = object.getJSONObject("user").getString("token");
+            email = object.getJSONObject("user").getString("email");
+            username = object.getJSONObject("user").getString("username");
+            bio = object.getJSONObject("user").getString("bio");
             Log.d(TAG, token);
             PrefManager.putString(Constants.ACCESS_TOKEN, token);
+            PrefManager.putString(Constants.EMAIL, email);
+            PrefManager.putString(Constants.USERNAME, username);
+            PrefManager.putString(Constants.BIO, bio);
             signUpView.onSignUpSuccess();
         } catch (JSONException e) {
             Log.d(TAG, "This user already exists");

@@ -44,11 +44,20 @@ public class LoginPresenter implements ILoginPresenter, ILoginModel.OnLoginFinis
 
         JSONObject object = null;
         String token;
+        String email;
+        String username;
+        String bio;
         try {
             object = new JSONObject(response);
             token = object.getJSONObject("user").getString("token");
+            email = object.getJSONObject("user").getString("email");
+            username = object.getJSONObject("user").getString("username");
+            bio = object.getJSONObject("user").getString("bio");
             Log.d(TAG, token);
             PrefManager.putString(Constants.ACCESS_TOKEN, token);
+            PrefManager.putString(Constants.EMAIL, email);
+            PrefManager.putString(Constants.USERNAME, username);
+            PrefManager.putString(Constants.BIO, bio);
             loginView.onLoginSuccess();
         } catch (JSONException e) {
             e.printStackTrace();

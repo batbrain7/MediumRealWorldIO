@@ -1,14 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".core.Settings.SettingsFragment">
+    tools:context=".core.Settings.SettingsFragment"
+    >
+    <data class="SettingsBinding"/>
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Your Settings"
+            android:textAppearance="?android:textAppearanceLarge"
+            android:gravity="center"
+            android:layout_margin="10dp"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/urlImage"
+            android:layout_margin="10dp"
+            android:hint="URL of profile picture"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/userName"
+            android:layout_margin="10dp"
+            android:hint="username"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:id="@+id/bio"
+            android:gravity="start"
+            android:layout_margin="10dp"
+            android:hint="Short bio about you"
+            />
 
-</FrameLayout>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/email"
+            android:layout_margin="10dp"
+            android:hint="Email Address"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/newPassword"
+            android:hint="New Password"
+            android:layout_margin="10dp"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_green_dark"
+            android:layout_gravity="end"
+            android:layout_margin="10dp"
+            android:padding="5dp"
+            android:id="@+id/updateSettings"
+            android:text="update settings"
+            android:textColor="@android:color/white"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_margin="10dp"
+            android:background="@android:color/black"
+            ></View>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:id="@+id/logOut"
+            android:background="@android:color/white"
+            android:textColor="@android:color/holo_red_dark"
+            android:text="log out"
+            />
+    </LinearLayout>
+    </ScrollView>
+</layout>
