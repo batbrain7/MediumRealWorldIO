@@ -5,16 +5,13 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.util.Log;
 
+import com.example.mohitkumar.trialapp.data.APIClient;
 import com.example.mohitkumar.trialapp.data.APIService;
-import com.example.mohitkumar.trialapp.data.AuthService;
 import com.example.mohitkumar.trialapp.data.comment.SingleArticle;
 import com.example.mohitkumar.trialapp.data.mainpage.Articles;
+import com.example.mohitkumar.trialapp.data.mainpage.GlobalFeedResponse;
 
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class GlobalViewModel extends ViewModel {
 
@@ -23,6 +20,7 @@ public class GlobalViewModel extends ViewModel {
     private final MutableLiveData<Integer> progress = new MutableLiveData<>();
     private final MutableLiveData<List<Articles>> articles = new MutableLiveData<>();
     private final MutableLiveData<SingleArticle> singleArticleMutableLiveData = new MutableLiveData<>();
+    private final MutableLiveData<GlobalFeedResponse> globalFeedResponseMutableLiveData = new MutableLiveData<>();
 
     public GlobalViewModel() {
         service = new APIClient();
@@ -52,5 +50,17 @@ public class GlobalViewModel extends ViewModel {
             Log.i("GlobalViewModel.class", "onStart: " + error);
         });
         return singleArticleMutableLiveData;
+    }
+
+    public MutableLiveData<GlobalFeedResponse> getFeedFavoriteArticles(long offset, String favorite) {
+        service.getFavoriteFeed(20, offset, favorite)
+                .doOnSubscribe(disposable -> progress.setValue(0))
+                .doFinally(() -> progress.setValue(8))
+                .subscribe(globalFeedResponse -> {
+                    globalFeedResponseMutableLiveData.setValue(globalFeedResponse);
+                }, error -> {
+                    Log.i("GlobalViewModel.class", "onStart: " + error);
+                });
+        return globalFeedResponseMutableLiveData;
     }
 }

@@ -1,16 +1,12 @@
-package com.example.mohitkumar.trialapp.core.feed;
+package com.example.mohitkumar.trialapp.core.profile.myfeed;
 
 import android.arch.lifecycle.LifecycleOwner;
-import android.arch.lifecycle.ViewModel;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,12 +24,15 @@ import com.bumptech.glide.request.target.Target;
 import com.example.mohitkumar.trialapp.R;
 import com.example.mohitkumar.trialapp.core.MainActivity;
 import com.example.mohitkumar.trialapp.core.comment.CommentActivity;
+import com.example.mohitkumar.trialapp.core.feed.GlobalViewModel;
 import com.example.mohitkumar.trialapp.data.mainpage.Articles;
-import static com.example.mohitkumar.trialapp.MainApplication.TAG;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class GlobalFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+import static com.example.mohitkumar.trialapp.MainApplication.TAG;
+
+public class MyFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static ClickListener clickListener;
 
     Context context;
@@ -42,17 +41,10 @@ public class GlobalFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private int LOADING = 0;
     private int ITEM = 1;
     private String slug;
-    GlobalViewModel viewModel;
 
-    public GlobalFeedAdapter(Context context) {
+    public MyFeedAdapter(Context context) {
         this.context = context;
         this.articles = new ArrayList<>();
-    }
-
-    public GlobalFeedAdapter(Context context, GlobalViewModel viewModel) {
-        this.context = context;
-        this.articles = new ArrayList<>();
-        this.viewModel = viewModel;
     }
 
     public List<Articles> getArticles() {
@@ -142,7 +134,7 @@ public class GlobalFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         notifyItemInserted(articles.size() - 1);
     }
 
-    public void addAll(List<Articles> mcList) {
+    void addAll(List<Articles> mcList) {
         for (Articles mc : mcList) {
             add(mc);
         }
@@ -167,12 +159,12 @@ public class GlobalFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return getItemCount() == 0;
     }
 
-    public void addLoadingFooter() {
+    void addLoadingFooter() {
         isLoadingAdded = true;
         add(new Articles());
     }
 
-    public void removeLoadingFooter() {
+    void removeLoadingFooter() {
         isLoadingAdded = false;
 
         int position = articles.size() - 1;
@@ -184,7 +176,7 @@ public class GlobalFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public void setOnItemClickListener(ClickListener clickListener) {
-        GlobalFeedAdapter.clickListener = clickListener;
+        MyFeedAdapter.clickListener = clickListener;
     }
 
     public interface ClickListener {
@@ -215,32 +207,10 @@ public class GlobalFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             favouriteCount = itemView.findViewById(R.id.favoriteCount);
             userArticle = itemView.findViewById(R.id.userArticle);
             layout = itemView.findViewById(R.id.favoriteArticle);
-
-            layout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    viewModel.favoriteArticle(slug).observe((LifecycleOwner) context, singleArticle -> {
-                        Log.d(TAG, singleArticle.toString());
-                        Intent intent = new Intent(context, MainActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
-                        context.startActivity(intent);
-                    });
-                }
-            });
-
-            titleArticle.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    Intent intent = new Intent(context, CommentActivity.class);
-                    intent.putExtra("slug", slug);
-                    context.startActivity(intent);
-                }
-            });
         }
         @Override
         public void onClick(View view) {
-           // clickListener.onItemClick(getAdapterPosition(), view, slug);
+            clickListener.onItemClick(getAdapterPosition(), view, slug);
         }
     }
 }

@@ -16,13 +16,13 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.example.mohitkumar.trialapp.R;
 import com.example.mohitkumar.trialapp.core.MainFragmentAdapter;
-import com.example.mohitkumar.trialapp.core.feed.GlobalFeedFragment;
-import com.example.mohitkumar.trialapp.core.feed.MyFeedFragment;
+import com.example.mohitkumar.trialapp.core.feed.YourFeedFragment;
+import com.example.mohitkumar.trialapp.core.profile.myfeed.MyFeedFragment;
 import com.example.mohitkumar.trialapp.data.settings.ProfileResponse;
 import com.example.mohitkumar.trialapp.databinding.ProfileBinding;
 import com.example.mohitkumar.trialapp.util.Constants;
 import com.example.mohitkumar.trialapp.util.PrefManager;
-import com.example.mohitkumar.trialapp.util.Utils;
+
 import static com.example.mohitkumar.trialapp.MainApplication.TAG;
 
 public class ProfileActivity extends AppCompatActivity implements IProfileView{
@@ -48,7 +48,7 @@ public class ProfileActivity extends AppCompatActivity implements IProfileView{
         MainFragmentAdapter leagueFragmentAdapter;
         leagueFragmentAdapter = new MainFragmentAdapter(getSupportFragmentManager());
         leagueFragmentAdapter.addFragments(new MyFeedFragment(), this.getResources().getString(R.string.my_feed));
-        leagueFragmentAdapter.addFragments(new MyFeedFragment(), this.getResources().getString(R.string.favorited_articles));
+        leagueFragmentAdapter.addFragments(new FavoriteFragment(), this.getResources().getString(R.string.favorited_articles));
         binding.viewPager.setAdapter(leagueFragmentAdapter);
         binding.tabLayout.setupWithViewPager(binding.viewPager);
     }
@@ -74,12 +74,14 @@ public class ProfileActivity extends AppCompatActivity implements IProfileView{
                         return true;
                     }
                 }).submit();
+        binding.progressBar.setVisibility(View.GONE);
     }
 
     @Override
     public void onProfileFetchError(String error) {
         Toast.makeText(this, "Error in loading profile", Toast.LENGTH_LONG).show();
         Log.d(TAG, error);
+        binding.progressBar.setVisibility(View.GONE);
     }
 
     @Override

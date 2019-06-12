@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".core.profile.ProfileActivity"></activity>
+        <activity android:name=".core.EditArticles.EditArticleActivity"></activity>
+        <activity android:name=".core.profile.ProfileActivity" />
         <activity android:name=".core.PersonalActivity" />
         <activity android:name=".core.comment.CommentActivity" />
         <activity android:name=".core.signup.SignUpActivity" />

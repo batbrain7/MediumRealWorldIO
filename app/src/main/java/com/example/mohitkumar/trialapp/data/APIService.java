@@ -13,7 +13,14 @@ public interface APIService {
     Observable<GlobalFeedResponse> getGlobalFeed(long page, long offset);
 
     @NonNull
-    Observable<GlobalFeedResponse> getMyFeed(long page, long offset);
+    Observable<GlobalFeedResponse> getYourFeed(long page, long offset);
 
+    @NonNull
     Observable<SingleArticle> postFavorite(String slug);
+
+    @NonNull
+    Observable<GlobalFeedResponse> getMyFeed(long page, long offset, String author);
+
+    @NonNull
+    Observable<GlobalFeedResponse> getFavoriteFeed(long page, long offset, String favorite);
 }

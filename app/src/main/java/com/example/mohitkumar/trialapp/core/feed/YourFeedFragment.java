@@ -17,7 +17,7 @@ import com.example.mohitkumar.trialapp.R;
 import com.example.mohitkumar.trialapp.core.PaginationScrollListener;
 import com.example.mohitkumar.trialapp.core.comment.CommentActivity;
 import com.example.mohitkumar.trialapp.data.mainpage.Articles;
-import com.example.mohitkumar.trialapp.databinding.MyFeedBinding;
+import com.example.mohitkumar.trialapp.databinding.YourFeedBinding;
 import com.example.mohitkumar.trialapp.util.Utils;
 import java.util.List;
 import static com.example.mohitkumar.trialapp.MainApplication.TAG;
@@ -26,27 +26,27 @@ import static com.example.mohitkumar.trialapp.MainApplication.TAG;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MyFeedFragment extends Fragment {
+public class YourFeedFragment extends Fragment {
 
 
-    public MyFeedFragment() {
+    public YourFeedFragment() {
         // Required empty public constructor
     }
 
-    MyFeedBinding binding;
+    YourFeedBinding binding;
     LinearLayoutManager linearLayoutManager;
     private boolean isLoading = false;
     private boolean isLastPage = false;
     private int currentPage = 0;
     GlobalFeedAdapter adapter;
-    MyFeedViewModel viewModel;
+    YourFeedViewModel viewModel;
     private static final int TOTAL_PAGES = 500;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_my_feed, container, false);
-        viewModel = ViewModelProviders.of(this).get(MyFeedViewModel.class);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_your_feed, container, false);
+        viewModel = ViewModelProviders.of(this).get(YourFeedViewModel.class);
         return binding.getRoot();
     }
 
@@ -87,7 +87,7 @@ public class MyFeedFragment extends Fragment {
     }
 
     private void loadData() {
-        binding.teamsRecyclerView.addOnScrollListener(new PaginationScrollListener(linearLayoutManager) {
+       /* binding.teamsRecyclerView.addOnScrollListener(new PaginationScrollListener(linearLayoutManager) {
             @Override
             protected void loadMoreItems() {
                 isLoading = true;
@@ -115,7 +115,7 @@ public class MyFeedFragment extends Fragment {
             public boolean isLoading() {
                 return isLoading;
             }
-        });
+        });*/
         loadArticlesFirst();
     }
 

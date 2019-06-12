@@ -58,7 +58,7 @@ public interface API {
     Call<User> updateProfile(@Body UserPOJO object);
 
     @GET("api/articles/feed")
-    Observable<GlobalFeedResponse> getMyFeed(@Query("limit") long page, @Query("offset") long offset);
+    Observable<GlobalFeedResponse> getYourFeed(@Query("limit") long page, @Query("offset") long offset);
 
     @POST("api/articles/{slug}/favorite")
     Observable<SingleArticle> favoriteArticle(@Path("slug") String slug);
@@ -68,4 +68,11 @@ public interface API {
 
     @DELETE("api/profiles/{username}/follow")
     Call<ProfileResponse> unFollowUser(@Path("username") String username);
+
+    @GET("api/articles")
+    Observable<GlobalFeedResponse> getMyFeed(@Query("limit") long page, @Query("offset") long offset, @Query("author") String username);
+
+    @GET("api/articles")
+    Observable<GlobalFeedResponse> getFavoriteFeed(@Query("limit") long page, @Query("offset") long offset, @Query("favorited") String username);
+
 }
