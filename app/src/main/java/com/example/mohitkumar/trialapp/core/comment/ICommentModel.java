@@ -2,7 +2,7 @@ package com.example.mohitkumar.trialapp.core.comment;
 
 
 import com.example.mohitkumar.trialapp.data.comment.Comment;
-import com.example.mohitkumar.trialapp.data.comment.Comments;
+import com.example.mohitkumar.trialapp.data.comment.CommentResponse;
 import com.example.mohitkumar.trialapp.data.comment.PostComment;
 import com.example.mohitkumar.trialapp.data.comment.SingleArticle;
 
@@ -23,7 +23,7 @@ public interface ICommentModel {
 
     interface OnCommentFetchFinishListener {
         void onCommentError(String error);
-        void onCommentsFetchSuccess(Response<Comments> response);
+        void onCommentsFetchSuccess(Response<CommentResponse> response);
     }
 
     interface OnCommentPostedListener {

@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 import static com.example.mohitkumar.trialapp.MainApplication.TAG;
 import com.example.mohitkumar.trialapp.R;
-import com.example.mohitkumar.trialapp.data.MainPage.Articles;
 import com.example.mohitkumar.trialapp.data.writearticle.WArticle;
 import com.example.mohitkumar.trialapp.data.writearticle.WriteArticle;
 import com.example.mohitkumar.trialapp.databinding.WriteArticleBinding;

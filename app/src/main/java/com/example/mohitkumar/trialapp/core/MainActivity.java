@@ -11,14 +11,14 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import com.example.mohitkumar.trialapp.R;
-import com.example.mohitkumar.trialapp.Util.Constants;
-import com.example.mohitkumar.trialapp.Util.PrefManager;
-import com.example.mohitkumar.trialapp.Util.Utils;
-import com.example.mohitkumar.trialapp.core.Feed.GlobalfeedFragment;
-import com.example.mohitkumar.trialapp.core.Login.ILoginPresenter;
-import com.example.mohitkumar.trialapp.core.Login.LoginActivity;
-import com.example.mohitkumar.trialapp.core.Login.LoginPresenter;
-import com.example.mohitkumar.trialapp.core.SignUp.SignUpActivity;
+import com.example.mohitkumar.trialapp.util.Constants;
+import com.example.mohitkumar.trialapp.util.PrefManager;
+import com.example.mohitkumar.trialapp.util.Utils;
+import com.example.mohitkumar.trialapp.core.feed.GlobalfeedFragment;
+import com.example.mohitkumar.trialapp.core.login.ILoginPresenter;
+import com.example.mohitkumar.trialapp.core.login.LoginActivity;
+import com.example.mohitkumar.trialapp.core.login.LoginPresenter;
+import com.example.mohitkumar.trialapp.core.signup.SignUpActivity;
 import com.example.mohitkumar.trialapp.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
@@ -103,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
         leagueFragmentAdapter = new MainFragmentAdapter(getSupportFragmentManager());
         if (Utils.isLoggedIn()) {
             leagueFragmentAdapter.addFragments(new GlobalfeedFragment(), this.getResources().getString(R.string.global_Feed));
+           // leagueFragmentAdapter.addFragments(new GlobalfeedFragment(), this.getResources().getString(R.string.my_feed));
         } else {
             leagueFragmentAdapter.addFragments(new GlobalfeedFragment(), this.getResources().getString(R.string.global_Feed));
         }

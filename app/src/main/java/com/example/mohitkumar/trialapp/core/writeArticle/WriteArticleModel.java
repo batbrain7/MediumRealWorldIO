@@ -1,7 +1,6 @@
 package com.example.mohitkumar.trialapp.core.writeArticle;
 
-import com.example.mohitkumar.trialapp.core.PersonalActivity;
-import com.example.mohitkumar.trialapp.data.CreateAuthService;
+import com.example.mohitkumar.trialapp.data.AuthService;
 import com.example.mohitkumar.trialapp.data.comment.SingleArticle;
 import com.example.mohitkumar.trialapp.data.writearticle.WriteArticle;
 
@@ -15,7 +14,7 @@ public class WriteArticleModel implements IWriteArticleModel {
 
     @Override
     public void postArticle(WriteArticle article, OnArticlePostListener listener) {
-        call = CreateAuthService.getApi().postArticle(article);
+        call = AuthService.getApi().postArticle(article);
 
         call.enqueue(new Callback<SingleArticle>() {
             @Override

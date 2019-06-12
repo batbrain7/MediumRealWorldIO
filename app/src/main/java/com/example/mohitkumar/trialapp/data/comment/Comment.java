@@ -1,10 +1,7 @@
 package com.example.mohitkumar.trialapp.data.comment;
 
-import com.example.mohitkumar.trialapp.data.MainPage.Author;
+import com.example.mohitkumar.trialapp.data.mainpage.Author;
 
-import lombok.Data;
-
-@Data
 public class Comment {
 
     public int id;

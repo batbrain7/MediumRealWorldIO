@@ -19,8 +19,8 @@ import com.bumptech.glide.request.target.Target;
 import com.example.mohitkumar.trialapp.R;
 import static com.example.mohitkumar.trialapp.MainApplication.TAG;
 
-import com.example.mohitkumar.trialapp.Util.Utils;
-import com.example.mohitkumar.trialapp.data.MainPage.Articles;
+import com.example.mohitkumar.trialapp.util.Utils;
+import com.example.mohitkumar.trialapp.data.mainpage.Articles;
 import com.example.mohitkumar.trialapp.data.comment.Comment;
 import com.example.mohitkumar.trialapp.data.comment.CommentBody;
 import com.example.mohitkumar.trialapp.data.comment.PostComment;

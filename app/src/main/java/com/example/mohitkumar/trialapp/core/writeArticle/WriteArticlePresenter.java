@@ -2,7 +2,7 @@ package com.example.mohitkumar.trialapp.core.writeArticle;
 
 import android.util.Log;
 import static com.example.mohitkumar.trialapp.MainApplication.TAG;
-import com.example.mohitkumar.trialapp.data.MainPage.Articles;
+
 import com.example.mohitkumar.trialapp.data.comment.SingleArticle;
 import com.example.mohitkumar.trialapp.data.writearticle.WriteArticle;
 

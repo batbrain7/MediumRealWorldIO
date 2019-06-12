@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".core.PersonalActivity"></activity>
         <activity android:name=".core.comment.CommentActivity" />
-        <activity android:name=".core.SignUp.SignUpActivity" />
+        <activity android:name=".core.signup.SignUpActivity" />
         <activity android:name=".core.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,7 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".core.Login.LoginActivity" />
+        <activity android:name=".core.login.LoginActivity" />
     </application>
 
 </manifest>

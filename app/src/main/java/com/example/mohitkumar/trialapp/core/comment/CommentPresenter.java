@@ -1,11 +1,9 @@
 package com.example.mohitkumar.trialapp.core.comment;
 
-import android.text.TextUtils;
 import android.util.Log;
 
-import com.example.mohitkumar.trialapp.data.MainPage.Articles;
 import com.example.mohitkumar.trialapp.data.comment.Comment;
-import com.example.mohitkumar.trialapp.data.comment.Comments;
+import com.example.mohitkumar.trialapp.data.comment.CommentResponse;
 import com.example.mohitkumar.trialapp.data.comment.PostComment;
 import com.example.mohitkumar.trialapp.data.comment.SingleArticle;
 
@@ -66,13 +64,13 @@ public class CommentPresenter implements ICommentPresenter, ICommentModel.OnComm
     }
 
     @Override
-    public void onCommentsFetchSuccess(Response<Comments> response) {
+    public void onCommentsFetchSuccess(Response<CommentResponse> response) {
         if (response.body() == null) {
             Log.d(TAG, "Response Body is null, code : " + response.code());
         } else {
             Log.d(TAG, response.body().toString());
-            Comments comments = response.body();
-            commentView.onCommentsFetchSuccess(comments.comments);
+            CommentResponse commentResponse = response.body();
+            commentView.onCommentsFetchSuccess(commentResponse.comments);
         }
     }
 

@@ -1,9 +1,9 @@
 package com.example.mohitkumar.trialapp.core.comment;
 
-import com.example.mohitkumar.trialapp.data.CreateAuthService;
-import com.example.mohitkumar.trialapp.data.CreateService;
+import com.example.mohitkumar.trialapp.data.AuthService;
+import com.example.mohitkumar.trialapp.data.Service;
 import com.example.mohitkumar.trialapp.data.comment.Comment;
-import com.example.mohitkumar.trialapp.data.comment.Comments;
+import com.example.mohitkumar.trialapp.data.comment.CommentResponse;
 import com.example.mohitkumar.trialapp.data.comment.PostComment;
 import com.example.mohitkumar.trialapp.data.comment.SingleArticle;
 
@@ -15,13 +15,13 @@ public class CommentModel implements ICommentModel {
 
     Call<SingleArticle> call;
 
-    Call<Comments> commentsCall;
+    Call<CommentResponse> commentsCall;
 
     Call<Comment> commentPostCall;
 
     @Override
     public void fetchArticle(String slug, OnArticleFetchFinishedListener listener) {
-        call = CreateService.getApi().getSingleArticle(slug);
+        call = Service.getApi().getSingleArticle(slug);
 
         call.enqueue(new Callback<SingleArticle>() {
             @Override
@@ -38,16 +38,16 @@ public class CommentModel implements ICommentModel {
 
     @Override
     public void fetchComments(String slug, OnCommentFetchFinishListener listener) {
-        commentsCall = CreateService.getApi().getCommentsArticle(slug);
+        commentsCall = Service.getApi().getCommentsArticle(slug);
 
-        commentsCall.enqueue(new Callback<Comments>() {
+        commentsCall.enqueue(new Callback<CommentResponse>() {
             @Override
-            public void onResponse(Call<Comments> call, Response<Comments> response) {
+            public void onResponse(Call<CommentResponse> call, Response<CommentResponse> response) {
                 listener.onCommentsFetchSuccess(response);
             }
 
             @Override
-            public void onFailure(Call<Comments> call, Throwable t) {
+            public void onFailure(Call<CommentResponse> call, Throwable t) {
                 listener.onCommentError(t.toString());
             }
         });
@@ -55,7 +55,7 @@ public class CommentModel implements ICommentModel {
 
     @Override
     public void postComment(String slug, PostComment comment, OnCommentPostedListener listener) {
-        commentPostCall = CreateAuthService.getApi().postComment(slug, comment);
+        commentPostCall = AuthService.getApi().postComment(slug, comment);
 
         commentPostCall.enqueue(new Callback<Comment>() {
             @Override

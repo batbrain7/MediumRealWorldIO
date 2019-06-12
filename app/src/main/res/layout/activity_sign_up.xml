@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
 
-    tools:context=".core.SignUp.SignUpActivity">
+    tools:context=".core.signup.SignUpActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

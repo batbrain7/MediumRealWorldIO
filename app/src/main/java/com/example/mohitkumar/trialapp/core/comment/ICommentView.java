@@ -1,8 +1,7 @@
 package com.example.mohitkumar.trialapp.core.comment;
 
-import com.example.mohitkumar.trialapp.data.MainPage.Articles;
+import com.example.mohitkumar.trialapp.data.mainpage.Articles;
 import com.example.mohitkumar.trialapp.data.comment.Comment;
-import com.example.mohitkumar.trialapp.data.comment.Comments;
 
 import java.util.List;
 
