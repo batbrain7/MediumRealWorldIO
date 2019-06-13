@@ -1,7 +1,6 @@
 package com.example.mohitkumar.trialapp.core.signup;
 
 import com.example.mohitkumar.trialapp.data.loginsignup.User;
-
 import retrofit2.Response;
 
 public interface ISignUpModel {

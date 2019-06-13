@@ -49,6 +49,4 @@ public interface ICommentModel {
         void onFavoriteUnfFavoriteError(String error);
         void onFavoriteUnfFavoriteSuccess(Response<SingleArticle> response);
     }
-
-    void cancelFetch();
 }

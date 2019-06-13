@@ -11,8 +11,8 @@ import android.widget.Toast;
 import com.example.mohitkumar.trialapp.R;
 import com.example.mohitkumar.trialapp.core.MainActivity;
 import com.example.mohitkumar.trialapp.data.mainpage.Article;
-import com.example.mohitkumar.trialapp.data.writearticle.WArticle;
-import com.example.mohitkumar.trialapp.data.writearticle.WriteArticle;
+import com.example.mohitkumar.trialapp.data.writearticle.ArticleBody;
+import com.example.mohitkumar.trialapp.data.writearticle.WriteArticlePOJO;
 import com.example.mohitkumar.trialapp.databinding.EditArticleBinding;
 
 import java.util.ArrayList;
@@ -22,7 +22,8 @@ public class EditArticleActivity extends AppCompatActivity implements IEditArtic
     EditArticleBinding binding;
     String extra;
     IEditArticlePresenter presenter;
-    WArticle article;
+    ArticleBody article;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +32,7 @@ public class EditArticleActivity extends AppCompatActivity implements IEditArtic
         presenter = new EditArticlePresenter();
         presenter.onAttach(this);
         presenter.fetchArticle(extra);
-        article = new WArticle();
+        article = new ArticleBody();
     }
 
     @Override
@@ -54,13 +55,14 @@ public class EditArticleActivity extends AppCompatActivity implements IEditArtic
     @Override
     public void onArticleFetchError(String error) {
         binding.progressBar.setVisibility(View.GONE);
+        Toast.makeText(this, "Unable to fetch the article", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onArticleUpdateSuccess(Article article) {
         binding.progressBar.setVisibility(View.GONE);
         Intent intent = new Intent(this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
     }
@@ -81,7 +83,7 @@ public class EditArticleActivity extends AppCompatActivity implements IEditArtic
     public void onArticleDeleteSuccess(String success) {
         binding.progressBar.setVisibility(View.GONE);
         Intent intent = new Intent(this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
     }
@@ -99,9 +101,9 @@ public class EditArticleActivity extends AppCompatActivity implements IEditArtic
         if (!TextUtils.isEmpty(binding.articleBody.getText()))
             this.article.body = binding.articleBody.getText().toString();
         this.article.tagList = new ArrayList<>();
-        WriteArticle writeArticle = new WriteArticle();
-        writeArticle.article = this.article;
-        presenter.updateArticle(extra, writeArticle);
+        WriteArticlePOJO writeArticlePOJO = new WriteArticlePOJO();
+        writeArticlePOJO.article = this.article;
+        presenter.updateArticle(extra, writeArticlePOJO);
     }
 
     public void deleteArticle(View view) {

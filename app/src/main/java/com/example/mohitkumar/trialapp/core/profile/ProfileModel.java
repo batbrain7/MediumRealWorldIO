@@ -9,7 +9,7 @@ import retrofit2.Response;
 
 public class ProfileModel implements IProfileModel {
 
-    Call<ProfileResponse> call;
+    private Call<ProfileResponse> call;
 
     @Override
     public void getProfile(String username, IProfileModel.OnFetchProfileListener listener) {

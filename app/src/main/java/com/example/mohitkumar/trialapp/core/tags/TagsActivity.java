@@ -31,9 +31,9 @@ public class TagsActivity extends AppCompatActivity {
     private boolean isLastPage = false;
     private int currentPage = 0;
     private static final int TOTAL_PAGES = 500;
-    GlobalFeedAdapter adapter;
-    TagsRecyclerAdapter recyclerAdapter;
-    LinearLayoutManager linearLayoutManager;
+    private GlobalFeedAdapter adapter;
+    private TagsRecyclerAdapter recyclerAdapter;
+    private LinearLayoutManager linearLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +47,8 @@ public class TagsActivity extends AppCompatActivity {
         super.onStart();
         viewModel.getProgress().observe(this, binding.progressBar::setVisibility);
         viewModel.getTags().observe(this, list -> {
-            setHorizontalRecyclerView(list);
+            if (list != null)
+                setHorizontalRecyclerView(list);
         });
     }
 

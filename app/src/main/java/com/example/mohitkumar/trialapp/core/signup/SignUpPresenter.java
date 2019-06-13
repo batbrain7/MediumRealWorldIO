@@ -7,9 +7,6 @@ import com.example.mohitkumar.trialapp.data.loginsignup.User;
 import com.example.mohitkumar.trialapp.util.Constants;
 import com.example.mohitkumar.trialapp.util.PrefManager;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import retrofit2.Response;
 
 import static com.example.mohitkumar.trialapp.MainApplication.TAG;
@@ -22,11 +19,6 @@ public class SignUpPresenter implements ISignUpPresenter, ISignUpModel.OnSignUpF
     @Override
     public void signUp(String email, String password, String username) {
         signUpModel.signUp(email, password, username, this);
-    }
-
-    @Override
-    public void cancelSignUp() {
-        signUpModel.cancelSignUp();
     }
 
     @Override
@@ -49,7 +41,7 @@ public class SignUpPresenter implements ISignUpPresenter, ISignUpModel.OnSignUpF
             LoginSignUpResponse upResponse;
             upResponse = user.user;
             PrefManager.putString(Constants.ACCESS_TOKEN, upResponse.token);
-            PrefManager.putString(Constants.USERNAME, upResponse.username);
+            PrefManager.putString(Constants.USER_NAME, upResponse.username);
             PrefManager.putString(Constants.EMAIL, upResponse.email);
             signUpView.onSignUpSuccess();
         }
@@ -67,7 +59,7 @@ public class SignUpPresenter implements ISignUpPresenter, ISignUpModel.OnSignUpF
 //            Log.d(TAG, token);
 //            PrefManager.putString(Constants.ACCESS_TOKEN, token);
 //            PrefManager.putString(Constants.EMAIL, email);
-//            PrefManager.putString(Constants.USERNAME, username);
+//            PrefManager.putString(Constants.USER_NAME, username);
 //            PrefManager.putString(Constants.BIO, bio);
 //            signUpView.onSignUpSuccess();
 //        } catch (JSONException e) {

@@ -1,7 +1,6 @@
 package com.example.mohitkumar.trialapp.core.comment;
 
 import android.content.Context;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -43,7 +42,7 @@ public class CommentRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         holder.username.setText(comment.author.username);
         holder.date.setText(comment.createdAt);
         holder.comment.setText(comment.body);
-        if (comment.author.username.equals(PrefManager.getString(Constants.USERNAME, ""))) {
+        if (comment.author.username.equals(PrefManager.getString(Constants.USER_NAME, ""))) {
             holder.deleteButton.setVisibility(View.VISIBLE);
             holder.deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override

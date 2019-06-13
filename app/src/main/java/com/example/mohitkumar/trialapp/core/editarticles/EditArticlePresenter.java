@@ -3,7 +3,8 @@ package com.example.mohitkumar.trialapp.core.editarticles;
 import android.util.Log;
 
 import com.example.mohitkumar.trialapp.data.comment.SingleArticle;
-import com.example.mohitkumar.trialapp.data.writearticle.WriteArticle;
+import com.example.mohitkumar.trialapp.data.writearticle.WriteArticlePOJO;
+import com.example.mohitkumar.trialapp.util.Utils;
 
 import retrofit2.Response;
 
@@ -30,8 +31,8 @@ public class EditArticlePresenter implements IEditArticlePresenter, IEditArticle
     }
 
     @Override
-    public void updateArticle(String slug, WriteArticle writeArticle) {
-        model.updateArticle(slug, writeArticle,this);
+    public void updateArticle(String slug, WriteArticlePOJO writeArticlePOJO) {
+        model.updateArticle(slug, writeArticlePOJO,this);
         articleView.displayProgress();
     }
 
@@ -70,7 +71,11 @@ public class EditArticlePresenter implements IEditArticlePresenter, IEditArticle
     }
 
     @Override
-    public void onDeleteArticleError(String error) {
-        articleView.onArticleDeleteError(error);
+    public void onDeleteArticleError(Throwable error) {
+        if (Utils.hasNetwork()) {
+            articleView.onArticleDeleteSuccess("Successfully deleted the article");
+        } else {
+            articleView.onArticleDeleteError(error.toString());
+        }
     }
 }

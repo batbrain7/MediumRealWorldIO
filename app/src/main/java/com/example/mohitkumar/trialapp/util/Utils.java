@@ -6,7 +6,7 @@ import android.net.NetworkInfo;
 
 import com.example.mohitkumar.trialapp.MainApplication;
 
-public class Utils {
+public final class Utils {
 
     public static boolean hasNetwork() {
         ConnectivityManager connectivityManager
@@ -17,10 +17,6 @@ public class Utils {
 
     public static boolean isLoggedIn() {
         return PrefManager.getBoolean(Constants.LOG_IN);
-    }
-
-    public void saveToken() {
-       // Pref
     }
 
     public static void clearToken() {

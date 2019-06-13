@@ -4,7 +4,7 @@ import android.util.Log;
 import static com.example.mohitkumar.trialapp.MainApplication.TAG;
 
 import com.example.mohitkumar.trialapp.data.comment.SingleArticle;
-import com.example.mohitkumar.trialapp.data.writearticle.WriteArticle;
+import com.example.mohitkumar.trialapp.data.writearticle.WriteArticlePOJO;
 
 import retrofit2.Response;
 
@@ -23,7 +23,7 @@ public class WriteArticlePresenter implements IWriteArticlePresenter, IWriteArti
     }
 
     @Override
-    public void postArticle(WriteArticle article) {
+    public void postArticle(WriteArticlePOJO article) {
         model.postArticle(article, (IWriteArticleModel.OnArticlePostListener) this);
     }
 

@@ -27,19 +27,19 @@ import java.util.List;
 public class MyFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static ClickListener clickListener;
 
-    Context context;
+    private Context context;
     private boolean isLoadingAdded = false;
     private List<Article> articles;
     private int LOADING = 0;
     private int ITEM = 1;
     private String slug;
 
-    public MyFeedAdapter(Context context) {
+    MyFeedAdapter(Context context) {
         this.context = context;
         this.articles = new ArrayList<>();
     }
 
-    public MyFeedAdapter(Context context, List<Article> articles) {
+    MyFeedAdapter(Context context, List<Article> articles) {
         this.context = context;
         this.articles = articles;
     }
@@ -90,7 +90,7 @@ public class MyFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                             .listener(new RequestListener<Bitmap>() {
                                 @Override
                                 public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Bitmap> target, boolean isFirstResource) {
-                                    Toast.makeText(context, "ERROR in image laoding", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(context, "ERROR while image laoding", Toast.LENGTH_LONG).show();
                                     return false;
                                 }
 
@@ -121,7 +121,7 @@ public class MyFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     class LoadingViewHolder extends RecyclerView.ViewHolder {
-        public LoadingViewHolder(@NonNull View itemView) {
+        LoadingViewHolder(@NonNull View itemView) {
             super(itemView);
         }
     }
@@ -172,7 +172,7 @@ public class MyFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
     }
 
-    public void setOnItemClickListener(ClickListener clickListener) {
+    void setOnItemClickListener(ClickListener clickListener) {
         MyFeedAdapter.clickListener = clickListener;
     }
 
@@ -194,7 +194,8 @@ public class MyFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         ImageView imageView;
         String slug;
         LinearLayout layout;
-        public ContentViewHolder(@NonNull View itemView) {
+
+        ContentViewHolder(@NonNull View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
             imageView = itemView.findViewById(R.id.imageArticle);
@@ -205,6 +206,7 @@ public class MyFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             userArticle = itemView.findViewById(R.id.userArticle);
             layout = itemView.findViewById(R.id.favoriteArticle);
         }
+
         @Override
         public void onClick(View view) {
             clickListener.onItemClick(getAdapterPosition(), view, slug);

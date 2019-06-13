@@ -61,9 +61,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.tags) {
-                startActivity(new Intent(this, TagsActivity.class));
+            startActivity(new Intent(this, TagsActivity.class));
         }
-        if(actionBarDrawerToggle.onOptionsItemSelected(item))
+        if (actionBarDrawerToggle.onOptionsItemSelected(item))
             return true;
 
         return super.onOptionsItemSelected(item);
@@ -76,13 +76,13 @@ public class MainActivity extends AppCompatActivity {
                 if (Utils.isLoggedIn()) {
                     int id = menuItem.getItemId();
                     switch (id) {
-                        case R.id.newArticle :
+                        case R.id.newArticle:
                             openClassWrite("Write");
                             break;
-                        case R.id.settings :
+                        case R.id.settings:
                             openClassWrite("Settings");
                             break;
-                        case R.id.myprofile :
+                        case R.id.myprofile:
                             openClassProfile();
                             break;
                         default:
@@ -91,10 +91,10 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     int id = menuItem.getItemId();
                     switch (id) {
-                        case R.id.signIn :
+                        case R.id.signIn:
                             login();
                             break;
-                        case R.id.signUp :
+                        case R.id.signUp:
                             signUp();
                             break;
                         default:

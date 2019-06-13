@@ -14,8 +14,8 @@ import android.widget.Toast;
 import static com.example.mohitkumar.trialapp.MainApplication.TAG;
 import com.example.mohitkumar.trialapp.R;
 import com.example.mohitkumar.trialapp.core.MainActivity;
-import com.example.mohitkumar.trialapp.data.writearticle.WArticle;
-import com.example.mohitkumar.trialapp.data.writearticle.WriteArticle;
+import com.example.mohitkumar.trialapp.data.writearticle.ArticleBody;
+import com.example.mohitkumar.trialapp.data.writearticle.WriteArticlePOJO;
 import com.example.mohitkumar.trialapp.databinding.WriteArticleBinding;
 
 import java.util.ArrayList;
@@ -53,12 +53,12 @@ public class WriteArticleFragment extends Fragment implements IWriteArticleView{
     public void publish() {
         if (!TextUtils.isEmpty(binding.articleTitle.getText()) && !TextUtils.isEmpty(binding.articleAbout.getText()) &&
                     !TextUtils.isEmpty(binding.articleBody.getText())) {
-            WArticle article = new WArticle();
+            ArticleBody article = new ArticleBody();
             article.title = binding.articleTitle.getText().toString();
             article.description = binding.articleAbout.getText().toString();
             article.body = binding.articleBody.getText().toString();
             article.tagList = new ArrayList<>();
-            WriteArticle article1 = new WriteArticle();
+            WriteArticlePOJO article1 = new WriteArticlePOJO();
             article1.article = article;
             presenter.postArticle(article1);
         }

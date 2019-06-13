@@ -30,7 +30,7 @@ public final class PrefManager {
         editor.remove(Constants.ACCESS_TOKEN);
         editor.remove(Constants.EMAIL);
         editor.remove(Constants.LOG_IN);
-        editor.remove(Constants.USERNAME);
+        editor.remove(Constants.USER_NAME);
         editor.apply();
     }
 

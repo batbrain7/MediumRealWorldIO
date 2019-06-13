@@ -21,6 +21,4 @@ public interface ISettingsModel {
         void onProfileFetchError(String error);
         void onProfileFetchSuccess(Response<ProfileResponse> response);
     }
-
-    void cancelSettingsUpdate();
 }

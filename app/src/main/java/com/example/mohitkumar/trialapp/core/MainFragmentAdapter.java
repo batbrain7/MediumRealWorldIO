@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 public class MainFragmentAdapter extends FragmentPagerAdapter {
 
-    ArrayList<Fragment> fragments = new ArrayList<Fragment>();
-    ArrayList<String> tabTitles = new ArrayList<String>();
+    private ArrayList<Fragment> fragments = new ArrayList<Fragment>();
+    private ArrayList<String> tabTitles = new ArrayList<String>();
 
     public MainFragmentAdapter(FragmentManager fm) {
         super(fm);

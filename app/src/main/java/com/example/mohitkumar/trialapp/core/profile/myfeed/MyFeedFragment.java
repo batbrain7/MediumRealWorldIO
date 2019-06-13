@@ -18,7 +18,6 @@ import android.widget.Toast;
 import com.example.mohitkumar.trialapp.R;
 import com.example.mohitkumar.trialapp.core.PaginationScrollListener;
 import com.example.mohitkumar.trialapp.core.editarticles.EditArticleActivity;
-import com.example.mohitkumar.trialapp.core.feed.GlobalFeedAdapter;
 import com.example.mohitkumar.trialapp.core.feed.YourFeedViewModel;
 import com.example.mohitkumar.trialapp.data.mainpage.Article;
 import com.example.mohitkumar.trialapp.databinding.FeedBinding;
@@ -99,7 +98,7 @@ public class MyFeedFragment extends Fragment {
     }
 
     private void loadArticlesFirst() {
-        viewModel.getMyFeedArticles(0, PrefManager.getString(Constants.USERNAME, ""))
+        viewModel.getMyFeedArticles(0, PrefManager.getString(Constants.USER_NAME, ""))
                 .observe(this, globalFeedResponse -> {
                     binding.progressBar.setVisibility(View.GONE);
                     binding.progressBar.setVisibility(View.GONE);
@@ -159,7 +158,7 @@ public class MyFeedFragment extends Fragment {
     }
 
     private void loadNextPage() {
-        viewModel.getMyFeedArticles(currentPage, PrefManager.getString(Constants.USERNAME, ""))
+        viewModel.getMyFeedArticles(currentPage, PrefManager.getString(Constants.USER_NAME, ""))
                 .observe(this, globalFeedResponse -> {
                     adapter.removeLoadingFooter();
                     isLoading = false;

@@ -54,7 +54,7 @@ public class SettingsPresenter implements ISettingsPresenter, ISettingsModel.OnS
         if (user == null) {
             Log.d(TAG, "user is null");
         } else {
-            PrefManager.putString(Constants.USERNAME, user.user.username);
+            PrefManager.putString(Constants.USER_NAME, user.user.username);
             PrefManager.putString(Constants.ACCESS_TOKEN, user.user.token);
             PrefManager.putString(Constants.EMAIL, user.user.email);
             view.onSettingsUpdateSuccess(user.toString());

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.PrecomputedText;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.mohitkumar.trialapp.R;
-import com.example.mohitkumar.trialapp.core.profile.ProfileActivity;
 import com.example.mohitkumar.trialapp.data.settings.ProfileResponse;
 import com.example.mohitkumar.trialapp.data.settings.UpdateUserPOJO;
 import com.example.mohitkumar.trialapp.data.settings.UserPOJO;
@@ -25,10 +23,6 @@ import com.example.mohitkumar.trialapp.core.MainActivity;
 import com.example.mohitkumar.trialapp.databinding.SettingsBinding;
 
 import static com.example.mohitkumar.trialapp.MainApplication.TAG;
-
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class SettingsFragment extends Fragment implements ISettingsView {
 
@@ -66,7 +60,7 @@ public class SettingsFragment extends Fragment implements ISettingsView {
                 logOut();
             }
         });
-        presenter.getProfile(PrefManager.getString(Constants.USERNAME, ""));
+        presenter.getProfile(PrefManager.getString(Constants.USER_NAME, ""));
     }
 
     private void logOut() {

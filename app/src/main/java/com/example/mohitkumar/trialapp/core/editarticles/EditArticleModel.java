@@ -3,7 +3,7 @@ package com.example.mohitkumar.trialapp.core.editarticles;
 import android.util.Log;
 
 import com.example.mohitkumar.trialapp.data.comment.SingleArticle;
-import com.example.mohitkumar.trialapp.data.writearticle.WriteArticle;
+import com.example.mohitkumar.trialapp.data.writearticle.WriteArticlePOJO;
 import com.example.mohitkumar.trialapp.network.AuthService;
 import com.example.mohitkumar.trialapp.network.Service;
 import static com.example.mohitkumar.trialapp.MainApplication.TAG;
@@ -36,7 +36,7 @@ public class EditArticleModel implements IEditArticleModel {
     }
 
     @Override
-    public void updateArticle(String slug, WriteArticle article, OnArticleUpdateListener listener) {
+    public void updateArticle(String slug, WriteArticlePOJO article, OnArticleUpdateListener listener) {
         call = AuthService.getApi().upDateArticle(slug, article);
 
         call.enqueue(new Callback<SingleArticle>() {
@@ -65,7 +65,7 @@ public class EditArticleModel implements IEditArticleModel {
             @Override
             public void onFailure(Call<String> call, Throwable t) {
                 Log.d(TAG, "INSIDE DELETE ERROR");
-                listener.onDeleteArticleError(t.toString());
+                listener.onDeleteArticleError(t);
             }
         });
     }

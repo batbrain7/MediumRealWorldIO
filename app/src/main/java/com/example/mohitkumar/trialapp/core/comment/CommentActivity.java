@@ -38,7 +38,6 @@ public class CommentActivity extends AppCompatActivity implements ICommentView {
     ICommentPresenter presenter;
     CommentRecyclerAdapter adapter;
     String extra;
-    boolean isFavorite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

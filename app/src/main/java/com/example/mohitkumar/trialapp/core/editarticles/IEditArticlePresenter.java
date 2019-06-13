@@ -1,6 +1,6 @@
 package com.example.mohitkumar.trialapp.core.editarticles;
 
-import com.example.mohitkumar.trialapp.data.writearticle.WriteArticle;
+import com.example.mohitkumar.trialapp.data.writearticle.WriteArticlePOJO;
 
 public interface IEditArticlePresenter {
 
@@ -8,7 +8,7 @@ public interface IEditArticlePresenter {
 
     void fetchArticle(String slug);
 
-    void updateArticle(String slug, WriteArticle writeArticle);
+    void updateArticle(String slug, WriteArticlePOJO writeArticlePOJO);
 
     void deleteArticle(String slug);
 }

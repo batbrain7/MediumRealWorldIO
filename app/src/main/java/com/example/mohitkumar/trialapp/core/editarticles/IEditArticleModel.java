@@ -1,7 +1,7 @@
 package com.example.mohitkumar.trialapp.core.editarticles;
 
 import com.example.mohitkumar.trialapp.data.comment.SingleArticle;
-import com.example.mohitkumar.trialapp.data.writearticle.WriteArticle;
+import com.example.mohitkumar.trialapp.data.writearticle.WriteArticlePOJO;
 
 import retrofit2.Response;
 
@@ -9,7 +9,7 @@ public interface IEditArticleModel {
 
     void fetchArticle(String slug, IEditArticleModel.OnArticleFetchListener listener);
 
-    void updateArticle(String slug, WriteArticle writeArticle, IEditArticleModel.OnArticleUpdateListener listener);
+    void updateArticle(String slug, WriteArticlePOJO writeArticlePOJO, IEditArticleModel.OnArticleUpdateListener listener);
 
     void deleteArticle(String slug, IEditArticleModel.OnArticleDeleteListener listener);
 
@@ -25,7 +25,7 @@ public interface IEditArticleModel {
 
     interface OnArticleDeleteListener {
         void onDeleteArticleSuccess(Response<String> string);
-        void onDeleteArticleError(String error);
+        void onDeleteArticleError(Throwable error);
     }
 
 }

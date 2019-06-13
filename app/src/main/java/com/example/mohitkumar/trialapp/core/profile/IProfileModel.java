@@ -1,6 +1,5 @@
 package com.example.mohitkumar.trialapp.core.profile;
 
-import com.example.mohitkumar.trialapp.core.settings.ISettingsModel;
 import com.example.mohitkumar.trialapp.data.settings.ProfileResponse;
 
 import retrofit2.Response;
@@ -10,6 +9,7 @@ public interface IProfileModel {
 
     interface OnFetchProfileListener {
         void onProfileFetchError(String error);
+
         void onProfileFetchSuccess(Response<ProfileResponse> response);
     }
 }

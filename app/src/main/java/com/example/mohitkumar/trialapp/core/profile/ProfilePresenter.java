@@ -6,10 +6,10 @@ import retrofit2.Response;
 
 public class ProfilePresenter implements IProfilePresenter, IProfileModel.OnFetchProfileListener {
 
-    IProfileView view;
-    IProfileModel model;
+    private IProfileView view;
+    private IProfileModel model;
 
-    public ProfilePresenter() {
+    ProfilePresenter() {
         this.model = new ProfileModel();
     }
 

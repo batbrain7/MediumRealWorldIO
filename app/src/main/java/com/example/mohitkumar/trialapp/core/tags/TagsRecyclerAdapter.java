@@ -1,6 +1,5 @@
 package com.example.mohitkumar.trialapp.core.tags;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,9 +13,9 @@ import java.util.List;
 
 public class TagsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static ClickListener clickListener;
-    List<String> tags;
+    private List<String> tags;
 
-    public TagsRecyclerAdapter(List<String> tags) {
+    TagsRecyclerAdapter(List<String> tags) {
         this.tags = tags;
     }
 
@@ -61,7 +60,7 @@ public class TagsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
-    public void setOnItemClickListener(ClickListener clickListener) {
+     void setOnItemClickListener(ClickListener clickListener) {
         TagsRecyclerAdapter.clickListener = clickListener;
     }
 }

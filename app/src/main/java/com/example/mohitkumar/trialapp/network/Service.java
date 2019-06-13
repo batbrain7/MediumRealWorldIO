@@ -1,7 +1,5 @@
 package com.example.mohitkumar.trialapp.network;
 
-import com.example.mohitkumar.trialapp.network.API;
-
 import java.io.IOException;
 
 import okhttp3.Interceptor;

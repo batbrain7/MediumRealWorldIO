@@ -18,7 +18,6 @@ import com.bumptech.glide.request.target.Target;
 import com.example.mohitkumar.trialapp.R;
 import com.example.mohitkumar.trialapp.core.MainActivity;
 import com.example.mohitkumar.trialapp.core.MainFragmentAdapter;
-import com.example.mohitkumar.trialapp.core.feed.YourFeedFragment;
 import com.example.mohitkumar.trialapp.core.profile.myfeed.MyFeedFragment;
 import com.example.mohitkumar.trialapp.data.settings.ProfileResponse;
 import com.example.mohitkumar.trialapp.databinding.ProfileBinding;
@@ -27,10 +26,11 @@ import com.example.mohitkumar.trialapp.util.PrefManager;
 
 import static com.example.mohitkumar.trialapp.MainApplication.TAG;
 
-public class ProfileActivity extends AppCompatActivity implements IProfileView{
+public class ProfileActivity extends AppCompatActivity implements IProfileView {
 
     ProfileBinding binding;
     IProfilePresenter presenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +43,7 @@ public class ProfileActivity extends AppCompatActivity implements IProfileView{
     @Override
     protected void onStart() {
         super.onStart();
-        presenter.getProfile(PrefManager.getString(Constants.USERNAME, ""));
+        presenter.getProfile(PrefManager.getString(Constants.USER_NAME, ""));
     }
 
     private void loadFragments() {
@@ -81,7 +81,7 @@ public class ProfileActivity extends AppCompatActivity implements IProfileView{
 
     @Override
     public void onProfileFetchError(String error) {
-        Toast.makeText(this, "Error in loading profile", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Error while loading profile", Toast.LENGTH_LONG).show();
         Log.d(TAG, error);
         binding.progressBar.setVisibility(View.GONE);
     }
@@ -95,7 +95,7 @@ public class ProfileActivity extends AppCompatActivity implements IProfileView{
     public void onBackPressed() {
         super.onBackPressed();
         Intent intent = new Intent(this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
     }

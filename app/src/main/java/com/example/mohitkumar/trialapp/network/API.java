@@ -11,7 +11,7 @@ import com.example.mohitkumar.trialapp.data.comment.PostComment;
 import com.example.mohitkumar.trialapp.data.comment.SingleArticle;
 import com.example.mohitkumar.trialapp.data.settings.UserPOJO;
 import com.example.mohitkumar.trialapp.data.tags.TagsResponse;
-import com.example.mohitkumar.trialapp.data.writearticle.WriteArticle;
+import com.example.mohitkumar.trialapp.data.writearticle.WriteArticlePOJO;
 
 import io.reactivex.Observable;
 import retrofit2.Call;
@@ -50,7 +50,7 @@ public interface API {
     Call<SingleArticle> unFavoriteArticle(@Path("slug") String slug);
 
     @POST("api/articles")
-    Call<SingleArticle> postArticle(@Body WriteArticle article);
+    Call<SingleArticle> postArticle(@Body WriteArticlePOJO article);
 
     @GET("api/profiles/{username}")
     Call<ProfileResponse> getProfile(@Path("username") String username);
@@ -77,7 +77,7 @@ public interface API {
     Observable<FeedResponse> getFavoriteFeed(@Query("limit") long page, @Query("offset") long offset, @Query("favorited") String username);
 
     @PUT("api/articles/{slug}")
-    Call<SingleArticle> upDateArticle(@Path("slug") String slug, @Body WriteArticle article);
+    Call<SingleArticle> upDateArticle(@Path("slug") String slug, @Body WriteArticlePOJO article);
 
     @DELETE("api/articles/{slug}")
     Call<String> deleteArticle(@Path("slug") String slug);

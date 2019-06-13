@@ -118,7 +118,7 @@ public class FavoriteFragment extends Fragment {
     }
 
     private void loadArticlesFirst() {
-        viewModel.getFeedFavoriteArticles(0, PrefManager.getString(Constants.USERNAME, ""))
+        viewModel.getFeedFavoriteArticles(0, PrefManager.getString(Constants.USER_NAME, ""))
                 .observe(this, globalFeedResponse -> {
                     binding.progressBar.setVisibility(View.GONE);
                     TOTAL_PAGES = globalFeedResponse.getArticlesCount();
@@ -139,7 +139,7 @@ public class FavoriteFragment extends Fragment {
     }
 
     private void loadNextPage() {
-        viewModel.getFeedFavoriteArticles(currentPage, PrefManager.getString(Constants.USERNAME, ""))
+        viewModel.getFeedFavoriteArticles(currentPage, PrefManager.getString(Constants.USER_NAME, ""))
                 .observe(this, globalFeedResponse -> {
                     adapter.removeLoadingFooter();
                     isLoading = false;

@@ -15,13 +15,13 @@ import retrofit2.Response;
 
 public class CommentModel implements ICommentModel {
 
-    Call<SingleArticle> call;
+    private Call<SingleArticle> call;
 
-    Call<CommentResponse> commentsCall;
+    private Call<CommentResponse> commentFetchCall;
 
-    Call<Comment> commentPostCall;
+    private Call<Comment> commentPostCall;
 
-    Call<ProfileResponse> followCall;
+    private Call<ProfileResponse> followCall;
 
     @Override
     public void fetchArticle(String slug, OnArticleFetchFinishedListener listener) {
@@ -45,9 +45,9 @@ public class CommentModel implements ICommentModel {
 
     @Override
     public void fetchComments(String slug, OnCommentFetchFinishListener listener) {
-        commentsCall = Service.getApi().getCommentsArticle(slug);
+        commentFetchCall = Service.getApi().getCommentsArticle(slug);
 
-        commentsCall.enqueue(new Callback<CommentResponse>() {
+        commentFetchCall.enqueue(new Callback<CommentResponse>() {
             @Override
             public void onResponse(Call<CommentResponse> call, Response<CommentResponse> response) {
                 listener.onCommentsFetchSuccess(response);
@@ -143,9 +143,5 @@ public class CommentModel implements ICommentModel {
                 listener.onFollowUnFollowError(t.toString());
             }
         });
-    }
-
-    @Override
-    public void cancelFetch() {
     }
 }

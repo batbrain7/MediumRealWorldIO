@@ -2,7 +2,7 @@ package com.example.mohitkumar.trialapp.core.writearticle;
 
 import com.example.mohitkumar.trialapp.network.AuthService;
 import com.example.mohitkumar.trialapp.data.comment.SingleArticle;
-import com.example.mohitkumar.trialapp.data.writearticle.WriteArticle;
+import com.example.mohitkumar.trialapp.data.writearticle.WriteArticlePOJO;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -13,7 +13,7 @@ public class WriteArticleModel implements IWriteArticleModel {
     Call<SingleArticle> call;
 
     @Override
-    public void postArticle(WriteArticle article, OnArticlePostListener listener) {
+    public void postArticle(WriteArticlePOJO article, OnArticlePostListener listener) {
         call = AuthService.getApi().postArticle(article);
 
         call.enqueue(new Callback<SingleArticle>() {
@@ -29,8 +29,4 @@ public class WriteArticleModel implements IWriteArticleModel {
         });
     }
 
-    @Override
-    public void cancelPostArticle() {
-        call.cancel();
-    }
 }

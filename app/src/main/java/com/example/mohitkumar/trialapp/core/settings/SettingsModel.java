@@ -11,8 +11,8 @@ import retrofit2.Response;
 
 public class SettingsModel implements ISettingsModel {
 
-    Call<ProfileResponse> call;
-    Call<User> updateCall;
+    private Call<ProfileResponse> call;
+    private Call<User> updateCall;
 
     @Override
     public void updateSettings(UserPOJO object, OnSettingsUpdateListener listener) {
@@ -47,10 +47,5 @@ public class SettingsModel implements ISettingsModel {
                 listener.onProfileFetchError(t.toString());
             }
         });
-    }
-
-    @Override
-    public void cancelSettingsUpdate() {
-
     }
 }

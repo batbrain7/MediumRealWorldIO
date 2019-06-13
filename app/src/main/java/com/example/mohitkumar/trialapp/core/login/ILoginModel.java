@@ -12,6 +12,4 @@ public interface ILoginModel {
     }
 
     void login(String email, String password, OnLoginFinishedListener listener);
-
-    void cancelLogin();
 }

@@ -1,6 +1,5 @@
 package com.example.mohitkumar.trialapp.network;
 
-import com.example.mohitkumar.trialapp.network.API;
 import com.example.mohitkumar.trialapp.util.Constants;
 import com.example.mohitkumar.trialapp.util.PrefManager;
 

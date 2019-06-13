@@ -44,7 +44,7 @@ public class SignUpActivity extends AppCompatActivity implements ISignUpView {
     @Override
     public void onSignUpError(String title, String message) {
         Log.d(TAG, "Sign Up Error " + title + message);
-        Toast.makeText(this, "Unable to sign you up, the user already exists !", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Unable to sign you up!", Toast.LENGTH_SHORT).show();
         finish();
     }
 
