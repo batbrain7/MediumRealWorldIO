@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
+import android.telecom.Call;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import com.example.mohitkumar.trialapp.R;
 import com.example.mohitkumar.trialapp.core.MainActivity;
 import com.example.mohitkumar.trialapp.core.PaginationScrollListener;
+import com.example.mohitkumar.trialapp.core.comment.CommentActivity;
 import com.example.mohitkumar.trialapp.core.feed.GlobalFeedAdapter;
 import com.example.mohitkumar.trialapp.data.mainpage.Article;
 import com.example.mohitkumar.trialapp.databinding.ActivityTagsBinding;
@@ -50,6 +52,8 @@ public class TagsActivity extends AppCompatActivity {
             if (list != null)
                 setHorizontalRecyclerView(list);
         });
+        linearLayoutManager = new LinearLayoutManager(TagsActivity.this, LinearLayoutManager.VERTICAL, false);
+        binding.teamsRecyclerView.setLayoutManager(linearLayoutManager);
     }
 
     private void setHorizontalRecyclerView(List<String> list) {
@@ -63,10 +67,16 @@ public class TagsActivity extends AppCompatActivity {
             public void onItemClick(int position, View v, String s) {
                 Log.d(TAG, "Inside click method");
 
+                binding.frameLayout.setVisibility(View.VISIBLE);
                 adapter = new GlobalFeedAdapter(TagsActivity.this);
-                linearLayoutManager = new LinearLayoutManager(TagsActivity.this, LinearLayoutManager.VERTICAL, false);
-                binding.teamsRecyclerView.setLayoutManager(linearLayoutManager);
-
+                adapter.setOnItemClickListener(new GlobalFeedAdapter.ClickListener() {
+                    @Override
+                    public void onItemClick(int position, View v, String s) {
+                        Intent intent = new Intent(TagsActivity.this, CommentActivity.class);
+                        intent.putExtra("slug", s);
+                        startActivity(intent);
+                    }
+                });
                 binding.teamsRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
                 binding.teamsRecyclerView.setAdapter(adapter);

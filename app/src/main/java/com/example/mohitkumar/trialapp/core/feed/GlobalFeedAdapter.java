@@ -227,9 +227,10 @@ public class GlobalFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     if (Utils.isLoggedIn()) {
                         viewModel.favoriteArticle(slug).observe((LifecycleOwner) context, singleArticle -> {
                             Log.d(TAG, singleArticle.toString());
-                            Intent intent = new Intent(context, MainActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            context.startActivity(intent);
+                            favouriteCount.setText(Integer.toString(singleArticle.article.favoritesCount));
+//                            Intent intent = new Intent(context, MainActivity.class);
+//                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+//                            context.startActivity(intent);
                         });
                     } else {
                         Toast.makeText(context, "Sign in to favorite an article", Toast.LENGTH_LONG).show();
