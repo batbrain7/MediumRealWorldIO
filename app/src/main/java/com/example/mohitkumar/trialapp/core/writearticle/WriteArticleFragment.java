@@ -1,6 +1,7 @@
 package com.example.mohitkumar.trialapp.core.writearticle;
 
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 import static com.example.mohitkumar.trialapp.MainApplication.TAG;
 import com.example.mohitkumar.trialapp.R;
+import com.example.mohitkumar.trialapp.core.MainActivity;
 import com.example.mohitkumar.trialapp.data.writearticle.WArticle;
 import com.example.mohitkumar.trialapp.data.writearticle.WriteArticle;
 import com.example.mohitkumar.trialapp.databinding.WriteArticleBinding;
@@ -69,6 +71,10 @@ public class WriteArticleFragment extends Fragment implements IWriteArticleView{
         binding.articleAbout.setText("");
         binding.articleTitle.setText("");
         binding.articleBody.setText("");
+        Intent intent = new Intent(getActivity(), MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        getActivity().finish();
     }
 
     @Override

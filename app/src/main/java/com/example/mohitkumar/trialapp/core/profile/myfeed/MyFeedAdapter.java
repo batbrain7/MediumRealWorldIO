@@ -39,6 +39,11 @@ public class MyFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         this.articles = new ArrayList<>();
     }
 
+    public MyFeedAdapter(Context context, List<Article> articles) {
+        this.context = context;
+        this.articles = articles;
+    }
+
     public List<Article> getArticles() {
         return articles;
     }

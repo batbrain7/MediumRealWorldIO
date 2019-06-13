@@ -2,6 +2,7 @@ package com.example.mohitkumar.trialapp.core.profile;
 
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.mohitkumar.trialapp.R;
 import com.example.mohitkumar.trialapp.core.PaginationScrollListener;
+import com.example.mohitkumar.trialapp.core.comment.CommentActivity;
 import com.example.mohitkumar.trialapp.core.feed.GlobalFeedAdapter;
 import com.example.mohitkumar.trialapp.core.feed.GlobalViewModel;
 import com.example.mohitkumar.trialapp.data.mainpage.Article;
@@ -41,7 +43,7 @@ public class FavoriteFragment extends Fragment {
     private boolean isLoading = false;
     private boolean isLastPage = false;
     private int currentPage = 0;
-    private static long TOTAL_PAGES = 500;
+    private long TOTAL_PAGES;
     GlobalFeedAdapter adapter;
     LinearLayoutManager linearLayoutManager;
     GlobalViewModel viewModel;
@@ -99,7 +101,7 @@ public class FavoriteFragment extends Fragment {
 
             @Override
             public int getTotalPageCount() {
-                return (int)TOTAL_PAGES;
+                return (int) TOTAL_PAGES;
             }
 
             @Override
@@ -119,20 +121,20 @@ public class FavoriteFragment extends Fragment {
         viewModel.getFeedFavoriteArticles(0, PrefManager.getString(Constants.USERNAME, ""))
                 .observe(this, globalFeedResponse -> {
                     binding.progressBar.setVisibility(View.GONE);
+                    TOTAL_PAGES = globalFeedResponse.getArticlesCount();
                     if (globalFeedResponse.getArticlesCount() == 0) {
                         binding.textNothinghere.setVisibility(View.VISIBLE);
-                        //     Toast.makeText(getContext(), "No articles here.....yet", Toast.LENGTH_LONG).show();
                         return;
+                    } else {
+                        binding.textNothinghere.setVisibility(View.GONE);
                     }
-                    TOTAL_PAGES = globalFeedResponse.getArticlesCount();
                     List<Article> articleList = globalFeedResponse.getArticles();
-                    Log.d(TAG, "In here : " + articleList.toString());
-                    adapter.addAll(articleList);
 
-                    if (currentPage <= TOTAL_PAGES)
-                        adapter.addLoadingFooter();
-                    else
-                        isLastPage = true;
+                    if (globalFeedResponse.getArticlesCount() < 20)
+                        setRecyclerView(articleList);
+                    else {
+                        setListener();
+                    }
                 });
     }
 
@@ -143,7 +145,7 @@ public class FavoriteFragment extends Fragment {
                     isLoading = false;
                     if (globalFeedResponse.getArticlesCount() == 0) {
                         binding.textNothinghere.setVisibility(View.VISIBLE);
-                        //       Toast.makeText(getContext(), "No articles here... yet", Toast.LENGTH_LONG).show();
+                        // Toast.makeText(getContext(), "No articles here... yet", Toast.LENGTH_LONG).show();
                         Log.d(TAG, "No articles here... yet");
                         return;
                     }
@@ -152,7 +154,61 @@ public class FavoriteFragment extends Fragment {
 
                     if (currentPage < TOTAL_PAGES)
                         adapter.addLoadingFooter();
-                    else isLastPage = true;
+                    else
+                        isLastPage = true;
                 });
+    }
+
+    private void setListener() {
+        binding.teamsRecyclerView.addOnScrollListener(new PaginationScrollListener(linearLayoutManager) {
+            @Override
+            protected void loadMoreItems() {
+                isLoading = true;
+                currentPage += 1;
+                if (currentPage * 20 > TOTAL_PAGES)
+                    return;
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadNextPage();
+                    }
+                }, 300);
+            }
+
+            @Override
+            public int getTotalPageCount() {
+                return (int) TOTAL_PAGES;
+            }
+
+            @Override
+            public boolean isLastPage() {
+                return isLastPage;
+            }
+
+            @Override
+            public boolean isLoading() {
+                return isLoading;
+            }
+        });
+    }
+
+    void setRecyclerView(List<Article> articleList) {
+        adapter = new GlobalFeedAdapter(getActivity(), articleList);
+        linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        binding.teamsRecyclerView.setLayoutManager(linearLayoutManager);
+
+        binding.teamsRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        binding.teamsRecyclerView.setAdapter(adapter);
+        viewModel.getProgress().observe(this, binding.progressBar::setVisibility);
+
+        adapter.setOnItemClickListener(new GlobalFeedAdapter.ClickListener() {
+            @Override
+            public void onItemClick(int position, View v, String slug) {
+                Intent intent = new Intent(getActivity(), CommentActivity.class);
+                intent.putExtra("slug", slug);
+                getActivity().startActivity(intent);
+            }
+        });
     }
 }

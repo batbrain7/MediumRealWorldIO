@@ -1,4 +1,4 @@
-package com.example.mohitkumar.trialapp.core.feed;
+package com.example.mohitkumar.trialapp.core.feed.tags;
 
 
 import android.os.Bundle;
@@ -18,7 +18,6 @@ public class TagFragment extends Fragment {
     public TagFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

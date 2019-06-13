@@ -11,7 +11,7 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import com.example.mohitkumar.trialapp.R;
-import com.example.mohitkumar.trialapp.core.feed.TagFragment;
+import com.example.mohitkumar.trialapp.core.feed.tags.TagFragment;
 import com.example.mohitkumar.trialapp.core.feed.YourFeedFragment;
 import com.example.mohitkumar.trialapp.core.profile.ProfileActivity;
 import com.example.mohitkumar.trialapp.util.Constants;

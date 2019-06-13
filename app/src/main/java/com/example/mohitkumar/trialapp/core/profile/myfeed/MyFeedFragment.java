@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,7 +16,9 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.mohitkumar.trialapp.R;
+import com.example.mohitkumar.trialapp.core.PaginationScrollListener;
 import com.example.mohitkumar.trialapp.core.editarticles.EditArticleActivity;
+import com.example.mohitkumar.trialapp.core.feed.GlobalFeedAdapter;
 import com.example.mohitkumar.trialapp.core.feed.YourFeedViewModel;
 import com.example.mohitkumar.trialapp.data.mainpage.Article;
 import com.example.mohitkumar.trialapp.databinding.FeedBinding;
@@ -99,21 +102,60 @@ public class MyFeedFragment extends Fragment {
         viewModel.getMyFeedArticles(0, PrefManager.getString(Constants.USERNAME, ""))
                 .observe(this, globalFeedResponse -> {
                     binding.progressBar.setVisibility(View.GONE);
+                    binding.progressBar.setVisibility(View.GONE);
+                    TOTAL_PAGES = globalFeedResponse.getArticlesCount();
                     if (globalFeedResponse.getArticlesCount() == 0) {
                         binding.textNothinghere.setVisibility(View.VISIBLE);
-                        //     Toast.makeText(getContext(), "No articles here.....yet", Toast.LENGTH_LONG).show();
                         return;
+                    } else {
+                        binding.textNothinghere.setVisibility(View.GONE);
                     }
-                    TOTAL_PAGES = globalFeedResponse.getArticlesCount();
                     List<Article> articleList = globalFeedResponse.getArticles();
-                    Log.d(TAG, articleList.toString());
-                    adapter.addAll(articleList);
 
-                    if (currentPage <= TOTAL_PAGES)
-                        adapter.addLoadingFooter();
-                    else
-                        isLastPage = true;
+                    if (globalFeedResponse.getArticlesCount() < 20)
+                        setRecyclerView(articleList);
+                    else {
+                        setListener();
+                    }
+
+//                    if (currentPage <= TOTAL_PAGES)
+//                        adapter.addLoadingFooter();
+//                    else
+//                        isLastPage = true;
                 });
+    }
+
+    private void setListener() {
+        binding.teamsRecyclerView.addOnScrollListener(new PaginationScrollListener(linearLayoutManager) {
+            @Override
+            protected void loadMoreItems() {
+                isLoading = true;
+                currentPage += 1;
+                if (currentPage * 20 > TOTAL_PAGES)
+                    return;
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadNextPage();
+                    }
+                }, 300);
+            }
+
+            @Override
+            public int getTotalPageCount() {
+                return (int) TOTAL_PAGES;
+            }
+
+            @Override
+            public boolean isLastPage() {
+                return isLastPage;
+            }
+
+            @Override
+            public boolean isLoading() {
+                return isLoading;
+            }
+        });
     }
 
     private void loadNextPage() {
@@ -121,18 +163,30 @@ public class MyFeedFragment extends Fragment {
                 .observe(this, globalFeedResponse -> {
                     adapter.removeLoadingFooter();
                     isLoading = false;
-                    TOTAL_PAGES = globalFeedResponse.getArticlesCount();
                     if (globalFeedResponse.getArticlesCount() == 0) {
                         binding.textNothinghere.setVisibility(View.VISIBLE);
-                        //       Toast.makeText(getContext(), "No articles here... yet", Toast.LENGTH_LONG).show();
+                        // Toast.makeText(getContext(), "No articles here... yet", Toast.LENGTH_LONG).show();
                         Log.d(TAG, "No articles here... yet");
                         return;
                     }
                     List<Article> results = globalFeedResponse.getArticles();
                     adapter.addAll(results);
 
-                    if (currentPage < TOTAL_PAGES) adapter.addLoadingFooter();
-                    else isLastPage = true;
+                    if (currentPage < TOTAL_PAGES)
+                        adapter.addLoadingFooter();
+                    else
+                        isLastPage = true;
                 });
+    }
+
+    void setRecyclerView(List<Article> articleList) {
+        adapter = new MyFeedAdapter(getActivity(), articleList);
+        linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        binding.teamsRecyclerView.setLayoutManager(linearLayoutManager);
+
+        binding.teamsRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        binding.teamsRecyclerView.setAdapter(adapter);
+        viewModel.getProgress().observe(this, binding.progressBar::setVisibility);
     }
 }

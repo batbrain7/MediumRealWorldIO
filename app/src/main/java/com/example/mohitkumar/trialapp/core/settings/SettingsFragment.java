@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.mohitkumar.trialapp.R;
+import com.example.mohitkumar.trialapp.core.profile.ProfileActivity;
 import com.example.mohitkumar.trialapp.data.settings.ProfileResponse;
 import com.example.mohitkumar.trialapp.data.settings.UpdateUserPOJO;
 import com.example.mohitkumar.trialapp.data.settings.UserPOJO;
@@ -104,6 +105,10 @@ public class SettingsFragment extends Fragment implements ISettingsView {
         Toast.makeText(getActivity(), "Settings Updated", Toast.LENGTH_LONG).show();
         Log.d(TAG, result);
         binding.progressBar.setVisibility(View.GONE);
+        Intent intent = new Intent(getActivity(), MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        getActivity().finish();
     }
 
     @Override

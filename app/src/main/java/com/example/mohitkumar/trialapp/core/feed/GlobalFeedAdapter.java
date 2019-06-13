@@ -25,6 +25,7 @@ import com.example.mohitkumar.trialapp.R;
 import com.example.mohitkumar.trialapp.core.MainActivity;
 import com.example.mohitkumar.trialapp.core.comment.CommentActivity;
 import com.example.mohitkumar.trialapp.data.mainpage.Article;
+import com.example.mohitkumar.trialapp.util.Constants;
 import com.example.mohitkumar.trialapp.util.Utils;
 
 import static com.example.mohitkumar.trialapp.MainApplication.TAG;
@@ -51,6 +52,11 @@ public class GlobalFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         this.context = context;
         this.articles = new ArrayList<>();
         this.viewModel = viewModel;
+    }
+
+    public GlobalFeedAdapter(Context context, List<Article> articles) {
+        this.context = context;
+        this.articles = articles;
     }
 
     public List<Article> getArticles() {

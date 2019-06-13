@@ -1,5 +1,6 @@
 package com.example.mohitkumar.trialapp.core.profile;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.support.annotation.Nullable;
@@ -15,6 +16,7 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.example.mohitkumar.trialapp.R;
+import com.example.mohitkumar.trialapp.core.MainActivity;
 import com.example.mohitkumar.trialapp.core.MainFragmentAdapter;
 import com.example.mohitkumar.trialapp.core.feed.YourFeedFragment;
 import com.example.mohitkumar.trialapp.core.profile.myfeed.MyFeedFragment;
@@ -87,5 +89,14 @@ public class ProfileActivity extends AppCompatActivity implements IProfileView{
     @Override
     public void displayProgress() {
         binding.progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
     }
 }
