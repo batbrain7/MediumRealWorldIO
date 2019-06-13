@@ -2,7 +2,7 @@ package com.example.mohitkumar.trialapp.data.mainpage;
 
 import java.util.List;
 
-public class GlobalFeedResponse {
+public class FeedResponse {
 
     List<Article> articles;
     long articlesCount;
@@ -15,13 +15,12 @@ public class GlobalFeedResponse {
         return articlesCount;
     }
 
-    public GlobalFeedResponse(List<Article> articles, long articlesCount) {
+    public FeedResponse(List<Article> articles, long articlesCount) {
         this.articles = articles;
         this.articlesCount = articlesCount;
     }
 
     public void setArticles(List<Article> articles) {
-
         this.articles = articles;
     }
 

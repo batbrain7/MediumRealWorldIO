@@ -25,7 +25,6 @@ import com.example.mohitkumar.trialapp.R;
 import com.example.mohitkumar.trialapp.core.MainActivity;
 import com.example.mohitkumar.trialapp.core.comment.CommentActivity;
 import com.example.mohitkumar.trialapp.data.mainpage.Article;
-import com.example.mohitkumar.trialapp.util.Constants;
 import com.example.mohitkumar.trialapp.util.Utils;
 
 import static com.example.mohitkumar.trialapp.MainApplication.TAG;
@@ -202,7 +201,6 @@ public class GlobalFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     class ContentViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
         TextView articleBody;
         TextView titleArticle;
         TextView favouriteCount;
@@ -252,7 +250,7 @@ public class GlobalFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         @Override
         public void onClick(View view) {
-            // clickListener.onItemClick(getAdapterPosition(), view, slug);
+             clickListener.onItemClick(getAdapterPosition(), view, slug);
         }
     }
 }

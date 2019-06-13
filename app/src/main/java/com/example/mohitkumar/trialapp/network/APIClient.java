@@ -1,11 +1,10 @@
 package com.example.mohitkumar.trialapp.network;
 
 import com.example.mohitkumar.trialapp.data.comment.SingleArticle;
-import com.example.mohitkumar.trialapp.data.mainpage.GlobalFeedResponse;
+import com.example.mohitkumar.trialapp.data.mainpage.FeedResponse;
 import com.example.mohitkumar.trialapp.data.tags.TagsResponse;
 
 import io.reactivex.Observable;
-import io.reactivex.Scheduler;
 import io.reactivex.schedulers.Schedulers;
 
 import static io.reactivex.android.schedulers.AndroidSchedulers.mainThread;
@@ -20,10 +19,10 @@ public class APIClient implements APIService {
     }
 
     @Override
-    public Observable<GlobalFeedResponse> getGlobalFeed(long page, long offset) {
+    public Observable<FeedResponse> getGlobalFeed(long page, long offset) {
         api = Service.getApi();
 
-        Observable<GlobalFeedResponse> responseObservable =  api.getGlobalFeed(page, offset).
+        Observable<FeedResponse> responseObservable =  api.getGlobalFeed(page, offset).
                 subscribeOn(Schedulers.io()).
                 observeOn(mainThread());
 
@@ -32,9 +31,9 @@ public class APIClient implements APIService {
     }
 
     @Override
-    public Observable<GlobalFeedResponse> getYourFeed(long page, long offset) {
+    public Observable<FeedResponse> getYourFeed(long page, long offset) {
         api = AuthService.getApi();
-        Observable<GlobalFeedResponse> responseObservable =  api.getYourFeed(page, offset).
+        Observable<FeedResponse> responseObservable =  api.getYourFeed(page, offset).
                 subscribeOn(Schedulers.io()).
                 observeOn(mainThread());
 
@@ -50,7 +49,7 @@ public class APIClient implements APIService {
     }
 
     @Override
-    public Observable<GlobalFeedResponse> getMyFeed(long page, long offset, String author) {
+    public Observable<FeedResponse> getMyFeed(long page, long offset, String author) {
         api = AuthService.getApi();
         return api.getMyFeed(page, offset, author)
                 .subscribeOn(Schedulers.io())
@@ -58,7 +57,7 @@ public class APIClient implements APIService {
     }
 
     @Override
-    public Observable<GlobalFeedResponse> getFavoriteFeed(long page, long offset, String favorite) {
+    public Observable<FeedResponse> getFavoriteFeed(long page, long offset, String favorite) {
         api = AuthService.getApi();
         return api.getFavoriteFeed(page, offset, favorite)
                 .subscribeOn(Schedulers.io())
@@ -69,6 +68,14 @@ public class APIClient implements APIService {
     public Observable<TagsResponse> getTags() {
         api = Service.getApi();
         return api.getTags()
+                .subscribeOn(Schedulers.io())
+                .observeOn(mainThread());
+    }
+
+    @Override
+    public Observable<FeedResponse> getTagFeed(long page, long offset, String tag) {
+        api = Service.getApi();
+        return api.getTagFeed(20, offset, tag)
                 .subscribeOn(Schedulers.io())
                 .observeOn(mainThread());
     }

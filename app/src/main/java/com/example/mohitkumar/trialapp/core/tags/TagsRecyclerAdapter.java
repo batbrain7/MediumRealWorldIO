@@ -6,26 +6,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.mohitkumar.trialapp.R;
-import com.example.mohitkumar.trialapp.core.comment.ICommentPresenter;
-import com.example.mohitkumar.trialapp.core.feed.GlobalFeedAdapter;
-import com.example.mohitkumar.trialapp.data.comment.Comment;
-import com.example.mohitkumar.trialapp.util.Constants;
-import com.example.mohitkumar.trialapp.util.PrefManager;
 
 import java.util.List;
 
 public class TagsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static ClickListener clickListener;
-
-    private Context context;
     List<String> tags;
 
-    public TagsRecyclerAdapter(Context context, List<String> tags) {
-        this.context = context;
+    public TagsRecyclerAdapter(List<String> tags) {
         this.tags = tags;
     }
 
@@ -36,7 +27,7 @@ public class TagsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         return new TagViewHolder(view);
     }
 
-    interface ClickListener {
+    public interface ClickListener {
         void onItemClick(int position, View v, String s);
     }
 
@@ -44,8 +35,8 @@ public class TagsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         String tagName = tags.get(i);
         TagViewHolder holder = (TagViewHolder) viewHolder;
-        if (tagName != null)
-            holder.tag.setText(tagName);
+        holder.tag.setText(tagName);
+        holder.tagString = tagName;
     }
 
     @Override
@@ -53,17 +44,24 @@ public class TagsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         return tags.size();
     }
 
-    class TagViewHolder extends RecyclerView.ViewHolder {
+    class TagViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView tag;
+        String tagString;
 
-        public TagViewHolder(@NonNull View itemView) {
+         TagViewHolder(@NonNull View itemView) {
             super(itemView);
             tag = itemView.findViewById(R.id.tagItem);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            clickListener.onItemClick(getAdapterPosition(), view, tagString);
         }
     }
 
-    public void setOnItemClickListener(TagsRecyclerAdapter.ClickListener clickListener) {
-        this.clickListener = clickListener;
+    public void setOnItemClickListener(ClickListener clickListener) {
+        TagsRecyclerAdapter.clickListener = clickListener;
     }
 }

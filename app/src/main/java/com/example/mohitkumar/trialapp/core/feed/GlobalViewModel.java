@@ -9,7 +9,7 @@ import com.example.mohitkumar.trialapp.network.APIClient;
 import com.example.mohitkumar.trialapp.network.APIService;
 import com.example.mohitkumar.trialapp.data.comment.SingleArticle;
 import com.example.mohitkumar.trialapp.data.mainpage.Article;
-import com.example.mohitkumar.trialapp.data.mainpage.GlobalFeedResponse;
+import com.example.mohitkumar.trialapp.data.mainpage.FeedResponse;
 
 import java.util.List;
 
@@ -19,12 +19,13 @@ public class GlobalViewModel extends ViewModel {
     private final MutableLiveData<Integer> progress = new MutableLiveData<>();
     private final MutableLiveData<List<Article>> articles = new MutableLiveData<>();
     private final MutableLiveData<SingleArticle> singleArticleMutableLiveData = new MutableLiveData<>();
-    private final MutableLiveData<GlobalFeedResponse> globalFeedResponseMutableLiveData = new MutableLiveData<>();
+    private final MutableLiveData<FeedResponse> globalFeedResponseMutableLiveData = new MutableLiveData<>();
 
     public GlobalViewModel() {
         service = new APIClient();
     }
 
+    @SuppressLint("CheckResult")
     public MutableLiveData<List<Article>> getArticlesList(long offset) {
         service.getGlobalFeed(20, offset)
                 .doOnSubscribe(disposable -> progress.setValue(0))
@@ -51,7 +52,8 @@ public class GlobalViewModel extends ViewModel {
         return singleArticleMutableLiveData;
     }
 
-    public MutableLiveData<GlobalFeedResponse> getFeedFavoriteArticles(long offset, String favorite) {
+    @SuppressLint("CheckResult")
+    public MutableLiveData<FeedResponse> getFeedFavoriteArticles(long offset, String favorite) {
         service.getFavoriteFeed(20, offset, favorite)
                 .doOnSubscribe(disposable -> progress.setValue(0))
                 .doFinally(() -> progress.setValue(8))

@@ -3,7 +3,7 @@ package com.example.mohitkumar.trialapp.network;
 import com.example.mohitkumar.trialapp.data.loginsignup.LUser;
 import com.example.mohitkumar.trialapp.data.loginsignup.SUser;
 import com.example.mohitkumar.trialapp.data.loginsignup.User;
-import com.example.mohitkumar.trialapp.data.mainpage.GlobalFeedResponse;
+import com.example.mohitkumar.trialapp.data.mainpage.FeedResponse;
 import com.example.mohitkumar.trialapp.data.settings.ProfileResponse;
 import com.example.mohitkumar.trialapp.data.comment.Comment;
 import com.example.mohitkumar.trialapp.data.comment.CommentResponse;
@@ -32,7 +32,7 @@ public interface API {
     Call<User> signUp(@Body SUser user);
 
     @GET("api/articles")
-    Observable<GlobalFeedResponse> getGlobalFeed(@Query("limit") long page, @Query("offset") long offset);
+    Observable<FeedResponse> getGlobalFeed(@Query("limit") long page, @Query("offset") long offset);
 
     @GET("api/articles/{slug}")
     Call<SingleArticle> getSingleArticle(@Path("slug") String slug);
@@ -59,7 +59,7 @@ public interface API {
     Call<User> updateProfile(@Body UserPOJO object);
 
     @GET("api/articles/feed")
-    Observable<GlobalFeedResponse> getYourFeed(@Query("limit") long page, @Query("offset") long offset);
+    Observable<FeedResponse> getYourFeed(@Query("limit") long page, @Query("offset") long offset);
 
     @POST("api/articles/{slug}/favorite")
     Observable<SingleArticle> favoriteArticle(@Path("slug") String slug);
@@ -71,10 +71,10 @@ public interface API {
     Call<ProfileResponse> unFollowUser(@Path("username") String username);
 
     @GET("api/articles")
-    Observable<GlobalFeedResponse> getMyFeed(@Query("limit") long page, @Query("offset") long offset, @Query("author") String username);
+    Observable<FeedResponse> getMyFeed(@Query("limit") long page, @Query("offset") long offset, @Query("author") String username);
 
     @GET("api/articles")
-    Observable<GlobalFeedResponse> getFavoriteFeed(@Query("limit") long page, @Query("offset") long offset, @Query("favorited") String username);
+    Observable<FeedResponse> getFavoriteFeed(@Query("limit") long page, @Query("offset") long offset, @Query("favorited") String username);
 
     @PUT("api/articles/{slug}")
     Call<SingleArticle> upDateArticle(@Path("slug") String slug, @Body WriteArticle article);
@@ -84,4 +84,7 @@ public interface API {
 
     @GET("api/tags")
     Observable<TagsResponse> getTags();
+
+    @GET("api/articles")
+    Observable<FeedResponse> getTagFeed(@Query("limit") long page, @Query("offset") long offset, @Query("tag") String tag);
 }
