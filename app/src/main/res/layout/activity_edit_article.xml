@@ -55,7 +55,7 @@
                 android:text="update"
                 android:onClick="updateArticle"
                 android:id="@+id/publishButton"
-                android:background="@android:color/holo_green_dark"
+                android:background="@drawable/round_shape_button_green"
                 android:textColor="@android:color/white"
                 android:layout_gravity="center"
                 />
@@ -70,7 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:background="@android:color/white"
+                android:background="@drawable/round_shape_button_white"
                 android:text="Delete"
                 android:onClick="deleteArticle"
                 android:textColor="@android:color/holo_red_dark" />

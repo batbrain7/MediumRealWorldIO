@@ -49,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:text="Publish"
                 android:id="@+id/publishButton"
-                android:background="@android:color/holo_green_dark"
+                android:background="@drawable/round_shape_button_green"
                 android:textColor="@android:color/white"
                 android:layout_gravity="center"
                 />

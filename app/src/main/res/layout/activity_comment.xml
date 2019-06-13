@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="10dp"
-            android:background="@android:color/black"
+            android:background="#333333"
             >
             <TextView
                 android:layout_width="match_parent"
@@ -40,11 +40,22 @@
                 android:layout_weight="1"
                 >
 
+                <android.support.v7.widget.CardView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:id="@+id/view2"
+                    android:padding="4dp"
+                    android:background="#959595"
+                    app:cardCornerRadius="40dp"
+                    >
                 <ImageView
                     android:id="@+id/imageArticle"
-                    android:layout_width="74dp"
-                    android:layout_height="match_parent"
-                    android:padding="4dp"></ImageView>
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_centerHorizontal="true"/>
+
+                </android.support.v7.widget.CardView>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -56,15 +67,17 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/userArticle"
                         android:text="title"
+                        android:textStyle="bold"
                         android:textColor="@android:color/white"
-                        android:layout_margin="5dp"
+                        android:layout_margin="10dp"
                         android:textAppearance="?android:textAppearanceLargePopupMenu"
                         />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/date"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:textSize="10dp"
                         android:textColor="@android:color/white"
                         android:text="date"
                         />
@@ -77,8 +90,8 @@
                     <Button
                         android:layout_gravity="end"
                         android:layout_width="wrap_content"
-                        android:layout_height="25dp"
-                        android:background="@android:color/white"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/round_shape_button_white"
                         android:text="Follow "
                         android:id="@+id/followButton"
                         android:onClick="follow"
@@ -90,16 +103,17 @@
                             android:layout_height="match_parent"
                             android:layout_gravity="end"
                             android:layout_marginLeft="5dp"
-                            android:background="@android:color/white"
+                            android:background="@drawable/round_shape_button_white"
                             android:onClick="favorite"
                             android:text="Favorite "
-                            android:textColor="@android:color/holo_green_dark" />
+                            android:textColor="@color/colorPrimary" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/favoriteCount"
                             android:layout_marginLeft="5dp"
                             android:text="1"
+                            android:textAppearance="?android:textAppearanceLarge"
                             android:textColor="@android:color/white"
                             />
                     </LinearLayout>
@@ -110,6 +124,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/articleBody"
+            android:layout_margin="10dp"
             android:textAppearance="?android:textAppearance"
             />
         <TextView
@@ -145,7 +160,7 @@
             android:id="@+id/postComment"
             android:text="Post"
             android:visibility="gone"
-            android:background="@android:color/holo_green_light"
+            android:background="@drawable/round_shape_button_green"
             android:textColor="@android:color/white"
             android:layout_gravity="center"
             android:onClick="postComment"

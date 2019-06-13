@@ -41,7 +41,8 @@ public class GlobalFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private int LOADING = 0;
     private int ITEM = 1;
     private String slug;
-    GlobalViewModel viewModel;
+    private GlobalViewModel viewModel;
+    private boolean isGlobalViewModel = false;
 
     public GlobalFeedAdapter(Context context) {
         this.context = context;
@@ -52,6 +53,7 @@ public class GlobalFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         this.context = context;
         this.articles = new ArrayList<>();
         this.viewModel = viewModel;
+        isGlobalViewModel = true;
     }
 
     public GlobalFeedAdapter(Context context, List<Article> articles) {
@@ -225,13 +227,15 @@ public class GlobalFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 @Override
                 public void onClick(View view) {
                     if (Utils.isLoggedIn()) {
-                        viewModel.favoriteArticle(slug).observe((LifecycleOwner) context, singleArticle -> {
-                            Log.d(TAG, singleArticle.toString());
-                            favouriteCount.setText(Integer.toString(singleArticle.article.favoritesCount));
+                        if (isGlobalViewModel) {
+                            viewModel.favoriteArticle(slug).observe((LifecycleOwner) context, singleArticle -> {
+                                Log.d(TAG, singleArticle.toString());
+                                favouriteCount.setText(Integer.toString(singleArticle.article.favoritesCount));
 //                            Intent intent = new Intent(context, MainActivity.class);
 //                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 //                            context.startActivity(intent);
-                        });
+                            });
+                        }
                     } else {
                         Toast.makeText(context, "Sign in to favorite an article", Toast.LENGTH_LONG).show();
                     }
@@ -251,7 +255,7 @@ public class GlobalFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         @Override
         public void onClick(View view) {
-             clickListener.onItemClick(getAdapterPosition(), view, slug);
+            clickListener.onItemClick(getAdapterPosition(), view, slug);
         }
     }
 }

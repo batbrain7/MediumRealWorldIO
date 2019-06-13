@@ -190,11 +190,11 @@ public class CommentActivity extends AppCompatActivity implements ICommentView {
     public void setFavoriteButtonColors(boolean isFavorite) {
         if (isFavorite) {
             activityBinding.favoriteButton.setText("UNFAVORITE");
-            activityBinding.favoriteButton.setBackgroundColor(ContextCompat.getColor(this, android.R.color.holo_green_dark));
+            activityBinding.favoriteButton.setBackground(ContextCompat.getDrawable(this, R.drawable.round_shape_button_green));
             activityBinding.favoriteButton.setTextColor(ContextCompat.getColor(this, android.R.color.white));
         } else {
             activityBinding.favoriteButton.setText("FAVORITE");
-            activityBinding.favoriteButton.setBackgroundColor(ContextCompat.getColor(this, android.R.color.white));
+            activityBinding.favoriteButton.setBackground(ContextCompat.getDrawable(this, R.drawable.round_shape_button_white));
             activityBinding.favoriteButton.setTextColor(ContextCompat.getColor(this, android.R.color.holo_green_dark));
         }
     }
