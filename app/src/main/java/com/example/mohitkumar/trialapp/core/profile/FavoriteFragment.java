@@ -2,10 +2,8 @@ package com.example.mohitkumar.trialapp.core.profile;
 
 
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,14 +14,10 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.mohitkumar.trialapp.R;
-import com.example.mohitkumar.trialapp.core.EditArticles.EditArticleActivity;
-import com.example.mohitkumar.trialapp.core.PaginationScrollListener;
 import com.example.mohitkumar.trialapp.core.feed.GlobalFeedAdapter;
 import com.example.mohitkumar.trialapp.core.feed.GlobalViewModel;
-import com.example.mohitkumar.trialapp.core.profile.myfeed.MyFeedAdapter;
-import com.example.mohitkumar.trialapp.data.mainpage.Articles;
+import com.example.mohitkumar.trialapp.data.mainpage.Article;
 import com.example.mohitkumar.trialapp.databinding.FavoriteFeedBinding;
-import com.example.mohitkumar.trialapp.databinding.FragmentGlobalfeedBinding;
 import com.example.mohitkumar.trialapp.util.Constants;
 import com.example.mohitkumar.trialapp.util.PrefManager;
 import com.example.mohitkumar.trialapp.util.Utils;
@@ -128,9 +122,9 @@ public class FavoriteFragment extends Fragment {
                         //     Toast.makeText(getContext(), "No articles here.....yet", Toast.LENGTH_LONG).show();
                         return;
                     }
-                    List<Articles> articlesList = globalFeedResponse.getArticles();
-                    Log.d(TAG, "In here : " + articlesList.toString());
-                    adapter.addAll(articlesList);
+                    List<Article> articleList = globalFeedResponse.getArticles();
+                    Log.d(TAG, "In here : " + articleList.toString());
+                    adapter.addAll(articleList);
 
                     if (currentPage <= TOTAL_PAGES)
                         adapter.addLoadingFooter();
@@ -150,7 +144,7 @@ public class FavoriteFragment extends Fragment {
                         Log.d(TAG, "No articles here... yet");
                         return;
                     }
-                    List<Articles> results = globalFeedResponse.getArticles();
+                    List<Article> results = globalFeedResponse.getArticles();
                     adapter.addAll(results);
 
                     if (currentPage < TOTAL_PAGES) adapter.addLoadingFooter();

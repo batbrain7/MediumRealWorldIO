@@ -23,7 +23,7 @@ import static com.example.mohitkumar.trialapp.MainApplication.TAG;
 import com.example.mohitkumar.trialapp.data.comment.SingleArticle;
 import com.example.mohitkumar.trialapp.data.settings.ProfileResponse;
 import com.example.mohitkumar.trialapp.util.Utils;
-import com.example.mohitkumar.trialapp.data.mainpage.Articles;
+import com.example.mohitkumar.trialapp.data.mainpage.Article;
 import com.example.mohitkumar.trialapp.data.comment.Comment;
 import com.example.mohitkumar.trialapp.data.comment.CommentBody;
 import com.example.mohitkumar.trialapp.data.comment.PostComment;
@@ -59,7 +59,7 @@ public class CommentActivity extends AppCompatActivity implements ICommentView {
     }
 
     @Override
-    public void onArticleFetchSuccess(Articles article) {
+    public void onArticleFetchSuccess(Article article) {
        // Toast.makeText(this, "Fetched the article", Toast.LENGTH_SHORT).show();
         Log.d(TAG , "Article :  " + article.favorited + " " + extra);
         setUI(article);
@@ -201,7 +201,7 @@ public class CommentActivity extends AppCompatActivity implements ICommentView {
         }
     }
 
-    public void setUI(Articles article) {
+    public void setUI(Article article) {
         activityBinding.titleText.setText(article.title);
         activityBinding.articleBody.setText(article.body);
         activityBinding.userArticle.setText(article.author.username);

@@ -8,7 +8,7 @@ import android.util.Log;
 import com.example.mohitkumar.trialapp.data.APIClient;
 import com.example.mohitkumar.trialapp.data.APIService;
 import com.example.mohitkumar.trialapp.data.comment.SingleArticle;
-import com.example.mohitkumar.trialapp.data.mainpage.Articles;
+import com.example.mohitkumar.trialapp.data.mainpage.Article;
 import com.example.mohitkumar.trialapp.data.mainpage.GlobalFeedResponse;
 
 import java.util.List;
@@ -16,9 +16,9 @@ import java.util.List;
 public class GlobalViewModel extends ViewModel {
 
     private APIService service;
-    private List<Articles> articlesList;
+    private List<Article> articleList;
     private final MutableLiveData<Integer> progress = new MutableLiveData<>();
-    private final MutableLiveData<List<Articles>> articles = new MutableLiveData<>();
+    private final MutableLiveData<List<Article>> articles = new MutableLiveData<>();
     private final MutableLiveData<SingleArticle> singleArticleMutableLiveData = new MutableLiveData<>();
     private final MutableLiveData<GlobalFeedResponse> globalFeedResponseMutableLiveData = new MutableLiveData<>();
 
@@ -26,7 +26,7 @@ public class GlobalViewModel extends ViewModel {
         service = new APIClient();
     }
 
-    public MutableLiveData<List<Articles>> getArticlesList(long offset) {
+    public MutableLiveData<List<Article>> getArticlesList(long offset) {
         service.getGlobalFeed(20, offset)
                 .doOnSubscribe(disposable -> progress.setValue(0))
                 .doFinally(() -> progress.setValue(8))

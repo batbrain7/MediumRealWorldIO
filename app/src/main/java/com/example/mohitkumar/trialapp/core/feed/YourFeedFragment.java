@@ -4,7 +4,6 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,9 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import com.example.mohitkumar.trialapp.R;
-import com.example.mohitkumar.trialapp.core.PaginationScrollListener;
 import com.example.mohitkumar.trialapp.core.comment.CommentActivity;
-import com.example.mohitkumar.trialapp.data.mainpage.Articles;
+import com.example.mohitkumar.trialapp.data.mainpage.Article;
 import com.example.mohitkumar.trialapp.databinding.YourFeedBinding;
 import com.example.mohitkumar.trialapp.util.Utils;
 import java.util.List;
@@ -127,9 +125,9 @@ public class YourFeedFragment extends Fragment {
            //     Toast.makeText(getContext(), "No articles here.....yet", Toast.LENGTH_LONG).show();
                 return;
             }
-            List<Articles> articlesList = globalFeedResponse.getArticles();
+            List<Article> articleList = globalFeedResponse.getArticles();
 
-            adapter.addAll(articlesList);
+            adapter.addAll(articleList);
 
             if (currentPage <= TOTAL_PAGES)
                 adapter.addLoadingFooter();
@@ -148,7 +146,7 @@ public class YourFeedFragment extends Fragment {
                 Log.d(TAG, "No articles here... yet");
                 return;
             }
-            List<Articles> results = globalFeedResponse.getArticles();
+            List<Article> results = globalFeedResponse.getArticles();
             adapter.addAll(results);
 
             if (currentPage != TOTAL_PAGES) adapter.addLoadingFooter();

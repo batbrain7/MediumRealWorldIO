@@ -5,7 +5,6 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,11 +16,8 @@ import android.widget.Toast;
 
 import com.example.mohitkumar.trialapp.R;
 import com.example.mohitkumar.trialapp.core.EditArticles.EditArticleActivity;
-import com.example.mohitkumar.trialapp.core.PaginationScrollListener;
-import com.example.mohitkumar.trialapp.core.comment.CommentActivity;
-import com.example.mohitkumar.trialapp.core.feed.GlobalFeedAdapter;
 import com.example.mohitkumar.trialapp.core.feed.YourFeedViewModel;
-import com.example.mohitkumar.trialapp.data.mainpage.Articles;
+import com.example.mohitkumar.trialapp.data.mainpage.Article;
 import com.example.mohitkumar.trialapp.databinding.FeedBinding;
 import com.example.mohitkumar.trialapp.util.Constants;
 import com.example.mohitkumar.trialapp.util.PrefManager;
@@ -137,9 +133,9 @@ public class MyFeedFragment extends Fragment {
                         //     Toast.makeText(getContext(), "No articles here.....yet", Toast.LENGTH_LONG).show();
                         return;
                     }
-                    List<Articles> articlesList = globalFeedResponse.getArticles();
-                    Log.d(TAG, articlesList.toString());
-                    adapter.addAll(articlesList);
+                    List<Article> articleList = globalFeedResponse.getArticles();
+                    Log.d(TAG, articleList.toString());
+                    adapter.addAll(articleList);
 
                     if (currentPage <= TOTAL_PAGES)
                         adapter.addLoadingFooter();
@@ -159,7 +155,7 @@ public class MyFeedFragment extends Fragment {
                         Log.d(TAG, "No articles here... yet");
                         return;
                     }
-                    List<Articles> results = globalFeedResponse.getArticles();
+                    List<Article> results = globalFeedResponse.getArticles();
                     adapter.addAll(results);
 
                     if (currentPage < TOTAL_PAGES) adapter.addLoadingFooter();

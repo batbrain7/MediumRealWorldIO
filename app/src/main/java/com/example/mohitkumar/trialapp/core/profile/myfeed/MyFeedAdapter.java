@@ -1,13 +1,10 @@
 package com.example.mohitkumar.trialapp.core.profile.myfeed;
 
-import android.arch.lifecycle.LifecycleOwner;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,22 +19,17 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.example.mohitkumar.trialapp.R;
-import com.example.mohitkumar.trialapp.core.MainActivity;
-import com.example.mohitkumar.trialapp.core.comment.CommentActivity;
-import com.example.mohitkumar.trialapp.core.feed.GlobalViewModel;
-import com.example.mohitkumar.trialapp.data.mainpage.Articles;
+import com.example.mohitkumar.trialapp.data.mainpage.Article;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.example.mohitkumar.trialapp.MainApplication.TAG;
 
 public class MyFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static ClickListener clickListener;
 
     Context context;
     private boolean isLoadingAdded = false;
-    private List<Articles> articles;
+    private List<Article> articles;
     private int LOADING = 0;
     private int ITEM = 1;
     private String slug;
@@ -47,11 +39,11 @@ public class MyFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         this.articles = new ArrayList<>();
     }
 
-    public List<Articles> getArticles() {
+    public List<Article> getArticles() {
         return articles;
     }
 
-    public void setArticles(List<Articles> articles) {
+    public void setArticles(List<Article> articles) {
         this.articles = articles;
     }
 
@@ -71,7 +63,7 @@ public class MyFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-        Articles article = articles.get(i);
+        Article article = articles.get(i);
 
         switch (getItemViewType(i)) {
             case 1:
@@ -129,18 +121,18 @@ public class MyFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
     }
 
-    private void add(Articles mc) {
+    private void add(Article mc) {
         articles.add(mc);
         notifyItemInserted(articles.size() - 1);
     }
 
-    void addAll(List<Articles> mcList) {
-        for (Articles mc : mcList) {
+    void addAll(List<Article> mcList) {
+        for (Article mc : mcList) {
             add(mc);
         }
     }
 
-    private void remove(Articles city) {
+    private void remove(Article city) {
         int position = articles.indexOf(city);
         if (position > -1) {
             articles.remove(position);
@@ -161,14 +153,14 @@ public class MyFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     void addLoadingFooter() {
         isLoadingAdded = true;
-        add(new Articles());
+        add(new Article());
     }
 
     void removeLoadingFooter() {
         isLoadingAdded = false;
 
         int position = articles.size() - 1;
-        Articles item = getItem(position);
+        Article item = getItem(position);
         if (item != null) {
             articles.remove(position);
             notifyItemRemoved(position);
@@ -183,7 +175,7 @@ public class MyFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         void onItemClick(int position, View v, String s);
     }
 
-    private Articles getItem(int position) {
+    private Article getItem(int position) {
         return articles.get(position);
     }
 

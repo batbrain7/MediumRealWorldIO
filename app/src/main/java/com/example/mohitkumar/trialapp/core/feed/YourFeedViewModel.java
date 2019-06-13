@@ -7,7 +7,7 @@ import android.util.Log;
 
 import com.example.mohitkumar.trialapp.data.APIClient;
 import com.example.mohitkumar.trialapp.data.APIService;
-import com.example.mohitkumar.trialapp.data.mainpage.Articles;
+import com.example.mohitkumar.trialapp.data.mainpage.Article;
 import com.example.mohitkumar.trialapp.data.mainpage.GlobalFeedResponse;
 
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.List;
 public class YourFeedViewModel extends ViewModel {
 
     private APIService service;
-    private List<Articles> articlesList;
+    private List<Article> articleList;
     private final MutableLiveData<Integer> progress = new MutableLiveData<>();
     private final MutableLiveData<GlobalFeedResponse> articles = new MutableLiveData<>();
 

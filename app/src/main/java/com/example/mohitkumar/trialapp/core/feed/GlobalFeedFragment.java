@@ -2,28 +2,22 @@ package com.example.mohitkumar.trialapp.core.feed;
 
 
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mohitkumar.trialapp.R;
-import com.example.mohitkumar.trialapp.data.comment.SingleArticle;
 import com.example.mohitkumar.trialapp.util.Utils;
 import com.example.mohitkumar.trialapp.core.PaginationScrollListener;
-import com.example.mohitkumar.trialapp.core.comment.CommentActivity;
-import com.example.mohitkumar.trialapp.data.mainpage.Articles;
+import com.example.mohitkumar.trialapp.data.mainpage.Article;
 import com.example.mohitkumar.trialapp.databinding.FragmentGlobalfeedBinding;
 
 import java.util.List;
@@ -122,10 +116,10 @@ public class GlobalFeedFragment extends Fragment {
 
     private void loadArticlesFirst() {
         viewModel.getArticlesList(0).observe(this, list -> {
-            List<Articles> articlesList = list;
+            List<Article> articleList = list;
             binding.progressBar.setVisibility(View.GONE);
-            adapter.addAll(articlesList);
-            if (articlesList.size() == 0) {
+            adapter.addAll(articleList);
+            if (articleList.size() == 0) {
                 Toast.makeText(getActivity(), "No articles here... yet", Toast.LENGTH_LONG).show();
             }
 
@@ -141,7 +135,7 @@ public class GlobalFeedFragment extends Fragment {
             adapter.removeLoadingFooter();
             isLoading = false;
 
-            List<Articles> results = list;
+            List<Article> results = list;
             adapter.addAll(results);
 
             if (currentPage != TOTAL_PAGES) adapter.addLoadingFooter();

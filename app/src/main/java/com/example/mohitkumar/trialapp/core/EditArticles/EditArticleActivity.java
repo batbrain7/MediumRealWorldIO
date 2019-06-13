@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import com.example.mohitkumar.trialapp.R;
 
-public class EditArticleActivity extends AppCompatActivity {
+public class EditArticleActivity extends AppCompatActivity implements IEditArticleView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

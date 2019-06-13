@@ -93,7 +93,7 @@ public class SettingsFragment extends Fragment implements ISettingsView {
         }
 
         UserPOJO user = new UserPOJO();
-        user.userPOJO = pojo;
+        user.user = pojo;
         Log.d(TAG, user.toString());
 
         presenter.updateSettings(user);

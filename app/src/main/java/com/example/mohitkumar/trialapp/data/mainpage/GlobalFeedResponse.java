@@ -4,10 +4,10 @@ import java.util.List;
 
 public class GlobalFeedResponse {
 
-    List<Articles> articles;
+    List<Article> articles;
     long articlesCount;
 
-    public List<Articles> getArticles() {
+    public List<Article> getArticles() {
         return articles;
     }
 
@@ -15,12 +15,12 @@ public class GlobalFeedResponse {
         return articlesCount;
     }
 
-    public GlobalFeedResponse(List<Articles> articles, long articlesCount) {
+    public GlobalFeedResponse(List<Article> articles, long articlesCount) {
         this.articles = articles;
         this.articlesCount = articlesCount;
     }
 
-    public void setArticles(List<Articles> articles) {
+    public void setArticles(List<Article> articles) {
 
         this.articles = articles;
     }

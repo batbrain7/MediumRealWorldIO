@@ -1,6 +1,6 @@
 package com.example.mohitkumar.trialapp.data.mainpage;
 
-public class Articles {
+public class Article {
     public String title;
     public String slug;
     public String body;
