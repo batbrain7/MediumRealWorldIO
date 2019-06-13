@@ -4,8 +4,8 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.util.Log;
 
-import com.example.mohitkumar.trialapp.data.APIClient;
-import com.example.mohitkumar.trialapp.data.APIService;
+import com.example.mohitkumar.trialapp.network.APIClient;
+import com.example.mohitkumar.trialapp.network.APIService;
 import com.example.mohitkumar.trialapp.data.mainpage.Article;
 import com.example.mohitkumar.trialapp.data.mainpage.GlobalFeedResponse;
 

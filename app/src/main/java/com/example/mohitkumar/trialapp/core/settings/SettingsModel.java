@@ -1,6 +1,6 @@
 package com.example.mohitkumar.trialapp.core.settings;
 
-import com.example.mohitkumar.trialapp.data.AuthService;
+import com.example.mohitkumar.trialapp.network.AuthService;
 import com.example.mohitkumar.trialapp.data.loginsignup.User;
 import com.example.mohitkumar.trialapp.data.settings.ProfileResponse;
 import com.example.mohitkumar.trialapp.data.settings.UserPOJO;

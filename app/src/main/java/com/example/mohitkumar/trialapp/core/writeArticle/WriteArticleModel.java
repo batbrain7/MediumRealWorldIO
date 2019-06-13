@@ -1,6 +1,6 @@
 package com.example.mohitkumar.trialapp.core.writeArticle;
 
-import com.example.mohitkumar.trialapp.data.AuthService;
+import com.example.mohitkumar.trialapp.network.AuthService;
 import com.example.mohitkumar.trialapp.data.comment.SingleArticle;
 import com.example.mohitkumar.trialapp.data.writearticle.WriteArticle;
 

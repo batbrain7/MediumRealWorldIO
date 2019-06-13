@@ -1,6 +1,6 @@
 package com.example.mohitkumar.trialapp.core.signup;
 
-import com.example.mohitkumar.trialapp.data.Service;
+import com.example.mohitkumar.trialapp.network.Service;
 import com.example.mohitkumar.trialapp.data.loginsignup.SUser;
 import com.example.mohitkumar.trialapp.data.loginsignup.SignUp;
 import com.example.mohitkumar.trialapp.data.loginsignup.User;

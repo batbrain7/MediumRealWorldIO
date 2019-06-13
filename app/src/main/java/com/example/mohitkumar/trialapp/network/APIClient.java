@@ -1,19 +1,10 @@
-package com.example.mohitkumar.trialapp.data;
+package com.example.mohitkumar.trialapp.network;
 
-import com.example.mohitkumar.trialapp.data.API;
-import com.example.mohitkumar.trialapp.data.APIService;
-import com.example.mohitkumar.trialapp.data.AuthService;
-import com.example.mohitkumar.trialapp.data.Service;
 import com.example.mohitkumar.trialapp.data.comment.SingleArticle;
 import com.example.mohitkumar.trialapp.data.mainpage.GlobalFeedResponse;
-import com.example.mohitkumar.trialapp.util.PrefManager;
 
 import io.reactivex.Observable;
-import io.reactivex.Scheduler;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import static io.reactivex.android.schedulers.AndroidSchedulers.mainThread;
 

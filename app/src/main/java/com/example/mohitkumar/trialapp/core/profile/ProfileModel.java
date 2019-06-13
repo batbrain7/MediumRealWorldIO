@@ -1,6 +1,6 @@
 package com.example.mohitkumar.trialapp.core.profile;
 
-import com.example.mohitkumar.trialapp.data.AuthService;
+import com.example.mohitkumar.trialapp.network.AuthService;
 import com.example.mohitkumar.trialapp.data.settings.ProfileResponse;
 
 import retrofit2.Call;

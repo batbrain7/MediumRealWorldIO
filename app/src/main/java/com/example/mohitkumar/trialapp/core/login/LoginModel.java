@@ -2,7 +2,7 @@ package com.example.mohitkumar.trialapp.core.login;
 
 import android.util.Log;
 
-import com.example.mohitkumar.trialapp.data.Service;
+import com.example.mohitkumar.trialapp.network.Service;
 import com.example.mohitkumar.trialapp.data.loginsignup.LUser;
 import com.example.mohitkumar.trialapp.data.loginsignup.LoginPOJO;
 import com.example.mohitkumar.trialapp.data.loginsignup.User;

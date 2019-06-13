@@ -1,4 +1,4 @@
-package com.example.mohitkumar.trialapp.data;
+package com.example.mohitkumar.trialapp.network;
 
 import com.example.mohitkumar.trialapp.data.comment.SingleArticle;
 import com.example.mohitkumar.trialapp.data.mainpage.GlobalFeedResponse;

@@ -1,4 +1,4 @@
-package com.example.mohitkumar.trialapp.data;
+package com.example.mohitkumar.trialapp.network;
 
 import com.example.mohitkumar.trialapp.data.loginsignup.LUser;
 import com.example.mohitkumar.trialapp.data.loginsignup.SUser;
@@ -75,4 +75,9 @@ public interface API {
     @GET("api/articles")
     Observable<GlobalFeedResponse> getFavoriteFeed(@Query("limit") long page, @Query("offset") long offset, @Query("favorited") String username);
 
+    @PUT("api/articles/{slug}")
+    Call<SingleArticle> upDateArticle(@Path("slug") String slug, @Body WriteArticle article);
+
+    @DELETE("api/articles/{slug}")
+    Call<String> deleteArticle(@Path("slug") String slug);
 }

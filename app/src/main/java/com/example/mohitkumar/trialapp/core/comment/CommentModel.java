@@ -1,7 +1,7 @@
 package com.example.mohitkumar.trialapp.core.comment;
 
-import com.example.mohitkumar.trialapp.data.AuthService;
-import com.example.mohitkumar.trialapp.data.Service;
+import com.example.mohitkumar.trialapp.network.AuthService;
+import com.example.mohitkumar.trialapp.network.Service;
 import com.example.mohitkumar.trialapp.data.comment.Comment;
 import com.example.mohitkumar.trialapp.data.comment.CommentResponse;
 import com.example.mohitkumar.trialapp.data.comment.PostComment;

@@ -52,7 +52,6 @@
                 android:background="@android:color/holo_green_dark"
                 android:textColor="@android:color/white"
                 android:layout_gravity="center"
-                android:onClick="publish"
                 />
         </LinearLayout>
     </ScrollView>

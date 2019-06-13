@@ -11,4 +11,10 @@ public interface IEditArticleView {
     void onArticleUpdateSuccess(Article article);
 
     void onArticleUpdateError(String error);
+
+    void onArticleDeleteError(String error);
+
+    void onArticleDeleteSuccess(String success);
+
+    void displayProgress();
 }
