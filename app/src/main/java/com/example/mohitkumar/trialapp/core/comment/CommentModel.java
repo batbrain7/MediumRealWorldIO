@@ -25,7 +25,10 @@ public class CommentModel implements ICommentModel {
 
     @Override
     public void fetchArticle(String slug, OnArticleFetchFinishedListener listener) {
-        call = AuthService.getApi().getSingleArticle(slug);
+        if (Utils.isLoggedIn())
+            call = AuthService.getApi().getSingleArticle(slug);
+        else
+            call = Service.getApi().getSingleArticle(slug);
 
         call.enqueue(new Callback<SingleArticle>() {
             @Override
