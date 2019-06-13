@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.mohitkumar.trialapp.R;
-import com.example.mohitkumar.trialapp.core.EditArticles.EditArticleActivity;
+import com.example.mohitkumar.trialapp.core.editarticles.EditArticleActivity;
 import com.example.mohitkumar.trialapp.core.feed.YourFeedViewModel;
 import com.example.mohitkumar.trialapp.data.mainpage.Article;
 import com.example.mohitkumar.trialapp.databinding.FeedBinding;
@@ -44,7 +44,7 @@ public class MyFeedFragment extends Fragment {
     private int currentPage = 0;
     MyFeedAdapter adapter;
     YourFeedViewModel viewModel;
-    private static final int TOTAL_PAGES = 500;
+    private static long TOTAL_PAGES;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -92,35 +92,6 @@ public class MyFeedFragment extends Fragment {
     }
 
     private void loadData() {
-//        binding.teamsRecyclerView.addOnScrollListener(new PaginationScrollListener(linearLayoutManager) {
-//            @Override
-//            protected void loadMoreItems() {
-//                isLoading = true;
-//                currentPage += 20;
-//
-//                new Handler().postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        loadNextPage();
-//                    }
-//                }, 500);
-//            }
-//
-//            @Override
-//            public int getTotalPageCount() {
-//                return TOTAL_PAGES;
-//            }
-//
-//            @Override
-//            public boolean isLastPage() {
-//                return isLastPage;
-//            }
-//
-//            @Override
-//            public boolean isLoading() {
-//                return isLoading;
-//            }
-//        });
         loadArticlesFirst();
     }
 
@@ -133,6 +104,7 @@ public class MyFeedFragment extends Fragment {
                         //     Toast.makeText(getContext(), "No articles here.....yet", Toast.LENGTH_LONG).show();
                         return;
                     }
+                    TOTAL_PAGES = globalFeedResponse.getArticlesCount();
                     List<Article> articleList = globalFeedResponse.getArticles();
                     Log.d(TAG, articleList.toString());
                     adapter.addAll(articleList);
@@ -149,6 +121,7 @@ public class MyFeedFragment extends Fragment {
                 .observe(this, globalFeedResponse -> {
                     adapter.removeLoadingFooter();
                     isLoading = false;
+                    TOTAL_PAGES = globalFeedResponse.getArticlesCount();
                     if (globalFeedResponse.getArticlesCount() == 0) {
                         binding.textNothinghere.setVisibility(View.VISIBLE);
                         //       Toast.makeText(getContext(), "No articles here... yet", Toast.LENGTH_LONG).show();

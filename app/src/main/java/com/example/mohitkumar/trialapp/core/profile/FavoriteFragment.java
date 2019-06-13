@@ -4,6 +4,7 @@ package com.example.mohitkumar.trialapp.core.profile;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.mohitkumar.trialapp.R;
+import com.example.mohitkumar.trialapp.core.PaginationScrollListener;
 import com.example.mohitkumar.trialapp.core.feed.GlobalFeedAdapter;
 import com.example.mohitkumar.trialapp.core.feed.GlobalViewModel;
 import com.example.mohitkumar.trialapp.data.mainpage.Article;
@@ -39,7 +41,7 @@ public class FavoriteFragment extends Fragment {
     private boolean isLoading = false;
     private boolean isLastPage = false;
     private int currentPage = 0;
-    private static final int TOTAL_PAGES = 500;
+    private static long TOTAL_PAGES = 500;
     GlobalFeedAdapter adapter;
     LinearLayoutManager linearLayoutManager;
     GlobalViewModel viewModel;
@@ -81,35 +83,35 @@ public class FavoriteFragment extends Fragment {
     }
 
     private void loadData() {
-//        binding.teamsRecyclerView.addOnScrollListener(new PaginationScrollListener(linearLayoutManager) {
-//            @Override
-//            protected void loadMoreItems() {
-//                isLoading = true;
-//                currentPage += 20;
-//
-//                new Handler().postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        loadNextPage();
-//                    }
-//                }, 500);
-//            }
-//
-//            @Override
-//            public int getTotalPageCount() {
-//                return TOTAL_PAGES;
-//            }
-//
-//            @Override
-//            public boolean isLastPage() {
-//                return isLastPage;
-//            }
-//
-//            @Override
-//            public boolean isLoading() {
-//                return isLoading;
-//            }
-//        });
+        binding.teamsRecyclerView.addOnScrollListener(new PaginationScrollListener(linearLayoutManager) {
+            @Override
+            protected void loadMoreItems() {
+                isLoading = true;
+                currentPage += 20;
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadNextPage();
+                    }
+                }, 500);
+            }
+
+            @Override
+            public int getTotalPageCount() {
+                return (int)TOTAL_PAGES;
+            }
+
+            @Override
+            public boolean isLastPage() {
+                return isLastPage;
+            }
+
+            @Override
+            public boolean isLoading() {
+                return isLoading;
+            }
+        });
         loadArticlesFirst();
     }
 
@@ -122,6 +124,7 @@ public class FavoriteFragment extends Fragment {
                         //     Toast.makeText(getContext(), "No articles here.....yet", Toast.LENGTH_LONG).show();
                         return;
                     }
+                    TOTAL_PAGES = globalFeedResponse.getArticlesCount();
                     List<Article> articleList = globalFeedResponse.getArticles();
                     Log.d(TAG, "In here : " + articleList.toString());
                     adapter.addAll(articleList);
@@ -147,7 +150,8 @@ public class FavoriteFragment extends Fragment {
                     List<Article> results = globalFeedResponse.getArticles();
                     adapter.addAll(results);
 
-                    if (currentPage < TOTAL_PAGES) adapter.addLoadingFooter();
+                    if (currentPage < TOTAL_PAGES)
+                        adapter.addLoadingFooter();
                     else isLastPage = true;
                 });
     }

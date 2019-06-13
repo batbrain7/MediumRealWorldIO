@@ -1,4 +1,4 @@
-package com.example.mohitkumar.trialapp.core.EditArticles;
+package com.example.mohitkumar.trialapp.core.editarticles;
 
 import android.util.Log;
 

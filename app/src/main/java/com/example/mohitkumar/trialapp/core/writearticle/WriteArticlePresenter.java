@@ -1,4 +1,4 @@
-package com.example.mohitkumar.trialapp.core.writeArticle;
+package com.example.mohitkumar.trialapp.core.writearticle;
 
 import android.util.Log;
 import static com.example.mohitkumar.trialapp.MainApplication.TAG;

@@ -1,4 +1,4 @@
-package com.example.mohitkumar.trialapp.core.writeArticle;
+package com.example.mohitkumar.trialapp.core.writearticle;
 
 public interface IWriteArticleView {
 

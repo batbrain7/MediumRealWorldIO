@@ -1,4 +1,4 @@
-package com.example.mohitkumar.trialapp.core.EditArticles;
+package com.example.mohitkumar.trialapp.core.editarticles;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import com.example.mohitkumar.trialapp.R;
 import com.example.mohitkumar.trialapp.core.MainActivity;
-import com.example.mohitkumar.trialapp.data.comment.SingleArticle;
 import com.example.mohitkumar.trialapp.data.mainpage.Article;
 import com.example.mohitkumar.trialapp.data.writearticle.WArticle;
 import com.example.mohitkumar.trialapp.data.writearticle.WriteArticle;

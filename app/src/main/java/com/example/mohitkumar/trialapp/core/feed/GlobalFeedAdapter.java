@@ -25,6 +25,8 @@ import com.example.mohitkumar.trialapp.R;
 import com.example.mohitkumar.trialapp.core.MainActivity;
 import com.example.mohitkumar.trialapp.core.comment.CommentActivity;
 import com.example.mohitkumar.trialapp.data.mainpage.Article;
+import com.example.mohitkumar.trialapp.util.Utils;
+
 import static com.example.mohitkumar.trialapp.MainApplication.TAG;
 import java.util.ArrayList;
 import java.util.List;
@@ -139,6 +141,7 @@ public class GlobalFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public void addAll(List<Article> mcList) {
+
         for (Article mc : mcList) {
             add(mc);
         }
@@ -215,12 +218,16 @@ public class GlobalFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    viewModel.favoriteArticle(slug).observe((LifecycleOwner) context, singleArticle -> {
-                        Log.d(TAG, singleArticle.toString());
-                        Intent intent = new Intent(context, MainActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
-                        context.startActivity(intent);
-                    });
+                    if (Utils.isLoggedIn()) {
+                        viewModel.favoriteArticle(slug).observe((LifecycleOwner) context, singleArticle -> {
+                            Log.d(TAG, singleArticle.toString());
+                            Intent intent = new Intent(context, MainActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            context.startActivity(intent);
+                        });
+                    } else {
+                        Toast.makeText(context, "Sign in to favorite an article", Toast.LENGTH_LONG).show();
+                    }
                 }
             });
 

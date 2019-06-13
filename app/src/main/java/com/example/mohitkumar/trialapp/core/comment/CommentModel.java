@@ -7,6 +7,7 @@ import com.example.mohitkumar.trialapp.data.comment.CommentResponse;
 import com.example.mohitkumar.trialapp.data.comment.PostComment;
 import com.example.mohitkumar.trialapp.data.comment.SingleArticle;
 import com.example.mohitkumar.trialapp.data.settings.ProfileResponse;
+import com.example.mohitkumar.trialapp.util.Utils;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,7 +25,7 @@ public class CommentModel implements ICommentModel {
 
     @Override
     public void fetchArticle(String slug, OnArticleFetchFinishedListener listener) {
-        call = Service.getApi().getSingleArticle(slug);
+        call = AuthService.getApi().getSingleArticle(slug);
 
         call.enqueue(new Callback<SingleArticle>() {
             @Override

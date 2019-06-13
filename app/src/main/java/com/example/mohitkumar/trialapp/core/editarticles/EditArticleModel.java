@@ -1,9 +1,12 @@
-package com.example.mohitkumar.trialapp.core.EditArticles;
+package com.example.mohitkumar.trialapp.core.editarticles;
+
+import android.util.Log;
 
 import com.example.mohitkumar.trialapp.data.comment.SingleArticle;
 import com.example.mohitkumar.trialapp.data.writearticle.WriteArticle;
 import com.example.mohitkumar.trialapp.network.AuthService;
 import com.example.mohitkumar.trialapp.network.Service;
+import static com.example.mohitkumar.trialapp.MainApplication.TAG;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -61,6 +64,7 @@ public class EditArticleModel implements IEditArticleModel {
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
+                Log.d(TAG, "INSIDE DELETE ERROR");
                 listener.onDeleteArticleError(t.toString());
             }
         });

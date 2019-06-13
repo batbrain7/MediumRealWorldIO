@@ -138,7 +138,7 @@ public class GlobalFeedFragment extends Fragment {
             List<Article> results = list;
             adapter.addAll(results);
 
-            if (currentPage != TOTAL_PAGES) adapter.addLoadingFooter();
+            if (currentPage <= TOTAL_PAGES) adapter.addLoadingFooter();
             else isLastPage = true;
         });
     }

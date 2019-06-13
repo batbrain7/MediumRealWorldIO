@@ -1,4 +1,4 @@
-package com.example.mohitkumar.trialapp.core.EditArticles;
+package com.example.mohitkumar.trialapp.core.editarticles;
 
 import com.example.mohitkumar.trialapp.data.comment.SingleArticle;
 import com.example.mohitkumar.trialapp.data.writearticle.WriteArticle;

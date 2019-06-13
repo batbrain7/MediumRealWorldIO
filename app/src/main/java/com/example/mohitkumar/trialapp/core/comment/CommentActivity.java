@@ -18,6 +18,7 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.example.mohitkumar.trialapp.R;
+
 import static com.example.mohitkumar.trialapp.MainApplication.TAG;
 
 import com.example.mohitkumar.trialapp.data.comment.SingleArticle;
@@ -28,6 +29,7 @@ import com.example.mohitkumar.trialapp.data.comment.Comment;
 import com.example.mohitkumar.trialapp.data.comment.CommentBody;
 import com.example.mohitkumar.trialapp.data.comment.PostComment;
 import com.example.mohitkumar.trialapp.databinding.CommentActivityBinding;
+
 import java.util.List;
 
 public class CommentActivity extends AppCompatActivity implements ICommentView {
@@ -60,17 +62,15 @@ public class CommentActivity extends AppCompatActivity implements ICommentView {
 
     @Override
     public void onArticleFetchSuccess(Article article) {
-       // Toast.makeText(this, "Fetched the article", Toast.LENGTH_SHORT).show();
-        Log.d(TAG , "Article :  " + article.favorited + " " + extra);
+        // Toast.makeText(this, "Fetched the article", Toast.LENGTH_SHORT).show();
+        Log.d(TAG, "Article :  " + article.favorited + " " + extra);
         setUI(article);
         if (Utils.isLoggedIn()) {
             activityBinding.commentField.setVisibility(View.VISIBLE);
             activityBinding.postComment.setVisibility(View.VISIBLE);
-
             loadComments(extra);
         }
         activityBinding.progressBar.setVisibility(View.GONE);
-
     }
 
     @Override
@@ -95,7 +95,7 @@ public class CommentActivity extends AppCompatActivity implements ICommentView {
 
     @Override
     public void onCommentPostSuccess(String message) {
-        Toast.makeText(this, "Comment Posted",Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Comment Posted", Toast.LENGTH_LONG).show();
         activityBinding.commentField.setText("");
         activityBinding.progressBar.setVisibility(View.GONE);
         recreate();
@@ -109,18 +109,18 @@ public class CommentActivity extends AppCompatActivity implements ICommentView {
 
     @Override
     public void onFavoriteUnfavoriteSuccess(SingleArticle article) {
-       // setButtonColors(isFavorited);
+        // setButtonColors(isFavorited);
         activityBinding.progressBar.setVisibility(View.GONE);
-        Toast.makeText(this, "FAV" + article.article.favorited, Toast.LENGTH_LONG).show();
+        // Toast.makeText(this, "FAV" + article.article.favorited, Toast.LENGTH_LONG).show();
         Log.d(TAG, "VALUE : " + article.article.favorited);
 
         setUI(article.article);
-       // loadArticle(extra);
-       // Intent intent = new Intent(this, CommentActivity.class);
-      //  intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
-      //  intent.putExtra("slug", extra);
-      //  startActivity(intent);
-       // finish();
+        // loadArticle(extra);
+        // Intent intent = new Intent(this, CommentActivity.class);
+        //  intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+        //  intent.putExtra("slug", extra);
+        //  startActivity(intent);
+        // finish();
     }
 
     @Override
@@ -148,7 +148,7 @@ public class CommentActivity extends AppCompatActivity implements ICommentView {
     }
 
     public void postComment(View view) {
-        if(!TextUtils.isEmpty(activityBinding.commentField.getText().toString())) {
+        if (!TextUtils.isEmpty(activityBinding.commentField.getText().toString())) {
             CommentBody commentBody = new CommentBody();
             commentBody.body = activityBinding.commentField.getText().toString();
             PostComment post = new PostComment();
