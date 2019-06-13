@@ -87,4 +87,7 @@ public interface API {
 
     @GET("api/articles")
     Observable<FeedResponse> getTagFeed(@Query("limit") long page, @Query("offset") long offset, @Query("tag") String tag);
+
+    @DELETE("api/articles/{slug}/comments/{id}")
+    Call<String> deleteComment(@Path("slug") String slug, @Path("id") int id);
 }

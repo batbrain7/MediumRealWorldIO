@@ -23,6 +23,8 @@ public class CommentModel implements ICommentModel {
 
     private Call<ProfileResponse> followCall;
 
+    private Call<String> deleteCommentCall;
+
     @Override
     public void fetchArticle(String slug, OnArticleFetchFinishedListener listener) {
         if (Utils.isLoggedIn())
@@ -141,6 +143,23 @@ public class CommentModel implements ICommentModel {
             @Override
             public void onFailure(Call<ProfileResponse> call, Throwable t) {
                 listener.onFollowUnFollowError(t.toString());
+            }
+        });
+    }
+
+    @Override
+    public void deleteComment(String slug, int id, OnDeleteCommentListener listener) {
+        deleteCommentCall = AuthService.getApi().deleteComment(slug, id);
+
+        deleteCommentCall.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                listener.onDeleteComment();
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                listener.onDeleteComment();
             }
         });
     }

@@ -19,4 +19,6 @@ public interface ICommentPresenter {
     void follow(String username);
 
     void unFollow(String username);
+
+    void deleteComment(String slug, int id);
 }

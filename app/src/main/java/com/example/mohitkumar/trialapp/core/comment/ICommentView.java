@@ -29,5 +29,7 @@ public interface ICommentView {
 
     void onFollowUnFollowError(String error);
 
+    void onDeleteComment();
+
     void displayProgress();
 }

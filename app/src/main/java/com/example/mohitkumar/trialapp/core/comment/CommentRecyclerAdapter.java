@@ -1,6 +1,5 @@
 package com.example.mohitkumar.trialapp.core.comment;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,14 +17,14 @@ import java.util.List;
 
 public class CommentRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private Context context;
-    List<Comment> comments;
-    ICommentPresenter presenter;
+    private List<Comment> comments;
+    private ICommentPresenter presenter;
+    private String slug;
 
-    public CommentRecyclerAdapter(Context context, List<Comment> comments, ICommentPresenter presenter) {
-        this.context = context;
+    public CommentRecyclerAdapter(String slug, List<Comment> comments, ICommentPresenter presenter) {
         this.comments = comments;
         this.presenter = presenter;
+        this.slug = slug;
     }
 
     @NonNull
@@ -47,7 +46,7 @@ public class CommentRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             holder.deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    presenter.deleteComment(slug, comment.id);
                 }
             });
         }

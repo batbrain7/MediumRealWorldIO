@@ -80,7 +80,7 @@ public class CommentActivity extends AppCompatActivity implements ICommentView {
 
     @Override
     public void onCommentsFetchSuccess(List<Comment> comments) {
-        adapter = new CommentRecyclerAdapter(this, comments, presenter);
+        adapter = new CommentRecyclerAdapter(extra, comments, presenter);
         activityBinding.recyclerComments.setLayoutManager(new LinearLayoutManager(this));
         activityBinding.recyclerComments.setAdapter(adapter);
         activityBinding.progressBar.setVisibility(View.GONE);
@@ -139,6 +139,13 @@ public class CommentActivity extends AppCompatActivity implements ICommentView {
     public void onFollowUnFollowError(String error) {
         activityBinding.progressBar.setVisibility(View.GONE);
         Toast.makeText(this, "ERRRORRR", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onDeleteComment() {
+        Toast.makeText(this, "Successfully deleted the comment", Toast.LENGTH_LONG).show();
+        activityBinding.progressBar.setVisibility(View.GONE);
+        recreate();
     }
 
     @Override

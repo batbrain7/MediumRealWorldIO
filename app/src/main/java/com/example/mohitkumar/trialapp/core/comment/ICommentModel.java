@@ -30,6 +30,8 @@ public interface ICommentModel {
 
     void unFollow(String username, OnFollowUnFollowListener listener);
 
+    void deleteComment(String slug, int id, OnDeleteCommentListener listener);
+
     interface OnFollowUnFollowListener {
         void onFollowUnFollowError(String error);
         void onFollowUnFollowSuccess(Response<ProfileResponse> response);
@@ -48,5 +50,9 @@ public interface ICommentModel {
     interface OnFavoriteUnFavoriteListener {
         void onFavoriteUnfFavoriteError(String error);
         void onFavoriteUnfFavoriteSuccess(Response<SingleArticle> response);
+    }
+
+    interface OnDeleteCommentListener {
+        void onDeleteComment();
     }
 }

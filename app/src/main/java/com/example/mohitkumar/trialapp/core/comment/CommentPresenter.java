@@ -7,14 +7,15 @@ import com.example.mohitkumar.trialapp.data.comment.CommentResponse;
 import com.example.mohitkumar.trialapp.data.comment.PostComment;
 import com.example.mohitkumar.trialapp.data.comment.SingleArticle;
 import com.example.mohitkumar.trialapp.data.settings.ProfileResponse;
+import com.example.mohitkumar.trialapp.util.Utils;
 
 import retrofit2.Response;
 
 import static com.example.mohitkumar.trialapp.MainApplication.TAG;
 
 public class CommentPresenter implements ICommentPresenter, ICommentModel.OnCommentFetchFinishListener,
-                                    ICommentModel.OnArticleFetchFinishedListener, ICommentModel.OnCommentPostedListener,
-                                            ICommentModel.OnFavoriteUnFavoriteListener, ICommentModel.OnFollowUnFollowListener {
+                ICommentModel.OnArticleFetchFinishedListener, ICommentModel.OnCommentPostedListener, ICommentModel.OnFavoriteUnFavoriteListener,
+                                            ICommentModel.OnFollowUnFollowListener, ICommentModel.OnDeleteCommentListener {
 
     private ICommentModel model;
     private ICommentView commentView;
@@ -68,6 +69,14 @@ public class CommentPresenter implements ICommentPresenter, ICommentModel.OnComm
     public void unFollow(String username) {
         model.unFollow(username, this);
         commentView.displayProgress();
+    }
+
+    @Override
+    public void deleteComment(String slug, int id) {
+        if (Utils.hasNetwork()) {
+            model.deleteComment(slug, id, (ICommentModel.OnDeleteCommentListener) this);
+            commentView.displayProgress();
+        }
     }
 
     @Override
@@ -136,5 +145,10 @@ public class CommentPresenter implements ICommentPresenter, ICommentModel.OnComm
     public void onFollowUnFollowSuccess(Response<ProfileResponse> response) {
         ProfileResponse profileResponse = response.body();
         commentView.onFollowUnFollowSuccess(profileResponse);
+    }
+
+    @Override
+    public void onDeleteComment() {
+        commentView.onDeleteComment();
     }
 }
