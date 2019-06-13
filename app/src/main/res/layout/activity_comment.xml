@@ -124,7 +124,7 @@
         <android.support.v7.widget.RecyclerView
             android:layout_margin="5dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:id="@+id/recyclerComments"
             >
         </android.support.v7.widget.RecyclerView>

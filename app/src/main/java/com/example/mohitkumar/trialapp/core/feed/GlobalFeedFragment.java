@@ -42,7 +42,6 @@ public class GlobalFeedFragment extends Fragment {
     FragmentGlobalfeedBinding binding;
     LinearLayoutManager linearLayoutManager;
     GlobalViewModel viewModel;
-    int type = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -109,9 +108,7 @@ public class GlobalFeedFragment extends Fragment {
                 return isLoading;
             }
         });
-
         loadArticlesFirst();
-
     }
 
     private void loadArticlesFirst() {
@@ -142,12 +139,4 @@ public class GlobalFeedFragment extends Fragment {
             else isLastPage = true;
         });
     }
-
-    private void callViewModel(String slug) {
-        viewModel.favoriteArticle(slug).observe(this, singleArticle -> {
-            Log.d(TAG, "CalledViewModel " + singleArticle.toString());
-            //onStart();
-        });
-    }
-
 }

@@ -2,6 +2,7 @@ package com.example.mohitkumar.trialapp.network;
 
 import com.example.mohitkumar.trialapp.data.comment.SingleArticle;
 import com.example.mohitkumar.trialapp.data.mainpage.GlobalFeedResponse;
+import com.example.mohitkumar.trialapp.data.tags.TagsResponse;
 
 import io.reactivex.Observable;
 import io.reactivex.annotations.NonNull;
@@ -23,4 +24,7 @@ public interface APIService {
 
     @NonNull
     Observable<GlobalFeedResponse> getFavoriteFeed(long page, long offset, String favorite);
+
+    @NonNull
+    Observable<TagsResponse> getTags();
 }

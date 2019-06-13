@@ -16,7 +16,6 @@ import java.util.List;
 public class GlobalViewModel extends ViewModel {
 
     private APIService service;
-    private List<Article> articleList;
     private final MutableLiveData<Integer> progress = new MutableLiveData<>();
     private final MutableLiveData<List<Article>> articles = new MutableLiveData<>();
     private final MutableLiveData<SingleArticle> singleArticleMutableLiveData = new MutableLiveData<>();

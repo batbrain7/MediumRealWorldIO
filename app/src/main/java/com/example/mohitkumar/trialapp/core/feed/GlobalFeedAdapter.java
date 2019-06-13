@@ -29,6 +29,7 @@ import com.example.mohitkumar.trialapp.util.Constants;
 import com.example.mohitkumar.trialapp.util.Utils;
 
 import static com.example.mohitkumar.trialapp.MainApplication.TAG;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -210,6 +211,7 @@ public class GlobalFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         ImageView imageView;
         String slug;
         LinearLayout layout;
+
         public ContentViewHolder(@NonNull View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
@@ -247,9 +249,10 @@ public class GlobalFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 }
             });
         }
+
         @Override
         public void onClick(View view) {
-           // clickListener.onItemClick(getAdapterPosition(), view, slug);
+            // clickListener.onItemClick(getAdapterPosition(), view, slug);
         }
     }
 }

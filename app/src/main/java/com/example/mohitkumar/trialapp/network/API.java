@@ -10,6 +10,7 @@ import com.example.mohitkumar.trialapp.data.comment.CommentResponse;
 import com.example.mohitkumar.trialapp.data.comment.PostComment;
 import com.example.mohitkumar.trialapp.data.comment.SingleArticle;
 import com.example.mohitkumar.trialapp.data.settings.UserPOJO;
+import com.example.mohitkumar.trialapp.data.tags.TagsResponse;
 import com.example.mohitkumar.trialapp.data.writearticle.WriteArticle;
 
 import io.reactivex.Observable;
@@ -80,4 +81,7 @@ public interface API {
 
     @DELETE("api/articles/{slug}")
     Call<String> deleteArticle(@Path("slug") String slug);
+
+    @GET("api/tags")
+    Observable<TagsResponse> getTags();
 }

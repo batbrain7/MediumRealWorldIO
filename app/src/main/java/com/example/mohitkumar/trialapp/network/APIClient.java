@@ -2,8 +2,10 @@ package com.example.mohitkumar.trialapp.network;
 
 import com.example.mohitkumar.trialapp.data.comment.SingleArticle;
 import com.example.mohitkumar.trialapp.data.mainpage.GlobalFeedResponse;
+import com.example.mohitkumar.trialapp.data.tags.TagsResponse;
 
 import io.reactivex.Observable;
+import io.reactivex.Scheduler;
 import io.reactivex.schedulers.Schedulers;
 
 import static io.reactivex.android.schedulers.AndroidSchedulers.mainThread;
@@ -59,6 +61,14 @@ public class APIClient implements APIService {
     public Observable<GlobalFeedResponse> getFavoriteFeed(long page, long offset, String favorite) {
         api = AuthService.getApi();
         return api.getFavoriteFeed(page, offset, favorite)
+                .subscribeOn(Schedulers.io())
+                .observeOn(mainThread());
+    }
+
+    @Override
+    public Observable<TagsResponse> getTags() {
+        api = Service.getApi();
+        return api.getTags()
                 .subscribeOn(Schedulers.io())
                 .observeOn(mainThread());
     }

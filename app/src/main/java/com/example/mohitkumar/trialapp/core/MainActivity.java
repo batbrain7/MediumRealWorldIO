@@ -8,12 +8,14 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.example.mohitkumar.trialapp.R;
-import com.example.mohitkumar.trialapp.core.feed.tags.TagFragment;
 import com.example.mohitkumar.trialapp.core.feed.YourFeedFragment;
 import com.example.mohitkumar.trialapp.core.profile.ProfileActivity;
+import com.example.mohitkumar.trialapp.core.tags.TagsActivity;
 import com.example.mohitkumar.trialapp.util.Constants;
 import com.example.mohitkumar.trialapp.util.PrefManager;
 import com.example.mohitkumar.trialapp.util.Utils;
@@ -58,6 +60,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.tags) {
+                startActivity(new Intent(this, TagsActivity.class));
+        }
         if(actionBarDrawerToggle.onOptionsItemSelected(item))
             return true;
 
@@ -107,10 +112,8 @@ public class MainActivity extends AppCompatActivity {
         if (Utils.isLoggedIn()) {
             leagueFragmentAdapter.addFragments(new GlobalFeedFragment(), this.getResources().getString(R.string.global_Feed));
             leagueFragmentAdapter.addFragments(new YourFeedFragment(), this.getResources().getString(R.string.your_feed));
-            leagueFragmentAdapter.addFragments(new TagFragment(), this.getResources().getString(R.string.popular_tags));
         } else {
             leagueFragmentAdapter.addFragments(new GlobalFeedFragment(), this.getResources().getString(R.string.global_Feed));
-            leagueFragmentAdapter.addFragments(new TagFragment(), this.getResources().getString(R.string.popular_tags));
         }
         binding.viewPager.setAdapter(leagueFragmentAdapter);
         binding.tabLayout.setupWithViewPager(binding.viewPager);
@@ -133,4 +136,12 @@ public class MainActivity extends AppCompatActivity {
     public void openClassProfile() {
         startActivity(new Intent(this, ProfileActivity.class));
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.tag_menu, menu);
+        return true;
+    }
+
 }
