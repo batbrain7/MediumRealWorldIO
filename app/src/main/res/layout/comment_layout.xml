@@ -14,23 +14,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/commentText"
+        android:background="@android:color/background_light"
         />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@android:color/background_light"
         >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" 
             android:id="@+id/userName"
+            android:textColor="@android:color/black"
             android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:textSize="10dp"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/datePosted"
+            android:layout_gravity="end"
+            android:textSize="10dp"
             android:layout_margin="5dp"
             />
         <ImageView

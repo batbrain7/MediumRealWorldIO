@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import com.example.mohitkumar.trialapp.R;
+import com.example.mohitkumar.trialapp.core.feed.TagFragment;
 import com.example.mohitkumar.trialapp.core.feed.YourFeedFragment;
 import com.example.mohitkumar.trialapp.core.profile.ProfileActivity;
 import com.example.mohitkumar.trialapp.util.Constants;
@@ -106,8 +107,10 @@ public class MainActivity extends AppCompatActivity {
         if (Utils.isLoggedIn()) {
             leagueFragmentAdapter.addFragments(new GlobalFeedFragment(), this.getResources().getString(R.string.global_Feed));
             leagueFragmentAdapter.addFragments(new YourFeedFragment(), this.getResources().getString(R.string.your_feed));
+            leagueFragmentAdapter.addFragments(new TagFragment(), this.getResources().getString(R.string.popular_tags));
         } else {
             leagueFragmentAdapter.addFragments(new GlobalFeedFragment(), this.getResources().getString(R.string.global_Feed));
+            leagueFragmentAdapter.addFragments(new TagFragment(), this.getResources().getString(R.string.popular_tags));
         }
         binding.viewPager.setAdapter(leagueFragmentAdapter);
         binding.tabLayout.setupWithViewPager(binding.viewPager);
