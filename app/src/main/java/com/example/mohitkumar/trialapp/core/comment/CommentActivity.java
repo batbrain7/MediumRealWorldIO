@@ -1,5 +1,6 @@
 package com.example.mohitkumar.trialapp.core.comment;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.support.annotation.Nullable;
@@ -21,6 +22,7 @@ import com.example.mohitkumar.trialapp.R;
 
 import static com.example.mohitkumar.trialapp.MainApplication.TAG;
 
+import com.example.mohitkumar.trialapp.core.tags.TagsActivity;
 import com.example.mohitkumar.trialapp.data.comment.SingleArticle;
 import com.example.mohitkumar.trialapp.data.settings.ProfileResponse;
 import com.example.mohitkumar.trialapp.util.Utils;
@@ -38,12 +40,14 @@ public class CommentActivity extends AppCompatActivity implements ICommentView {
     ICommentPresenter presenter;
     CommentRecyclerAdapter adapter;
     String extra;
+    boolean back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activityBinding = DataBindingUtil.setContentView(this, R.layout.activity_comment);
         extra = getIntent().getStringExtra("slug");
+        back = getIntent().getBooleanExtra("act", false);
         presenter = new CommentPresenter();
         presenter.onAttach(this);
         if (extra != null) {
@@ -234,5 +238,16 @@ public class CommentActivity extends AppCompatActivity implements ICommentView {
                     }
                 }).submit();
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (back) {
+            Intent intent = new Intent(this, TagsActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
+        }
     }
 }
