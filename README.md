@@ -1,7 +1,9 @@
-# App
+# Medium Clone App
 
 A Medium clone using the api [realworld.io](url), the app is mainly architectured using MVP but is also being migrated to MVVM 
 architecture.
+
+The App consists of all the features that medium has and it interacts with the [realword.io](url) APIs, all the content present can be browsed through this app.
 
 ### Features of the app
 
